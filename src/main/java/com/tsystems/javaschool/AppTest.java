@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Test.
@@ -17,11 +18,15 @@ public class AppTest {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MobileAccountPU");
         EntityManager em = emf.createEntityManager();
         try {
-            Option newOption = createOption();
+//            Option newOption = createOption();
             em.getTransaction().begin();
-            em.persist(newOption);
+            Option newOption = em.find(Option.class, 2L);
+            Option reqOption = em.find(Option.class, 3L);
+            List<Option> requiredOptions = newOption.getRequiredOptions();
+            requiredOptions.add(reqOption);
+            newOption.setRequiredOptions(requiredOptions);
+            em.merge(newOption);
             em.getTransaction().commit();
-            System.out.printf("New option is: %s\n", em.find(Option.class, 1L));
         } catch (Exception e) {
             System.out.println("Something wrong!");
             e.printStackTrace();
@@ -45,10 +50,20 @@ public class AppTest {
 
     private static Option createOption(){
         Option newOption = new Option();
-        newOption.setName("Mayachok");
-        newOption.setConnectionCost(new BigDecimal("30"));
-        newOption.setOptionPrice(new BigDecimal("2"));
+        newOption.setName("Skryt' nomer");
+        newOption.setConnectionCost(new BigDecimal("100"));
+        newOption.setOptionPrice(new BigDecimal("10"));
         return newOption;
+    }
+
+    private static Option addRequiredOption(Option currentOption, EntityManager em, long id){
+        Option requiredOption = em.find(Option.class, id);
+        System.out.println("required option is " + requiredOption);
+        System.out.println("current option is " + currentOption);
+        List<Option> requiredOptions = currentOption.getRequiredOptions();
+        requiredOptions.add(requiredOption);
+        currentOption.setRequiredOptions(requiredOptions);
+        return currentOption;
     }
 
 }

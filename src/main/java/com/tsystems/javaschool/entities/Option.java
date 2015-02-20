@@ -1,8 +1,8 @@
 package com.tsystems.javaschool.entities;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,19 +21,21 @@ public class Option {
     private BigDecimal optionPrice;
     @Column(name = "connection_cost")
     private BigDecimal connectionCost;
-    @OneToMany(mappedBy = "currentOption",
-            fetch=FetchType.EAGER,
-            cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private List<Option> requiredOptions = new ArrayList<Option>(0);
-    @OneToMany(mappedBy = "currentOption",
-            fetch=FetchType.EAGER,
-            cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    private List<Option> incompatibleOptions = new ArrayList<Option>(0);
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="option_id", referencedColumnName = "option_id", insertable = false, updatable = false)
-    private Option currentOption;
+
+    @OneToMany
+    @JoinTable(name = "required_options",
+            joinColumns = @JoinColumn(name = "req_option_id"),
+            inverseJoinColumns = @JoinColumn(name = "current_option_id"))
+    private List<Option> requiredOptions;
+
+    @ManyToOne
+    private Option option;
+
+    @ManyToMany
+    @JoinTable(name = "incompatible_options",
+            joinColumns = @JoinColumn(name = "inc_option_id"),
+            inverseJoinColumns = @JoinColumn(name = "current_option_id"))
+    private List<Option> incompatibleOptions;
 
     public long getOptionId() {
         return optionId;
@@ -75,12 +77,20 @@ public class Option {
         this.requiredOptions = requiredOptions;
     }
 
-    public List<Option> getIncompatibleOptions() {
-        return incompatibleOptions;
-    }
+//    public List<Option> getIncompatibleOptions() {
+//        return incompatibleOptions;
+//    }
+//
+//    public void setIncompatibleOptions(List<Option> incompatibleOptions) {
+//        this.incompatibleOptions = incompatibleOptions;
+//    }
 
-    public void setIncompatibleOptions(List<Option> incompatibleOptions) {
-        this.incompatibleOptions = incompatibleOptions;
+    @Override
+    public String toString() {
+        return "Option{" +
+                "name='" + name + '\'' +
+                ", optionPrice=" + optionPrice +
+                '}';
     }
 }
 
