@@ -14,7 +14,7 @@
 
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/> <!-- update, create, create-drop -->
+            <!--<property name="hibernate.hbm2ddl.auto" value="update"/> &lt;!&ndash; update, create, create-drop &ndash;&gt;-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
 
             <property name="javax.persistence.validation.group.pre-persist" value="javax.validation.groups.Default"/>
