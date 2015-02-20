@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <!-- Transaction type-->
+    <persistence-unit name="MobileAccountPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <validation-mode>AUTO</validation-mode>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8888/jsmobile"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="java"/>
+            <property name="javax.persistence.jdbc.password" value="bean"/>
+            <property name="javax.persistence.validation.mode" value="AUTO" />
+
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/> <!-- update, create, create-drop -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+
+            <property name="javax.persistence.validation.group.pre-persist" value="javax.validation.groups.Default"/>
+            <property name="javax.persistence.validation.group.pre-update" value="javax.validation.groups.Default"/>
+        </properties>
+    </persistence-unit>
+</persistence>
+
+
+
+
