@@ -65,6 +65,7 @@
       <column name="current_option_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <foreign-key name="required_options_fk1" columns="current_option_id" ref-table="options" ref-schema="" ref-catalog="jsmobile" ref-columns="option_id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="required_options_fk2" columns="req_option_id" ref-table="options" ref-schema="" ref-catalog="jsmobile" ref-columns="option_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="UK_81j2bfekyq49k54jdm2c68mwv" unique="true" columns="current_option_id"/>
       <index name="required_options_fk1" unique="false" columns="current_option_id"/>
       <index name="required_options_fk2" unique="false" columns="req_option_id"/>
     </table>

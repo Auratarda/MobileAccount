@@ -6,6 +6,7 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "options")
@@ -22,20 +23,17 @@ public class Option {
     @Column(name = "connection_cost")
     private BigDecimal connectionCost;
 
-    @OneToMany
-    @JoinTable(name = "required_options",
-            joinColumns = @JoinColumn(name = "req_option_id"),
-            inverseJoinColumns = @JoinColumn(name = "current_option_id"))
-    private List<Option> requiredOptions;
-
-    @ManyToOne
-    private Option option;
-
     @ManyToMany
     @JoinTable(name = "incompatible_options",
             joinColumns = @JoinColumn(name = "inc_option_id"),
             inverseJoinColumns = @JoinColumn(name = "current_option_id"))
     private List<Option> incompatibleOptions;
+
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name = "required_options",
+            joinColumns = @JoinColumn(name = "req_option_id"),
+            inverseJoinColumns = @JoinColumn(name = "current_option_id"))
+    private Set<Option> requiredOptions;
 
     public long getOptionId() {
         return optionId;
@@ -69,11 +67,11 @@ public class Option {
         this.connectionCost = connectionCost;
     }
 
-    public List<Option> getRequiredOptions() {
+    public Set<Option> getRequiredOptions() {
         return requiredOptions;
     }
 
-    public void setRequiredOptions(List<Option> requiredOptions) {
+    public void setRequiredOptions(Set<Option> requiredOptions) {
         this.requiredOptions = requiredOptions;
     }
 

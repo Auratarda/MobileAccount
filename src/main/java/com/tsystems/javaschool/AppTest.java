@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Test.
@@ -22,10 +23,10 @@ public class AppTest {
             em.getTransaction().begin();
             Option newOption = em.find(Option.class, 2L);
             Option reqOption = em.find(Option.class, 3L);
-            List<Option> requiredOptions = newOption.getRequiredOptions();
+            Set<Option> requiredOptions = newOption.getRequiredOptions();
             requiredOptions.add(reqOption);
             newOption.setRequiredOptions(requiredOptions);
-            em.merge(newOption);
+            em.persist(newOption);
             em.getTransaction().commit();
         } catch (Exception e) {
             System.out.println("Something wrong!");
@@ -60,7 +61,7 @@ public class AppTest {
         Option requiredOption = em.find(Option.class, id);
         System.out.println("required option is " + requiredOption);
         System.out.println("current option is " + currentOption);
-        List<Option> requiredOptions = currentOption.getRequiredOptions();
+        Set<Option> requiredOptions = currentOption.getRequiredOptions();
         requiredOptions.add(requiredOption);
         currentOption.setRequiredOptions(requiredOptions);
         return currentOption;
