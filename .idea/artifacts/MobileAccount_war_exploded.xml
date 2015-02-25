@@ -29,7 +29,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="D:\Workspace\T-lectures\jpa\MobileAccount\target/MANIFEST.MF" />
+        <element id="file-copy" path="D:\Workspace\WebApps\MobileAccount\target/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="MobileAccount/web/Web" />
     </root>

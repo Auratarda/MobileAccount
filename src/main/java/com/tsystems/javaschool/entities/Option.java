@@ -1,39 +1,44 @@
 package com.tsystems.javaschool.entities;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "options")
+@Table(name = "OPTIONS")
 public class Option {
 
     @Id
-    @Column(name = "option_id")
+    @Column(name = "OPTION_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long optionId;
-    @Column(name = "option_name")
+    @Column(name = "OPTION_NAME")
     private String name;
-    @Column(name = "option_price")
-    private BigDecimal optionPrice;
-    @Column(name = "connection_cost")
-    private BigDecimal connectionCost;
+    @Column(name = "OPTION_PRICE")
+    private long optionPrice;
+    @Column(name = "CONNECTION_COST")
+    private long connectionCost;
 
-    @ManyToMany
-    @JoinTable(name = "incompatible_options",
-            joinColumns = @JoinColumn(name = "inc_option_id"),
-            inverseJoinColumns = @JoinColumn(name = "current_option_id"))
-    private List<Option> incompatibleOptions;
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "REQUIRED_OPTIONS",
+            joinColumns = @JoinColumn(name = "REQ_OPTION_ID"),
+            inverseJoinColumns = @JoinColumn(name = "CURRENT_OPTION_ID"))
+    private Set<Option> requiredOptions = new HashSet<Option>(0);
 
     @ManyToMany(cascade={CascadeType.ALL})
-    @JoinTable(name = "required_options",
-            joinColumns = @JoinColumn(name = "req_option_id"),
-            inverseJoinColumns = @JoinColumn(name = "current_option_id"))
-    private Set<Option> requiredOptions;
+    @JoinTable(name = "INCOMPATIBLE_OPTIONS",
+            joinColumns = @JoinColumn(name = "INC_OPTION_ID"),
+            inverseJoinColumns = @JoinColumn(name = "CURRENT_OPTION_ID"))
+    private Set<Option> incompatibleOptions = new HashSet<Option>(0);
+
+    public Option() {
+    }
+
+    public Option(String name, long optionPrice, long connectionCost) {
+        this.name = name;
+        this.optionPrice = optionPrice;
+        this.connectionCost = connectionCost;
+    }
 
     public long getOptionId() {
         return optionId;
@@ -51,19 +56,19 @@ public class Option {
         this.name = name;
     }
 
-    public BigDecimal getOptionPrice() {
+    public long getOptionPrice() {
         return optionPrice;
     }
 
-    public void setOptionPrice(BigDecimal optionPrice) {
+    public void setOptionPrice(long optionPrice) {
         this.optionPrice = optionPrice;
     }
 
-    public BigDecimal getConnectionCost() {
+    public long getConnectionCost() {
         return connectionCost;
     }
 
-    public void setConnectionCost(BigDecimal connectionCost) {
+    public void setConnectionCost(long connectionCost) {
         this.connectionCost = connectionCost;
     }
 
@@ -75,20 +80,21 @@ public class Option {
         this.requiredOptions = requiredOptions;
     }
 
-//    public List<Option> getIncompatibleOptions() {
-//        return incompatibleOptions;
-//    }
-//
-//    public void setIncompatibleOptions(List<Option> incompatibleOptions) {
-//        this.incompatibleOptions = incompatibleOptions;
-//    }
+    public Set<Option> getIncompatibleOptions() {
+        return incompatibleOptions;
+    }
+
+    public void setIncompatibleOptions(Set<Option> incompatibleOptions) {
+        this.incompatibleOptions = incompatibleOptions;
+    }
 
     @Override
     public String toString() {
         return "Option{" +
-                "name='" + name + '\'' +
+                "optionId=" + optionId +
+                ", name='" + name + '\'' +
                 ", optionPrice=" + optionPrice +
+                ", connectionCost=" + connectionCost +
                 '}';
     }
 }
-
