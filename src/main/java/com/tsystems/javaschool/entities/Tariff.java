@@ -1,26 +1,33 @@
 package com.tsystems.javaschool.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "tariffs")
+@Table(name = "TARIFF")
 public class Tariff {
     @Id
-    @Column(name = "tariff_id")
+    @Column(name = "TARIFF_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long tariffId;
-    @Column(name = "tariff_name")
+    @Column(name = "TARIFF_NAME")
     private String name;
-    @Column(name = "tariff_price")
-    private BigDecimal price;
+    @Column(name = "TARIFF_PRICE")
+    private long price;
     @ManyToMany
-    @JoinTable(name = "tariffs_options",
-            joinColumns = @JoinColumn(name = "option_id"),
-            inverseJoinColumns = @JoinColumn(name = "tariff_id"))
-    private List<Option> options = new ArrayList<Option>(0);
+    @JoinTable(name = "TARIFF_OPTIONS",
+            joinColumns = @JoinColumn(name = "OPTION_ID"),
+            inverseJoinColumns = @JoinColumn(name = "TARIFF_ID"))
+    private Set<Option> options = new HashSet<Option>(0);
+
+    public Tariff() {
+    }
+
+    public Tariff(String name, long price) {
+        this.name = name;
+        this.price = price;
+    }
 
     public long getTariffId() {
         return tariffId;
@@ -38,19 +45,28 @@ public class Tariff {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 
-    public List<Option> getOptions() {
+    public Set<Option> getOptions() {
         return options;
     }
 
-    public void setOptions(List<Option> options) {
+    public void setOptions(Set<Option> options) {
         this.options = options;
+    }
+
+    @Override
+    public String toString() {
+        return "Tariff{" +
+                "tariffId=" + tariffId +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

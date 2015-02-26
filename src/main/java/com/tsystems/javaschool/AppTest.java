@@ -1,36 +1,39 @@
 package com.tsystems.javaschool;
 
 import com.tsystems.javaschool.entities.Client;
+import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
+import com.tsystems.javaschool.entities.Tariff;
+import com.tsystems.javaschool.persistence.HibernateUtil;
+import com.tsystems.javaschool.services.ClientServiceImpl;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Test.
  */
 public class AppTest {
+    final static Logger logger = Logger.getLogger(AppTest.class);
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("MobileAccountPU");
-        EntityManager em = emf.createEntityManager();
+        EntityManagerFactory emf = HibernateUtil.getEntityManagerFactory();
+        EntityManager em = HibernateUtil.getEntityManager();
         try {
-//            Option newOption = createOption();
             em.getTransaction().begin();
-            Option newOption = em.find(Option.class, 2L);
-            Option reqOption = em.find(Option.class, 3L);
-            Set<Option> requiredOptions = newOption.getRequiredOptions();
-            requiredOptions.add(reqOption);
-            newOption.setRequiredOptions(requiredOptions);
-            em.persist(newOption);
+            Client client = createClient();
+            ClientServiceImpl clientService = new ClientServiceImpl(em);
+            clientService.saveNewClient(client);
+//            Contract contract = em.find(Contract.class, 2L);
+//            Tariff tariff = em.find(Tariff.class, 2L);
+//            setTariff(contract, tariff);
             em.getTransaction().commit();
+            logger.info("Commit success!");
         } catch (Exception e) {
-            System.out.println("Something wrong!");
+            logger.error("Sorry, something wrong!", e);
             e.printStackTrace();
+            em.getTransaction().rollback();
         } finally {
             em.close();
             emf.close();
@@ -38,33 +41,47 @@ public class AppTest {
     }
 
     private static Client createClient(){
-        Client newClient = new Client();
-        newClient.setFirstName("Vasya");
-        newClient.setLastName("Pupkin");
-        newClient.setDateOfBirth(new Date());
-        newClient.setAddress("Shotmana");
-        newClient.setPassport("RUS");
-        newClient.setEmail("vasya@ya.ru");
-        newClient.setPassword("admin");
+        String firstName = "Sidorov";
+        String lastName = "Sidor";
+        Date dateOfBirth = new Date();
+        String address = "Beregovaya, 5";
+        String passport = "RUS";
+        String email = "petr@yandex.ru";
+        String password = "petr";
+
+        Client newClient = new Client(firstName, lastName, dateOfBirth, address, passport, email, password);
         return newClient;
     }
 
+    private static Contract createContract() {
+        String number = "9048888888";
+        boolean blockedByClient = false;
+        boolean blockedByOperator = true;
+        Contract newContract = new Contract(number, blockedByClient, blockedByOperator);
+        return newContract;
+    }
+
+    private static Tariff createTariff() {
+        String name = "Delovoi";
+        long price = 700L;
+        Tariff newTariff = new Tariff(name, price);
+        return newTariff;
+    }
+
     private static Option createOption(){
-        Option newOption = new Option();
-        newOption.setName("Skryt' nomer");
-        newOption.setConnectionCost(new BigDecimal("100"));
-        newOption.setOptionPrice(new BigDecimal("10"));
+        String name = "Perezvoni mne";
+        long optionPrice = 5L;
+        long connectionCost = 10L;
+        Option newOption = new Option(name, optionPrice, connectionCost);
         return newOption;
     }
 
-    private static Option addRequiredOption(Option currentOption, EntityManager em, long id){
-        Option requiredOption = em.find(Option.class, id);
-        System.out.println("required option is " + requiredOption);
-        System.out.println("current option is " + currentOption);
-        Set<Option> requiredOptions = currentOption.getRequiredOptions();
-        requiredOptions.add(requiredOption);
-        currentOption.setRequiredOptions(requiredOptions);
-        return currentOption;
+    private static void setNumber(Client client, Contract contract) {
+        contract.setClient(client);
+        client.getNumbers().add(contract);
     }
 
+    private static void setTariff(Contract contract, Tariff tariff) {
+        contract.setTariff(tariff);
+    }
 }

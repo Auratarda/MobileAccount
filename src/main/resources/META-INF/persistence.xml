@@ -6,15 +6,15 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <validation-mode>AUTO</validation-mode>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8888/jsmobile"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8888/mobile"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.user" value="java"/>
             <property name="javax.persistence.jdbc.password" value="bean"/>
             <property name="javax.persistence.validation.mode" value="AUTO" />
 
-            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="true"/>
-            <!--<property name="hibernate.hbm2ddl.auto" value="update"/> &lt;!&ndash; update, create, create-drop &ndash;&gt;-->
+            <!--<property name="hibernate.hbm2ddl.auto" value="create"/> &lt;!&ndash; update, create, create-drop &ndash;&gt;-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
 
             <property name="javax.persistence.validation.group.pre-persist" value="javax.validation.groups.Default"/>

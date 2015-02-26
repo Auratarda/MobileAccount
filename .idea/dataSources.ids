@@ -1,89 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - jsmobile@localhost" uuid="b9cff18d-5f96-4039-869a-76ad3b8d9f73">
+  <data-source name="MySQL - mobile@localhost" uuid="3c9c8486-3f4d-47f0-9016-f0555e4ecff0">
     <database-info product="MySQL" version="5.6.22" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
-    <schema name="" catalog="jsmobile"/>
-    <table name="clients" schema="" catalog="jsmobile" type="TABLE">
-      <column name="client_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
-      <column name="address" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="dateOfBirth" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="firstName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="lastName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="passport" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="client_id"/>
-      <exported-key name="FK_5ttx640eihkrfh25mu44wxxnb" table="contracts" schema="" catalog="jsmobile" columns="client_id"/>
+    <schema name="" catalog="mobile"/>
+    <table name="client" schema="" catalog="mobile" type="TABLE">
+      <column name="CLIENT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="ADDRESS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DATE_OF_BIRTH" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="EMAIL" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FIRST_NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LAST_NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PASSPORT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PASSWORD" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="CLIENT_ID"/>
+      <exported-key name="FK_hxx77el4m0mqka6p6uca9qxo4" table="contract" schema="" catalog="mobile" columns="CLIENT_ID"/>
     </table>
-    <table name="contract_options" schema="" catalog="jsmobile" type="TABLE">
-      <column name="option_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="contract_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <foreign-key name="FK_bymi8c35dg7lu0xtmoxs620hh" columns="option_id" ref-table="contracts" ref-schema="" ref-catalog="jsmobile" ref-columns="contract_id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="FK_sf197kdait6av65t9neiclur8" columns="contract_id" ref-table="options" ref-schema="" ref-catalog="jsmobile" ref-columns="option_id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="FK_bymi8c35dg7lu0xtmoxs620hh" unique="false" columns="option_id"/>
-      <index name="FK_sf197kdait6av65t9neiclur8" unique="false" columns="contract_id"/>
+    <table name="contract" schema="" catalog="mobile" type="TABLE">
+      <column name="CONTRACT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="BLOCKED_BY_CLIENT" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
+      <column name="BLOCKED_BY_OPERATOR" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
+      <column name="CONTRACT_NUMBER" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CLIENT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="TARIFF_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="CONTRACT_ID"/>
+      <foreign-key name="FK_hxx77el4m0mqka6p6uca9qxo4" columns="CLIENT_ID" ref-table="client" ref-schema="" ref-catalog="mobile" ref-columns="CLIENT_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_lpr1ow4rioj17w7sajnno10sk" columns="TARIFF_ID" ref-table="tariff" ref-schema="" ref-catalog="mobile" ref-columns="TARIFF_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_2tlt6yl7rg5q3ftx8hylrgs65" table="contract_options" schema="" catalog="mobile" columns="OPTION_ID"/>
+      <index name="FK_hxx77el4m0mqka6p6uca9qxo4" unique="false" columns="CLIENT_ID"/>
+      <index name="FK_lpr1ow4rioj17w7sajnno10sk" unique="false" columns="TARIFF_ID"/>
     </table>
-    <table name="contracts" schema="" catalog="jsmobile" type="TABLE">
-      <column name="contract_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
-      <column name="blocked_by_client" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
-      <column name="blocked_by_operator" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
-      <column name="number" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="client_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <column name="tariff_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <primary-key name="PRIMARY" columns="contract_id"/>
-      <foreign-key name="FK_3377w6rbh6piy283axgy94942" columns="tariff_id" ref-table="tariffs" ref-schema="" ref-catalog="jsmobile" ref-columns="tariff_id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="FK_5ttx640eihkrfh25mu44wxxnb" columns="client_id" ref-table="clients" ref-schema="" ref-catalog="jsmobile" ref-columns="client_id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="FK_bymi8c35dg7lu0xtmoxs620hh" table="contract_options" schema="" catalog="jsmobile" columns="option_id"/>
-      <index name="FK_3377w6rbh6piy283axgy94942" unique="false" columns="tariff_id"/>
-      <index name="FK_5ttx640eihkrfh25mu44wxxnb" unique="false" columns="client_id"/>
+    <table name="contract_options" schema="" catalog="mobile" type="TABLE">
+      <column name="OPTION_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="CONTRACT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="OPTION_ID,CONTRACT_ID"/>
+      <foreign-key name="FK_2tlt6yl7rg5q3ftx8hylrgs65" columns="OPTION_ID" ref-table="contract" ref-schema="" ref-catalog="mobile" ref-columns="CONTRACT_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_svyt3xdvaauv9sqe57w57huy2" columns="CONTRACT_ID" ref-table="options" ref-schema="" ref-catalog="mobile" ref-columns="OPTION_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_svyt3xdvaauv9sqe57w57huy2" unique="false" columns="CONTRACT_ID"/>
     </table>
-    <table name="incompatible_options" schema="" catalog="jsmobile" type="TABLE">
-      <column name="inc_option_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="current_option_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <foreign-key name="incompatible_options_ibfk_1" columns="current_option_id" ref-table="options" ref-schema="" ref-catalog="jsmobile" ref-columns="option_id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="incompatible_options_ibfk_2" columns="inc_option_id" ref-table="options" ref-schema="" ref-catalog="jsmobile" ref-columns="option_id" update-rule="3" delete-rule="3" deferrability="2"/>
+    <table name="incompatible_options" schema="" catalog="mobile" type="TABLE">
+      <column name="INC_OPTION_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="CURRENT_OPTION_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="INC_OPTION_ID,CURRENT_OPTION_ID"/>
+      <foreign-key name="FK_j38r7w8iunxn67ov3fjc754ie" columns="INC_OPTION_ID" ref-table="options" ref-schema="" ref-catalog="mobile" ref-columns="OPTION_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_qwvp9xjrhyhghgqy0lydihbg9" columns="CURRENT_OPTION_ID" ref-table="options" ref-schema="" ref-catalog="mobile" ref-columns="OPTION_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_qwvp9xjrhyhghgqy0lydihbg9" unique="false" columns="CURRENT_OPTION_ID"/>
     </table>
-    <table name="options" schema="" catalog="jsmobile" type="TABLE">
-      <column name="option_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
-      <column name="connection_cost" sqlType="DECIMAL" precision="19" scale="2" nullable="true" jdbcType="3"/>
-      <column name="option_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="option_price" sqlType="DECIMAL" precision="19" scale="2" nullable="true" jdbcType="3"/>
-      <primary-key name="PRIMARY" columns="option_id"/>
-      <exported-key name="FK_sf197kdait6av65t9neiclur8" table="contract_options" schema="" catalog="jsmobile" columns="contract_id"/>
-      <exported-key name="incompatible_options_ibfk_1" table="incompatible_options" schema="" catalog="jsmobile" columns="current_option_id"/>
-      <exported-key name="incompatible_options_ibfk_2" table="incompatible_options" schema="" catalog="jsmobile" columns="inc_option_id"/>
-      <exported-key name="required_options_fk1" table="required_options" schema="" catalog="jsmobile" columns="current_option_id"/>
-      <exported-key name="required_options_fk2" table="required_options" schema="" catalog="jsmobile" columns="req_option_id"/>
-      <exported-key name="FK_kid8dtxg6fvi79vyufadc8lfj" table="tariffs_options" schema="" catalog="jsmobile" columns="tariff_id"/>
+    <table name="options" schema="" catalog="mobile" type="TABLE">
+      <column name="OPTION_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="CONNECTION_COST" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="OPTION_NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="OPTION_PRICE" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="OPTION_ID"/>
+      <exported-key name="FK_svyt3xdvaauv9sqe57w57huy2" table="contract_options" schema="" catalog="mobile" columns="CONTRACT_ID"/>
+      <exported-key name="FK_j38r7w8iunxn67ov3fjc754ie" table="incompatible_options" schema="" catalog="mobile" columns="INC_OPTION_ID"/>
+      <exported-key name="FK_qwvp9xjrhyhghgqy0lydihbg9" table="incompatible_options" schema="" catalog="mobile" columns="CURRENT_OPTION_ID"/>
+      <exported-key name="FK_c4i3ybwf53ofdecpx564r9qow" table="required_options" schema="" catalog="mobile" columns="CURRENT_OPTION_ID"/>
+      <exported-key name="FK_e0qn4b45b5h9k9xk9hcwnq7fo" table="required_options" schema="" catalog="mobile" columns="REQ_OPTION_ID"/>
+      <exported-key name="FK_f2q35a82i8mhjaq6f2pwywfv9" table="tariff_options" schema="" catalog="mobile" columns="TARIFF_ID"/>
     </table>
-    <table name="required_options" schema="" catalog="jsmobile" type="TABLE">
-      <column name="req_option_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="current_option_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <foreign-key name="required_options_fk1" columns="current_option_id" ref-table="options" ref-schema="" ref-catalog="jsmobile" ref-columns="option_id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="required_options_fk2" columns="req_option_id" ref-table="options" ref-schema="" ref-catalog="jsmobile" ref-columns="option_id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="UK_81j2bfekyq49k54jdm2c68mwv" unique="true" columns="current_option_id"/>
-      <index name="required_options_fk1" unique="false" columns="current_option_id"/>
-      <index name="required_options_fk2" unique="false" columns="req_option_id"/>
+    <table name="required_options" schema="" catalog="mobile" type="TABLE">
+      <column name="REQ_OPTION_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="CURRENT_OPTION_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="REQ_OPTION_ID,CURRENT_OPTION_ID"/>
+      <foreign-key name="FK_c4i3ybwf53ofdecpx564r9qow" columns="CURRENT_OPTION_ID" ref-table="options" ref-schema="" ref-catalog="mobile" ref-columns="OPTION_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_e0qn4b45b5h9k9xk9hcwnq7fo" columns="REQ_OPTION_ID" ref-table="options" ref-schema="" ref-catalog="mobile" ref-columns="OPTION_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_c4i3ybwf53ofdecpx564r9qow" unique="false" columns="CURRENT_OPTION_ID"/>
     </table>
-    <table name="tariffs" schema="" catalog="jsmobile" type="TABLE">
-      <column name="tariff_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
-      <column name="tariff_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="tariff_price" sqlType="DECIMAL" precision="19" scale="2" nullable="true" jdbcType="3"/>
-      <primary-key name="PRIMARY" columns="tariff_id"/>
-      <exported-key name="FK_3377w6rbh6piy283axgy94942" table="contracts" schema="" catalog="jsmobile" columns="tariff_id"/>
-      <exported-key name="FK_m6hi1ikr5sxr2wxbvwkmxib5m" table="tariffs_options" schema="" catalog="jsmobile" columns="option_id"/>
+    <table name="tariff" schema="" catalog="mobile" type="TABLE">
+      <column name="TARIFF_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="TARIFF_NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TARIFF_PRICE" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="TARIFF_ID"/>
+      <exported-key name="FK_lpr1ow4rioj17w7sajnno10sk" table="contract" schema="" catalog="mobile" columns="TARIFF_ID"/>
+      <exported-key name="FK_q3oy8ic3ofnb4wqmjyfoyuuet" table="tariff_options" schema="" catalog="mobile" columns="OPTION_ID"/>
     </table>
-    <table name="tariffs_options" schema="" catalog="jsmobile" type="TABLE">
-      <column name="option_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="tariff_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <foreign-key name="FK_kid8dtxg6fvi79vyufadc8lfj" columns="tariff_id" ref-table="options" ref-schema="" ref-catalog="jsmobile" ref-columns="option_id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="FK_m6hi1ikr5sxr2wxbvwkmxib5m" columns="option_id" ref-table="tariffs" ref-schema="" ref-catalog="jsmobile" ref-columns="tariff_id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="FK_kid8dtxg6fvi79vyufadc8lfj" unique="false" columns="tariff_id"/>
-      <index name="FK_m6hi1ikr5sxr2wxbvwkmxib5m" unique="false" columns="option_id"/>
+    <table name="tariff_options" schema="" catalog="mobile" type="TABLE">
+      <column name="OPTION_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="TARIFF_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="OPTION_ID,TARIFF_ID"/>
+      <foreign-key name="FK_f2q35a82i8mhjaq6f2pwywfv9" columns="TARIFF_ID" ref-table="options" ref-schema="" ref-catalog="mobile" ref-columns="OPTION_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_q3oy8ic3ofnb4wqmjyfoyuuet" columns="OPTION_ID" ref-table="tariff" ref-schema="" ref-catalog="mobile" ref-columns="TARIFF_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_f2q35a82i8mhjaq6f2pwywfv9" unique="false" columns="TARIFF_ID"/>
     </table>
   </data-source>
 </component>
