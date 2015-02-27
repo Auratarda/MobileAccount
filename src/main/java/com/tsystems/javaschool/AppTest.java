@@ -24,7 +24,7 @@ public class AppTest {
             em.getTransaction().begin();
             Client client = createClient();
             ClientServiceImpl clientService = new ClientServiceImpl(em);
-            clientService.saveNewClient(client);
+            clientService.createClient(client);
 //            Contract contract = em.find(Contract.class, 2L);
 //            Tariff tariff = em.find(Tariff.class, 2L);
 //            setTariff(contract, tariff);
