@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="war" name="MobileAccount:war">
     <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="mobileAccount-1.0.war">
+    <root id="archive" name="MobileAccount.war">
       <element id="artifact" artifact-name="MobileAccount:war exploded" />
     </root>
   </artifact>

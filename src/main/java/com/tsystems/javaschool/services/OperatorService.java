@@ -5,6 +5,7 @@ import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
 import com.tsystems.javaschool.entities.Tariff;
 
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -13,28 +14,17 @@ import java.util.Set;
 public interface OperatorService {
 
     /**
-     * Basic methods.
-     */
-    void createClient(Client client);
-
-    Client readClient(Long id);
-
-    void updateClient(Client client);
-
-    void deleteClient(Client client);
-
-    /**
      * Assign a new contract.
      */
-    void addNewClient(Client client);
+    void addNewClient(String firstName, String lastName, Date dateOfBirth, String address, String passport, String email, String password);
 
     void addContract(String number);
 
-    void setNumber(Client client, String number);
+    void setNumber(Long clientId, String number);
 
-    void setTariff(Client client, Tariff tariff);
+    void setTariff(Long contractId, Tariff tariff);
 
-    void setOptions(Client client, Option option);
+    void setOptions(Long contractId, Option option);
 
     /**
      * View all clients and contracts.

@@ -1,9 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.tsystems.javaschool</groupId>
-    <artifactId>mobileAccount</artifactId>
+    <artifactId>MobileAccount</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
     <name>Mobile Account</name>
@@ -14,6 +14,14 @@
 
 
     <dependencies>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -72,6 +80,7 @@
 
 
     <build>
+        <finalName>MobileAccount</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -89,10 +98,9 @@
                 <configuration>
                     <url>http://localhost:8080/manager/text</url>
                     <server>TomcatServer</server>
-                    <path>/mobileAccount</path>
+                    <path>MobileAccount</path>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 

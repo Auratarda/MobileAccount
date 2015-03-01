@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="MobileAccount:war exploded">
-    <output-path>$PROJECT_DIR$/target/mobileAccount-1.0</output-path>
+    <output-path>$PROJECT_DIR$/target/MobileAccount</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
