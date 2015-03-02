@@ -1,8 +1,10 @@
 package com.tsystems.javaschool.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 public class GenericDAOImpl<T, PK extends Serializable>
         implements GenericDAO<T, PK> {
@@ -37,5 +39,10 @@ public class GenericDAOImpl<T, PK extends Serializable>
     public void delete(T t) {
         t = this.entityManager.merge(t);
         this.entityManager.remove(t);
+    }
+
+    public List<T> getAll() {
+        TypedQuery<T> query = entityManager.createQuery("from " + entityClass.getName(), entityClass);
+        return query.getResultList();
     }
 }

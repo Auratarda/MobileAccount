@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Test.
@@ -23,13 +24,14 @@ public class AppTest {
         EntityManager em = HibernateUtil.getEntityManager();
         try {
             em.getTransaction().begin();
-            Client client = createClient();
             OperatorService operatorService = new OperatorServiceImpl(em);
-            operatorService.addNewClient("Fedorov", "Fedor", new Date(),
-                    "Holodnaya, 5", "RUS", "fedorr@yandex.ru", "fedor");
-//            Contract contract = em.find(Contract.class, 2L);
-//            Tariff tariff = em.find(Tariff.class, 2L);
-//            setTariff(contract, tariff);
+            List<Client> clients = operatorService.findAllClients();
+            for (Client client : clients) {
+                System.out.println(client);
+            }
+//            Client client = createClient();
+//            operatorService.addNewClient("Fedorov", "Fedor", new Date(),
+//                    "Holodnaya, 5", "RUS", "fedorr@yandex.ru", "fedor");
             em.getTransaction().commit();
             logger.info("Commit success!");
         } catch (Exception e) {
