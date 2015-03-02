@@ -10,7 +10,8 @@ import javax.persistence.EntityManager;
 /**
  * ClientServiceImpl.
  */
-public class ClientServiceImpl implements ClientService {
+public class ClientServiceImpl {
+    //TODO: why do you need no access modifier?
     final static Logger logger = Logger.getLogger(ClientServiceImpl.class);
     ClientDAO clientDAO;
 

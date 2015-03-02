@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
  * Util.
  */
 
+// TODO: Why it is called hibernate?
 public class HibernateUtil {
     final static Logger logger = Logger.getLogger(HibernateUtil.class);
     private static final String PERSISTENCE_UNIT = "MobileAccountPU";
