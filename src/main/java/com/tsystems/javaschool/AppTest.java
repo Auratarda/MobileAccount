@@ -5,7 +5,8 @@ import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
 import com.tsystems.javaschool.entities.Tariff;
 import com.tsystems.javaschool.persistence.HibernateUtil;
-import com.tsystems.javaschool.services.ClientServiceImpl;
+import com.tsystems.javaschool.services.OperatorService;
+import com.tsystems.javaschool.services.OperatorServiceImpl;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -23,8 +24,9 @@ public class AppTest {
         try {
             em.getTransaction().begin();
             Client client = createClient();
-            ClientServiceImpl clientService = new ClientServiceImpl(em);
-            clientService.saveNewClient(client);
+            OperatorService operatorService = new OperatorServiceImpl(em);
+            operatorService.addNewClient("Fedorov", "Fedor", new Date(),
+                    "Holodnaya, 5", "RUS", "fedorr@yandex.ru", "fedor");
 //            Contract contract = em.find(Contract.class, 2L);
 //            Tariff tariff = em.find(Tariff.class, 2L);
 //            setTariff(contract, tariff);
@@ -41,13 +43,13 @@ public class AppTest {
     }
 
     private static Client createClient(){
-        String firstName = "Sidorov";
-        String lastName = "Sidor";
+        String firstName = "Fedorov";
+        String lastName = "Fedor";
         Date dateOfBirth = new Date();
-        String address = "Beregovaya, 5";
+        String address = "Holodnaya, 5";
         String passport = "RUS";
-        String email = "petr@yandex.ru";
-        String password = "petr";
+        String email = "fedorr@yandex.ru";
+        String password = "fedor";
 
         Client newClient = new Client(firstName, lastName, dateOfBirth, address, passport, email, password);
         return newClient;
