@@ -14,8 +14,6 @@ import java.util.Set;
  * ClientServiceImpl.
  */
 public class ClientServiceImpl implements ClientService {
-    //TODO: why do you need no access modifier?
-    // TODO: Done
     private final static Logger logger = Logger.getLogger(ClientServiceImpl.class);
     private EntityManager em;
 
@@ -33,6 +31,7 @@ public class ClientServiceImpl implements ClientService {
         optionDAO = new OptionDAOImpl(em);
     }
 
+    // TODO: not used
     public EntityManager getEm() {
         return em;
     }
@@ -52,6 +51,7 @@ public class ClientServiceImpl implements ClientService {
         return client.getNumbers();
     }
 
+    // TODO: what will happen with options?
     public void changeTariff(String contractId, String tariffId) {
         logger.debug("Changing tariff");
         Long conId = Long.parseLong(contractId);
@@ -62,6 +62,7 @@ public class ClientServiceImpl implements ClientService {
         contractDAO.update(contract);
     }
 
+    // TODO: how will you check options compatibility?
     public void addOption(String contractId, String optionId) {
         logger.debug("Adding option");
         Long conId = Long.parseLong(contractId);

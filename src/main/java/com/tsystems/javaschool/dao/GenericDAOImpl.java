@@ -9,9 +9,6 @@ import java.util.List;
 class GenericDAOImpl<T, PK extends Serializable>
         implements GenericDAO<T, PK> {
 
-    // TODO: it must be private
-    // TODO: if you need an access create getter
-    // TODO: Done
     private Class<T> entityClass;
     private EntityManager entityManager;
 
