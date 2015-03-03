@@ -1,2 +1,9 @@
 2015-03-03 18:15:42 DEBUG LoginServlet:36 - Attempting to log in
 2015-03-03 18:15:42 DEBUG ClientServiceImpl:39 - Attempting to log in
+2015-03-03 21:41:04 INFO  OperatorService:27 - Creating operator service
+2015-03-03 21:41:04 DEBUG OperatorService:43 - Creating new client
+2015-03-03 21:41:04 DEBUG OperatorService:43 - Creating new client
+2015-03-03 21:41:04 DEBUG OperatorService:43 - Creating new client
+2015-03-03 21:41:04 DEBUG OperatorService:43 - Creating new client
+2015-03-03 21:41:04 DEBUG OperatorService:43 - Creating new client
+2015-03-03 21:41:04 INFO  InitAppTestData:41 - Commit success!
