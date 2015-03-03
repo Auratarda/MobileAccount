@@ -65,6 +65,26 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     /**
+     * Find entities.
+     */
+    public Client findClientByID(Long clientId) {
+        return clientDAO.read(clientId);
+    }
+
+    public Contract findContractByID(Long contractId) {
+        return contractDAO.read(contractId);
+    }
+
+    public Tariff findTariffByID(Long tariffId) {
+        return tariffDAO.read(tariffId);
+    }
+
+    public Option findOptionByID(Long optionId) {
+        return optionDAO.read(optionId);
+    }
+
+
+    /**
      * Modify a contract.
      */
     public void setNumber(Long clientId, Long contractId) {

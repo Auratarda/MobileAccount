@@ -2,6 +2,8 @@ package com.tsystems.javaschool.services;
 
 import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
+import com.tsystems.javaschool.entities.Option;
+import com.tsystems.javaschool.entities.Tariff;
 
 import java.util.Date;
 import java.util.List;
@@ -24,6 +26,17 @@ public interface OperatorService {
     void createNewOption(String name, Long optionPrice, Long connectionCost);
 
     /**
+     * Find entities.
+     */
+    Client findClientByID(Long clientId);
+
+    Contract findContractByID(Long contractId);
+
+    Tariff findTariffByID(Long tariffId);
+
+    Option findOptionByID(Long optionId);
+
+    /**
      * Modify a contract.
      */
 
@@ -41,8 +54,6 @@ public interface OperatorService {
     List<Client> findAllClients();
 
     List<Contract> findAllContracts();
-
-    Client findById(Long id);
 
     /**
      * Lock/unlock contracts.

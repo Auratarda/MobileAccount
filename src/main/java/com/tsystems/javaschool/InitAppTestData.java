@@ -1,5 +1,9 @@
 package com.tsystems.javaschool;
 
+import com.tsystems.javaschool.entities.Client;
+import com.tsystems.javaschool.entities.Contract;
+import com.tsystems.javaschool.entities.Option;
+import com.tsystems.javaschool.entities.Tariff;
 import com.tsystems.javaschool.persistence.PersistenceUtil;
 import com.tsystems.javaschool.services.OperatorService;
 import com.tsystems.javaschool.services.OperatorServiceImpl;
@@ -24,17 +28,61 @@ public class InitAppTestData {
             em.getTransaction().begin();
 
             OperatorService operatorService = new OperatorServiceImpl(em);
+            /** Client dump */
             List<String> firstNames = createFirstNames();
             List<String> lastNames = createLastNames();
             List<String> addresses = createAddresses();
-            List<String> emails = createEmails();
             List<String> passports = createPassports();
+            List<String> emails = createEmails();
             List<String> passwords = createPasswords();
+            /** Contract dump */
+            List<String> contracts = createContracts();
+            /** Tariff dump */
+            List<String> tariffs = createTariffs();
+            /** Option dump */
+            List<String> options = createOptions();
 
             for (int i = 0; i < 5; i++) {
+                /** Create client */
                 operatorService.createNewClient(firstNames.get(i),
-                        lastNames.get(i), new Date(), addresses.get(i), emails.get(i),
-                        passports.get(i), passwords.get(i));
+                        lastNames.get(i), new Date(), addresses.get(i),
+                        passports.get(i), emails.get(i), passwords.get(i));
+                /** Create contract */
+                operatorService.createNewContract(contracts.get(i));
+                /** Create tariff */
+                operatorService.createNewTariff(tariffs.get(i), (long) ((i + 1) * 100));
+                /** Create options */
+                operatorService.createNewOption(options.get(i * 2),
+                        (long) ((i + 1) * 10), (long) ((i + 1) * 20));
+                operatorService.createNewOption(options.get(i * 2 + 1),
+                        (long) ((i + 1) * 10), (long) ((i + 1) * 20));
+            }
+            Option option_1 = operatorService.findOptionByID((long) (1));
+            Option option_2 = operatorService.findOptionByID((long) (2));
+            Option option_3 = operatorService.findOptionByID((long) (3));
+            Option option_4 = operatorService.findOptionByID((long) (4));
+            Option option_5 = operatorService.findOptionByID((long) (5));
+            /** 1 & 2 - set required options */
+            option_1.getRequiredOptions().add(option_2);
+            /** 1 & 5 - set incompatible options */
+            option_1.getIncompatibleOptions().add(option_5);
+            for (int i = 0; i < 5; i++) {
+                /** Find entities */
+                Client client = operatorService.findClientByID((long) (i + 1));
+                Contract contract = operatorService.findContractByID((long) (i + 1));
+                Tariff tariff = operatorService.findTariffByID((long) (i + 1));
+
+                /** Set Client & Tariff */
+                contract.setClient(client);
+                contract.setTariff(tariff);
+                /** Add 2 options to contract */
+                contract.getOptions().add(option_1);
+                contract.getOptions().add(option_2);
+                /** Add 4 options to tariff */
+                tariff.getOptions().add(option_1);
+                tariff.getOptions().add(option_2);
+                tariff.getOptions().add(option_3);
+                tariff.getOptions().add(option_4);
             }
 
             em.getTransaction().commit();
@@ -47,6 +95,41 @@ public class InitAppTestData {
             em.close();
             emf.close();
         }
+    }
+
+    private static List<String> createOptions() {
+        List<String> options = new ArrayList<String>();
+        options.add("Любимый номер");
+        options.add("Скрыть номер");
+        options.add("Маячок");
+        options.add("Обещанный платеж");
+        options.add("Гудок");
+        options.add("Антиспам");
+        options.add("Детализация");
+        options.add("Роуминг");
+        options.add("Смс-свобода");
+        options.add("Черный список");
+        return options;
+    }
+
+    private static List<String> createTariffs() {
+        List<String> tariffs = new ArrayList<String>();
+        tariffs.add("Черный");
+        tariffs.add("Очень черный");
+        tariffs.add("Оранжевый");
+        tariffs.add("Желтый");
+        tariffs.add("Зеленый");
+        return tariffs;
+    }
+
+    private static List<String> createContracts() {
+        List<String> contracts = new ArrayList<String>();
+        contracts.add("9040000001");
+        contracts.add("9040000002");
+        contracts.add("9040000003");
+        contracts.add("9040000004");
+        contracts.add("9040000005");
+        return contracts;
     }
 
     private static List<String> createFirstNames() {
