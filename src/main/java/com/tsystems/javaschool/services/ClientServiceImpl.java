@@ -5,7 +5,6 @@ import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
 import com.tsystems.javaschool.entities.Tariff;
-import com.tsystems.javaschool.exceptions.LoginException;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -40,7 +39,7 @@ public class ClientServiceImpl implements ClientService {
     /**
      * View contract.
      */
-    public Client login(String email, String password) throws LoginException {
+    public Client login(String email, String password) {
         logger.debug("Attempting to log in"); // TODO: no useful information
         return clientDAO.login(email, password);
     }
