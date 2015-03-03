@@ -107,8 +107,6 @@ public class Client implements Serializable{
         this.password = password;
     }
 
-    // TODO: it named getNumbers, but returned contracts
-    // TODO: Done.
     public Set<Contract> getContracts() {
         return contracts;
     }
