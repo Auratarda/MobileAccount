@@ -47,9 +47,9 @@ public interface OperatorService {
     /**
      * Lock/unlock contracts.
      */
-    void lockContract(Long id);
+    void lockContract(Long contractId);
 
-    void unLockContract(Long id);
+    void unLockContract(Long contractId);
 
     /**
      * Modify a tariff.

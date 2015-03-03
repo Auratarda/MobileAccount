@@ -6,23 +6,29 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public class GenericDAOImpl<T, PK extends Serializable>
+class GenericDAOImpl<T, PK extends Serializable>
         implements GenericDAO<T, PK> {
 
     // TODO: it must be private
     // TODO: if you need an access create getter
-    protected Class<T> entityClass;
-    protected EntityManager entityManager;
+    // TODO: Done
+    private Class<T> entityClass;
+    private EntityManager entityManager;
 
     public GenericDAOImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
-    }
-
-    public GenericDAOImpl() {
         ParameterizedType genericSuperclass = (ParameterizedType) getClass()
                 .getGenericSuperclass();
         this.entityClass = (Class<T>) genericSuperclass
                 .getActualTypeArguments()[0];
+    }
+
+    public Class<T> getEntityClass() {
+        return entityClass;
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 
     public T create(T t) {

@@ -1,6 +1,9 @@
 package com.tsystems.javaschool.services;
 
 import com.tsystems.javaschool.entities.Client;
+import com.tsystems.javaschool.entities.Contract;
+
+import java.util.List;
 
 /**
  * ClientService.
@@ -8,15 +11,20 @@ import com.tsystems.javaschool.entities.Client;
 public interface ClientService {
 
     /**
-     * Basic methods.
+     * View contract.
      */
-    void createClient(Client client);
+    Client login(String email, String password);
 
-    Client readClient(Long id);
+    List<Contract> viewContracts(Client client);
 
-    void updateClient(Client client);
+    /**
+     * Modify contract.
+     */
+    void changeTariff(String tariffId);
 
-    void deleteClient(Client client);
+    void addOption(String optionId);
 
-    /**Specific methods. */
+    void removeOption(String optionId);
+
+    void lockContract(String contractId);
 }

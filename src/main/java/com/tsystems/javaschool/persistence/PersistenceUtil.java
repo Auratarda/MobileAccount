@@ -11,8 +11,9 @@ import javax.persistence.Persistence;
  */
 
 // TODO: Why it is called hibernate?
-public class HibernateUtil {
-    final static Logger logger = Logger.getLogger(HibernateUtil.class);
+// TODO: Done
+public class PersistenceUtil {
+    final static Logger logger = Logger.getLogger(PersistenceUtil.class);
     private static final String PERSISTENCE_UNIT = "MobileAccountPU";
     private static final EntityManagerFactory emf;
 

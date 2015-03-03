@@ -8,7 +8,13 @@ import javax.persistence.EntityManager;
  * TariffDAOImpl.
  */
 public class TariffDAOImpl extends GenericDAOImpl<Tariff, Long> implements TariffDAO {
+    private EntityManager em;
     public TariffDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
+        this.em = entityManager;
+    }
+
+    public EntityManager getEm() {
+        return em;
     }
 }

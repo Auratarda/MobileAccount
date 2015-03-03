@@ -8,7 +8,13 @@ import javax.persistence.EntityManager;
  * OptionDAOImpl.
  */
 public class OptionDAOImpl extends GenericDAOImpl<Option, Long> implements OptionDAO {
+    private EntityManager em;
     public OptionDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
+        this.em = entityManager;
+    }
+
+    public EntityManager getEm() {
+        return em;
     }
 }

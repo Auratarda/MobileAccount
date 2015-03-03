@@ -4,15 +4,14 @@ import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
 import com.tsystems.javaschool.entities.Tariff;
-import com.tsystems.javaschool.persistence.HibernateUtil;
-import com.tsystems.javaschool.services.OperatorService;
-import com.tsystems.javaschool.services.OperatorServiceImpl;
+import com.tsystems.javaschool.persistence.PersistenceUtil;
+import com.tsystems.javaschool.services.ClientService;
+import com.tsystems.javaschool.services.ClientServiceImpl;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Test.
@@ -20,18 +19,15 @@ import java.util.List;
 public class AppTest {
     final static Logger logger = Logger.getLogger(AppTest.class);
     public static void main(String[] args) {
-        EntityManagerFactory emf = HibernateUtil.getEntityManagerFactory();
-        EntityManager em = HibernateUtil.getEntityManager();
+        EntityManagerFactory emf = PersistenceUtil.getEntityManagerFactory();
+        EntityManager em = PersistenceUtil.getEntityManager();
         try {
             em.getTransaction().begin();
-            OperatorService operatorService = new OperatorServiceImpl(em);
-            List<Client> clients = operatorService.findAllClients();
-            for (Client client : clients) {
-                System.out.println(client);
-            }
-//            Client client = createClient();
-//            operatorService.addNewClient("Fedorov", "Fedor", new Date(),
-//                    "Holodnaya, 5", "RUS", "fedorr@yandex.ru", "fedor");
+
+            ClientService clientService = new ClientServiceImpl(em);
+            Client client = clientService.login("ivan@yandex.ru", "ivan");
+            System.out.println(client);
+
             em.getTransaction().commit();
             logger.info("Commit success!");
         } catch (Exception e) {

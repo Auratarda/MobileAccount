@@ -1,59 +1,65 @@
 package com.tsystems.javaschool.services;
 
-import com.tsystems.javaschool.dao.ClientDAO;
-import com.tsystems.javaschool.dao.ClientDAOImpl;
+import com.tsystems.javaschool.dao.*;
 import com.tsystems.javaschool.entities.Client;
+import com.tsystems.javaschool.entities.Contract;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 /**
  * ClientServiceImpl.
  */
-public class ClientServiceImpl {
+public class ClientServiceImpl implements ClientService {
     //TODO: why do you need no access modifier?
-    final static Logger logger = Logger.getLogger(ClientServiceImpl.class);
-    ClientDAO clientDAO;
+    // TODO: Done
+    private final static Logger logger = Logger.getLogger(ClientServiceImpl.class);
+    private EntityManager em;
 
-    public ClientServiceImpl(EntityManager entityManager) {
-        clientDAO = new ClientDAOImpl(entityManager);
+    private ClientDAO clientDAO;
+    private ContractDAO contractDAO;
+    private TariffDAO tariffDAO;
+    private OptionDAO optionDAO;
+
+    public ClientServiceImpl(EntityManager em) {
+        logger.info("Creating client service");
+        this.em = em;
+        clientDAO = new ClientDAOImpl(em);
+        contractDAO = new ContractDAOImpl(em);
+        tariffDAO = new TariffDAOImpl(em);
+        optionDAO = new OptionDAOImpl(em);
     }
 
-    public void createClient(Client client) {
-        try {
-            clientDAO.create(client);
-            logger.info("Persist success!");
-        } catch (Exception e) {
-            logger.error("Persist fail!", e);
-        }
+    public EntityManager getEm() {
+        return em;
     }
 
-    public Client readClient(Long id) {
-        try {
-            Client client = clientDAO.read(id);
-            logger.info("Find success!");
-            return client;
-        } catch (Exception e) {
-            logger.error("Find fail!", e);
-        }
+    /**
+     * View contract.
+     */
+    public Client login(String email, String password) {
+        logger.debug("Attempting to log in");
+        return clientDAO.login(email, password);
+    }
+
+    public List<Contract> viewContracts(Client client) {
         return null;
     }
 
-    public void updateClient(Client client) {
-        try {
-            clientDAO.update(client);
-            logger.info("Merge success!");
-        } catch (Exception e) {
-            logger.error("Merge fail!", e);
-        }
+    public void changeTariff(String tariffId) {
+
     }
 
-    public void deleteClient(Client client) {
-        try {
-            clientDAO.delete(client);
-            logger.info("Remove success!");
-        } catch (Exception e) {
-            logger.error("Remove fail!", e);
-        }
+    public void addOption(String optionId) {
+
+    }
+
+    public void removeOption(String optionId) {
+
+    }
+
+    public void lockContract(String contractId) {
+
     }
 }
