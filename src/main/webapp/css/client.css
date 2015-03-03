@@ -1,0 +1,14 @@
+TABLE {
+    width: 300px;
+    border-collapse: collapse;
+}
+
+TD {
+    padding: 3px;
+    border: 1px solid black;
+}
+
+#main {
+    margin-top: 1em;
+    display: block;
+}

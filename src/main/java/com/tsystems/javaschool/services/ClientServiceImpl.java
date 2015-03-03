@@ -5,6 +5,7 @@ import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
 import com.tsystems.javaschool.entities.Tariff;
+import com.tsystems.javaschool.exceptions.LoginException;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -15,7 +16,6 @@ import java.util.Set;
  */
 public class ClientServiceImpl implements ClientService {
     private final static Logger logger = Logger.getLogger(ClientServiceImpl.class);
-    private EntityManager em;
 
     private ClientDAO clientDAO;
     private ContractDAO contractDAO;
@@ -24,7 +24,6 @@ public class ClientServiceImpl implements ClientService {
 
     public ClientServiceImpl(EntityManager em) {
         logger.info("Creating client service");
-        this.em = em;
         clientDAO = new ClientDAOImpl(em);
         contractDAO = new ContractDAOImpl(em);
         tariffDAO = new TariffDAOImpl(em);
@@ -32,14 +31,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     // TODO: not used
-    public EntityManager getEm() {
-        return em;
-    }
-
+    // TODO: Done
     /**
      * View contract.
      */
-    public Client login(String email, String password) {
+    public Client login(String email, String password) throws LoginException {
         logger.debug("Attempting to log in");
         return clientDAO.login(email, password);
     }
@@ -48,7 +44,7 @@ public class ClientServiceImpl implements ClientService {
         logger.debug("Loading contracts");
         Long id = Long.parseLong(clientId);
         Client client = clientDAO.read(id);
-        return client.getNumbers();
+        return client.getContracts();
     }
 
     // TODO: what will happen with options?

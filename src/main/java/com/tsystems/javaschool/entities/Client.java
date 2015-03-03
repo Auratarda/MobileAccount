@@ -29,7 +29,7 @@ public class Client implements Serializable{
     @Column(name = "PASSWORD")
     private String password;
     @OneToMany(mappedBy = "client")
-    private Set<Contract> numbers = new HashSet<Contract>(0);
+    private Set<Contract> contracts = new HashSet<Contract>(0);
 
     public Client() {
     }
@@ -108,12 +108,13 @@ public class Client implements Serializable{
     }
 
     // TODO: it named getNumbers, but returned contracts
-    public Set<Contract> getNumbers() {
-        return numbers;
+    // TODO: Done.
+    public Set<Contract> getContracts() {
+        return contracts;
     }
 
-    public void setNumbers(Set<Contract> numbers) {
-        this.numbers = numbers;
+    public void setContracts(Set<Contract> numbers) {
+        this.contracts = numbers;
     }
 
     @Override

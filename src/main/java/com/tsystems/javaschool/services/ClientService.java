@@ -2,6 +2,7 @@ package com.tsystems.javaschool.services;
 
 import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
+import com.tsystems.javaschool.exceptions.LoginException;
 
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public interface ClientService {
     /**
      * View contract.
      */
-    Client login(String email, String password);
+    Client login(String email, String password) throws LoginException;
 
     Set<Contract> viewContracts(String clientId);
 

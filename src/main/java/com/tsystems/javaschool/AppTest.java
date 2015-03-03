@@ -78,7 +78,7 @@ public class AppTest {
 
     private static void setNumber(Client client, Contract contract) {
         contract.setClient(client);
-        client.getNumbers().add(contract);
+        client.getContracts().add(contract);
     }
 
     private static void setTariff(Contract contract, Tariff tariff) {

@@ -126,3 +126,66 @@ Caused by: org.hibernate.QueryException: Not all named parameters have been set:
 2015-03-03 03:31:54 INFO  ClientServiceImpl:26 - Creating client service
 2015-03-03 03:31:54 DEBUG ClientServiceImpl:40 - Attempting to log in
 2015-03-03 03:31:54 INFO  AppTest:38 - Commit success!
+2015-03-03 15:16:27 INFO  ClientServiceImpl:25 - Creating client service
+2015-03-03 15:16:27 DEBUG ClientServiceImpl:38 - Attempting to log in
+2015-03-03 15:19:20 INFO  ClientServiceImpl:25 - Creating client service
+2015-03-03 15:19:20 DEBUG ClientServiceImpl:38 - Attempting to log in
+2015-03-03 15:23:11 INFO  ClientServiceImpl:25 - Creating client service
+2015-03-03 15:23:11 DEBUG ClientServiceImpl:38 - Attempting to log in
+2015-03-03 15:29:52 INFO  ClientServiceImpl:25 - Creating client service
+2015-03-03 15:29:52 DEBUG ClientServiceImpl:38 - Attempting to log in
+2015-03-03 15:52:59 INFO  ClientServiceImpl:25 - Creating client service
+2015-03-03 15:52:59 DEBUG ClientServiceImpl:38 - Attempting to log in
+2015-03-03 16:32:35 INFO  ClientServiceImpl:25 - Creating client service
+2015-03-03 16:32:35 DEBUG ClientServiceImpl:38 - Attempting to log in
+2015-03-03 16:53:45 INFO  LoginServlet:27 - Starting login servlet
+2015-03-03 17:13:22 INFO  LoginServlet:27 - Starting login servlet
+2015-03-03 17:13:24 INFO  ClientServiceImpl:26 - Creating client service
+2015-03-03 17:13:24 DEBUG LoginServlet:34 - Attempting to log in
+2015-03-03 17:13:24 DEBUG ClientServiceImpl:39 - Attempting to log in
+2015-03-03 17:13:24 DEBUG LoginServlet:43 - Client is not found
+2015-03-03 17:43:16 INFO  LoginServlet:27 - Starting login servlet
+2015-03-03 17:43:17 INFO  ClientServiceImpl:26 - Creating client service
+2015-03-03 17:43:17 DEBUG LoginServlet:34 - Attempting to log in
+2015-03-03 17:43:17 DEBUG ClientServiceImpl:39 - Attempting to log in
+2015-03-03 17:47:07 INFO  LoginServlet:27 - Starting login servlet
+2015-03-03 17:47:09 INFO  ClientServiceImpl:26 - Creating client service
+2015-03-03 17:47:09 DEBUG LoginServlet:34 - Attempting to log in
+2015-03-03 17:47:09 DEBUG ClientServiceImpl:39 - Attempting to log in
+2015-03-03 17:53:33 INFO  LoginServlet:27 - Starting login servlet
+2015-03-03 17:53:35 INFO  ClientServiceImpl:26 - Creating client service
+2015-03-03 17:53:35 DEBUG LoginServlet:34 - Attempting to log in
+2015-03-03 17:53:35 DEBUG ClientServiceImpl:39 - Attempting to log in
+2015-03-03 17:54:17 INFO  LoginServlet:27 - Starting login servlet
+2015-03-03 17:54:19 INFO  ClientServiceImpl:26 - Creating client service
+2015-03-03 17:54:19 DEBUG LoginServlet:34 - Attempting to log in
+2015-03-03 17:54:19 DEBUG ClientServiceImpl:39 - Attempting to log in
+2015-03-03 17:54:28 INFO  LoginServlet:27 - Starting login servlet
+2015-03-03 17:54:28 INFO  ClientServiceImpl:26 - Creating client service
+2015-03-03 17:54:28 DEBUG LoginServlet:34 - Attempting to log in
+2015-03-03 17:54:28 DEBUG ClientServiceImpl:39 - Attempting to log in
+2015-03-03 17:55:36 INFO  LoginServlet:27 - Starting login servlet
+2015-03-03 17:55:37 INFO  ClientServiceImpl:26 - Creating client service
+2015-03-03 17:55:37 DEBUG LoginServlet:34 - Attempting to log in
+2015-03-03 17:55:37 DEBUG ClientServiceImpl:39 - Attempting to log in
+2015-03-03 17:57:03 INFO  LoginServlet:27 - Starting login servlet
+2015-03-03 17:57:05 INFO  ClientServiceImpl:26 - Creating client service
+2015-03-03 17:57:05 DEBUG LoginServlet:34 - Attempting to log in
+2015-03-03 17:57:05 DEBUG ClientServiceImpl:39 - Attempting to log in
+2015-03-03 17:57:46 INFO  LoginServlet:27 - Starting login servlet
+2015-03-03 17:57:48 INFO  ClientServiceImpl:26 - Creating client service
+2015-03-03 17:57:48 DEBUG LoginServlet:34 - Attempting to log in
+2015-03-03 17:57:48 DEBUG ClientServiceImpl:39 - Attempting to log in
+2015-03-03 17:58:09 INFO  LoginServlet:27 - Starting login servlet
+2015-03-03 17:59:35 INFO  LoginServlet:27 - Starting login servlet
+2015-03-03 17:59:37 INFO  ClientServiceImpl:26 - Creating client service
+2015-03-03 17:59:37 DEBUG LoginServlet:34 - Attempting to log in
+2015-03-03 17:59:37 DEBUG ClientServiceImpl:39 - Attempting to log in
+2015-03-03 18:00:23 INFO  LoginServlet:27 - Starting login servlet
+2015-03-03 18:00:25 INFO  ClientServiceImpl:26 - Creating client service
+2015-03-03 18:00:25 DEBUG LoginServlet:34 - Attempting to log in
+2015-03-03 18:00:25 DEBUG ClientServiceImpl:39 - Attempting to log in
+2015-03-03 18:15:41 INFO  LoginServlet:29 - Starting login servlet
+2015-03-03 18:15:42 INFO  ClientServiceImpl:26 - Creating client service
+2015-03-03 18:15:42 DEBUG LoginServlet:36 - Attempting to log in
+2015-03-03 18:15:42 DEBUG ClientServiceImpl:39 - Attempting to log in

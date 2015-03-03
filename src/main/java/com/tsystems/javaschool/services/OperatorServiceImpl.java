@@ -72,7 +72,7 @@ public class OperatorServiceImpl implements OperatorService {
         Client client = clientDAO.read(clientId);
         Contract contract = contractDAO.read(contractId);
         contract.setClient(client);
-        client.getNumbers().add(contract);
+        client.getContracts().add(contract);
         contractDAO.update(contract);
         clientDAO.update(client);
     }
