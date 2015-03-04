@@ -2,7 +2,9 @@ package com.tsystems.javaschool.services;
 
 import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
+import com.tsystems.javaschool.exceptions.IncompatibleOptionException;
 import com.tsystems.javaschool.exceptions.LoginException;
+import com.tsystems.javaschool.exceptions.RequiredOptionException;
 import com.tsystems.javaschool.exceptions.TariffNotSupportedOptionException;
 
 import java.util.Set;
@@ -24,9 +26,9 @@ public interface ClientService {
      */
     void changeTariff(String contractId, String tariffId) throws TariffNotSupportedOptionException;
 
-    void addOption(String contractId, String optionId);
+    void addOption(String contractId, String optionId) throws IncompatibleOptionException, RequiredOptionException;
 
-    void removeOption(String contractId, String optionId);
+    void removeOption(String contractId, String optionId) throws RequiredOptionException;
 
     void lockContract(String contractId);
 

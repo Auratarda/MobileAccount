@@ -5,7 +5,9 @@ import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
 import com.tsystems.javaschool.entities.Tariff;
+import com.tsystems.javaschool.exceptions.IncompatibleOptionException;
 import com.tsystems.javaschool.exceptions.LoginException;
+import com.tsystems.javaschool.exceptions.RequiredOptionException;
 import com.tsystems.javaschool.exceptions.TariffNotSupportedOptionException;
 import org.apache.log4j.Logger;
 
@@ -79,7 +81,8 @@ public class ClientServiceImpl implements ClientService {
 
     // TODO: how will you check options compatibility?
     // TODO: locked check
-    public void addOption(String contractId, String optionId) {
+    // TODO: Done
+    public void addOption(String contractId, String optionId) throws IncompatibleOptionException, RequiredOptionException {
         Long conId = Long.parseLong(contractId);
         Long optId = Long.parseLong(optionId);
         Contract contract = contractDAO.read(conId);
@@ -95,18 +98,31 @@ public class ClientServiceImpl implements ClientService {
         for (Option incompatibleOption : incompatibleOptions) {
             if (contractOptions.contains(incompatibleOption)) {
                 contractOptions.retainAll(incompatibleOptions);
+                throw new IncompatibleOptionException("Incompatible Options: "
+                        + setToMessage(incompatibleOptions));
             }
+        }
+        if (requiredOptions.size() > 0) {
+            throw new RequiredOptionException("Required Options: "
+                    + setToMessage(requiredOptions));
         }
         contract.getOptions().add(option);
         contractDAO.update(contract);
     }
 
     // TODO: locked check
-    public void removeOption(String contractId, String optionId) {
+    // TODO: Done
+    public void removeOption(String contractId, String optionId) throws RequiredOptionException {
         Long conId = Long.parseLong(contractId);
         Long optId = Long.parseLong(optionId);
         Contract contract = contractDAO.read(conId);
         Option option = optionDAO.read(optId);
+        Set<Option> requiredOptions = option.getRequiredOptions();
+        logger.debug("requiredOptions " + setToMessage(requiredOptions));
+        if (requiredOptions.size() > 0) {
+            throw new RequiredOptionException("Required Options: "
+                    + setToMessage(requiredOptions));
+        }
         contract.getOptions().remove(option);
         contractDAO.update(contract);
     }

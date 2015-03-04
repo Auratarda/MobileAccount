@@ -1,4 +1,4 @@
-package com.tsystems.javaschool.servlets;
+package com.tsystems.javaschool.web.filters;
 
 import javax.servlet.*;
 import java.io.IOException;

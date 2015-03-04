@@ -1,4 +1,6 @@
-package com.tsystems.javaschool.servlets;
+package com.tsystems.javaschool.web.filters;
+
+import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -9,6 +11,7 @@ import java.io.IOException;
 
 @WebFilter("/AuthenticationFilter")
 public class AuthFilter implements Filter {
+    private final static Logger logger = Logger.getLogger(AuthFilter.class);
 
     private ServletContext context;
 
@@ -23,7 +26,7 @@ public class AuthFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
 
         String uri = req.getRequestURI();
-        this.context.log("Requested Resource::" + uri);
+        logger.debug("Requested Resource:: " + uri);
 
         HttpSession session = req.getSession(false);
 

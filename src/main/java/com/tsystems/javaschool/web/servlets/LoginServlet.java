@@ -1,4 +1,4 @@
-package com.tsystems.javaschool.servlets;
+package com.tsystems.javaschool.web.servlets;
 
 import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.exceptions.LoginException;
@@ -11,9 +11,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,6 +33,7 @@ public class LoginServlet extends HttpServlet {
         Client client;
         try {
             client = clientService.login(email, password);
+            String id = "" + client.getId();
             String firstName = client.getFirstName();
             String lastName = client.getLastName();
             Date date = client.getDateOfBirth();
@@ -43,12 +42,16 @@ public class LoginServlet extends HttpServlet {
             String address = client.getAddress();
             String passport = client.getPassport();
             email = client.getEmail();
-            request.getSession().setAttribute("firstName", firstName);
-            request.getSession().setAttribute("lastName", lastName);
-            request.getSession().setAttribute("dateOfBirth", dateOfBirth);
-            request.getSession().setAttribute("email", email);
-            request.getSession().setAttribute("address", address);
-            request.getSession().setAttribute("passport", passport);
+            HttpSession session = request.getSession();
+            session.setAttribute("firstName", firstName);
+            session.setAttribute("lastName", lastName);
+            session.setAttribute("dateOfBirth", dateOfBirth);
+            session.setAttribute("email", email);
+            session.setAttribute("address", address);
+            session.setAttribute("passport", passport);
+            Cookie userID = new Cookie("id", id);
+            userID.setMaxAge(24 * 60 * 60);
+            response.addCookie(userID);
             RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/client.jsp");
             view.forward(request, response);
         } catch (LoginException e) {
