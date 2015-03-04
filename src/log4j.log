@@ -243,3 +243,21 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExce
 2015-03-04 00:05:27 DEBUG OperatorService:62 - Adding new option
 2015-03-04 00:05:27 DEBUG OperatorService:62 - Adding new option
 2015-03-04 00:05:27 INFO  InitAppTestData:89 - Commit success!
+2015-03-04 10:23:21 INFO  ClientServiceImpl:27 - Creating client service
+2015-03-04 10:23:21 INFO  AppTest:27 - Commit success!
+2015-03-04 10:29:55 INFO  ClientServiceImpl:27 - Creating client service
+2015-03-04 10:29:55 DEBUG ClientServiceImpl:63 - contractOptionsnullЛюбимый номер, Скрыть номер.
+2015-03-04 10:29:55 DEBUG ClientServiceImpl:71 - tariffOptionsnullЛюбимый номер, Обещанный платеж, Маячок, Скрыть номер.
+2015-03-04 10:29:55 INFO  AppTest:27 - Commit success!
+2015-03-04 10:31:44 INFO  ClientServiceImpl:27 - Creating client service
+2015-03-04 10:31:44 DEBUG ClientServiceImpl:63 - contractOptions nullСкрыть номер, Любимый номер.
+2015-03-04 10:31:44 DEBUG ClientServiceImpl:71 - tariffOptions nullСкрыть номер, Маячок, Любимый номер, Обещанный платеж.
+2015-03-04 10:31:44 INFO  AppTest:27 - Commit success!
+2015-03-04 10:34:01 INFO  ClientServiceImpl:27 - Creating client service
+2015-03-04 10:34:01 DEBUG ClientServiceImpl:63 - contractOptions Скрыть номер, Любимый номер.
+2015-03-04 10:34:01 DEBUG ClientServiceImpl:71 - tariffOptions Маячок, Любимый номер, Обещанный платеж.
+2015-03-04 10:34:01 ERROR AppTest:29 - Couldn't change the tarrif!Tariff not supported options: Маячок, Обещанный платеж.
+2015-03-04 10:36:05 INFO  ClientServiceImpl:27 - Creating client service
+2015-03-04 10:36:05 DEBUG ClientServiceImpl:63 - contractOptions Скрыть номер, Любимый номер.
+2015-03-04 10:36:05 DEBUG ClientServiceImpl:71 - tariffOptions Любимый номер, Обещанный платеж, Маячок.
+2015-03-04 10:36:05 ERROR AppTest:29 - Couldn't change the tarrif! Tariff not supported options: Скрыть номер.

@@ -34,7 +34,6 @@ public class LoginServlet extends HttpServlet {
         ClientService clientService = new ClientServiceImpl(em);
         Client client;
         try {
-            logger.debug("Attempting to log in");   // TODO: no useful information, dublicate of event
             client = clientService.login(email, password);
             String firstName = client.getFirstName();
             String lastName = client.getLastName();

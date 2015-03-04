@@ -3,6 +3,7 @@ package com.tsystems.javaschool.services;
 import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.exceptions.LoginException;
+import com.tsystems.javaschool.exceptions.TariffNotSupportedOptionException;
 
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public interface ClientService {
     /**
      * Modify contract.
      */
-    void changeTariff(String contractId, String tariffId);
+    void changeTariff(String contractId, String tariffId) throws TariffNotSupportedOptionException;
 
     void addOption(String contractId, String optionId);
 

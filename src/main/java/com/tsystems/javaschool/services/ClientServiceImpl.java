@@ -6,6 +6,7 @@ import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
 import com.tsystems.javaschool.entities.Tariff;
 import com.tsystems.javaschool.exceptions.LoginException;
+import com.tsystems.javaschool.exceptions.TariffNotSupportedOptionException;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -45,11 +46,41 @@ public class ClientServiceImpl implements ClientService {
 
     // TODO: what will happen with options?
     // TODO: locked check
-    public void changeTariff(String contractId, String tariffId) {
+    // TODO: Done
+    public void changeTariff(String contractId, String tariffId) throws TariffNotSupportedOptionException {
         Long conId = Long.parseLong(contractId);
         Long tarId = Long.parseLong(tariffId);
         Contract contract = contractDAO.read(conId);
         Tariff tariff = tariffDAO.read(tarId);
+        Set<Option> contractOptions = contract.getOptions();
+        Set<Option> tariffOptions = tariff.getOptions();
+
+        String message = "";
+        int size = contractOptions.size();
+        for (Option contractOption : contractOptions) {
+            message += contractOption.getName();
+            message += (--size == 0) ? "." : ", ";
+        }
+        logger.debug("contractOptions " + message);
+
+        message = "";
+        size = tariffOptions.size();
+        for (Option tariffOption : tariffOptions) {
+            message += tariffOption.getName();
+            message += (--size == 0) ? "." : ", ";
+        }
+        logger.debug("tariffOptions " + message);
+
+        if (!tariffOptions.containsAll(contractOptions)) {
+            contractOptions.removeAll(tariffOptions);
+            message = "";
+            size = contractOptions.size();
+            for (Option contractOption : contractOptions) {
+                message += contractOption.getName();
+                message += (--size == 0) ? "." : ", ";
+            }
+            throw new TariffNotSupportedOptionException("Tariff not supported options: " + message);
+        }
         contract.setTariff(tariff);
         contractDAO.update(contract);
     }
