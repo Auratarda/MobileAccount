@@ -1,10 +1,13 @@
 package com.tsystems.javaschool.web.servlets;
 
 import com.tsystems.javaschool.entities.Client;
+import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.exceptions.LoginException;
 import com.tsystems.javaschool.persistence.PersistenceUtil;
 import com.tsystems.javaschool.services.ClientService;
 import com.tsystems.javaschool.services.ClientServiceImpl;
+import com.tsystems.javaschool.services.OperatorService;
+import com.tsystems.javaschool.services.OperatorServiceImpl;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -15,6 +18,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * LoginServlet.
@@ -29,6 +33,7 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         EntityManager em = PersistenceUtil.getEntityManager();
+        OperatorService operatorService = new OperatorServiceImpl(em);
         ClientService clientService = new ClientServiceImpl(em);
         Client client;
         try {
@@ -52,8 +57,15 @@ public class LoginServlet extends HttpServlet {
             Cookie userID = new Cookie("id", id);
             userID.setMaxAge(24 * 60 * 60);
             response.addCookie(userID);
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/client.jsp");
-            view.forward(request, response);
+            if (email.equals("sidor@ya.ru") && password.equals("admin")) {
+                List<Contract> contracts = operatorService.findAllContracts();
+                session.setAttribute("contracts", contracts);
+                RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/admin.jsp");
+                view.forward(request, response);
+            } else {
+                RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/client.jsp");
+                view.forward(request, response);
+            }
         } catch (LoginException e) {
             logger.debug("Client is not found");
             RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/loginError.jsp");

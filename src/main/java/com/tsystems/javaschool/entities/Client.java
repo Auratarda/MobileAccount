@@ -117,10 +117,6 @@ public class Client implements Serializable{
 
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+        return firstName + " " + lastName;
     }
 }

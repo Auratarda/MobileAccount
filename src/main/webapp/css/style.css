@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    min-width: 1000px;
+}
+
+#header {
+    position: relative;
+    width: 100%;
+    font-size: 25px;
+    text-align: center;
+    color: white;
+    background-color: black;
+    padding: 15px;
+}
+
+TABLE {
+    width: 300px;
+    border-collapse: collapse;
+}
+
+TH {
+    padding: 3px;
+    border: 1px solid black;
+    background-color: lightgreen;
+}
+
+TD {
+    padding: 3px;
+    border: 1px solid black;
+}
+
+#nav {
+    font-size: 20px;
+    line-height: 30px;
+    background-color: #eeeeee;
+    height: 75%;
+    width: 10%;
+    float: left;
+}
+
+#section {
+    margin-left: 50px;
+    opacity: 0.7;
+    font-size: 25px;
+    height: 75%;
+    width: 90%;
+}
+
+#login {
+    float: left;
+    position: absolute;
+    top: 40%;
+    left: 47%;
+    text-align: center;
+}
+
+#topNav {
+    width: 70%;
+    float: left;
+    margin: 0 0 3em 0;
+    padding: 0;
+    list-style: none;
+}
+
+#topNav li {
+    float: left;
+}
+
+#topNav li a {
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #069;
+}
+
+#topNav li a:hover {
+    color: #c00;
+    background-color: #fff;
+}
+
+.link {
+    text-align: center;
+}
+
+#nav a {
+    color: #9ACD32;
+}
+
+#nav a:visited {
+    color: #000;
+    text-decoration: none;
+}
+
+#nav a:hover {
+    color: #9ACD32;
+    text-decoration: none;
+}
+
+aside {
+    text-align: center;
+    float: right;
+    width: 25%;
+    height: inherit;
+    background: #fff;
+    opacity: 0.5;
+    padding: 40px;
+}
+
+#footer {
+    background-color: black;
+    color: white;
+    clear: both;
+    text-align: center;
+    padding: 15px;
+}
