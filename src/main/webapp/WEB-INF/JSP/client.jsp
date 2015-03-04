@@ -41,7 +41,7 @@
             <td>${sessionScope.passport}</td>
         </tr>
     </table>
-    <a id="main" href="http://localhost:8080/index.jsp"> <input type="button" value="На Главную"/></a>
+    <a id="main" href="http://localhost:8080/MobileAccount/index.jsp"> <input type="button" value="На Главную"/></a>
 </div>
 </body>
 </html>
