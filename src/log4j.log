@@ -87,3 +87,54 @@
 2015-03-04 14:03:40 DEBUG AuthFilter:34 - Unauthorized access request
 2015-03-04 14:03:40 DEBUG AuthFilter:28 - Request URI = /MobileAccount/index.jsp
 2015-03-04 14:03:40 DEBUG AuthFilter:30 - Session = null
+2015-03-04 14:17:20 DEBUG AuthFilter:28 - Request URI = /MobileAccount/index.jsp
+2015-03-04 14:17:20 DEBUG AuthFilter:30 - Session = null
+2015-03-04 15:02:18 DEBUG AuthFilter:28 - Request URI = /MobileAccount/
+2015-03-04 15:02:18 DEBUG AuthFilter:30 - Session = null
+2015-03-04 15:02:18 DEBUG AuthFilter:34 - Unauthorized access request
+2015-03-04 15:02:18 DEBUG AuthFilter:28 - Request URI = /MobileAccount/index.jsp
+2015-03-04 15:02:18 DEBUG AuthFilter:30 - Session = null
+2015-03-04 15:02:20 DEBUG AuthFilter:28 - Request URI = /MobileAccount/
+2015-03-04 15:02:20 DEBUG AuthFilter:30 - Session = null
+2015-03-04 15:02:20 DEBUG AuthFilter:34 - Unauthorized access request
+2015-03-04 15:02:20 DEBUG AuthFilter:28 - Request URI = /MobileAccount/index.jsp
+2015-03-04 15:02:20 DEBUG AuthFilter:30 - Session = null
+2015-03-04 15:12:22 DEBUG AuthFilter:28 - Request URI = /MobileAccount/index.jsp
+2015-03-04 15:12:22 DEBUG AuthFilter:30 - Session = null
+2015-03-04 15:15:04 DEBUG AuthFilter:28 - Request URI = /MobileAccount/
+2015-03-04 15:15:04 DEBUG AuthFilter:30 - Session = null
+2015-03-04 15:15:04 DEBUG AuthFilter:34 - Unauthorized access request
+2015-03-04 15:15:07 DEBUG AuthFilter:28 - Request URI = /MobileAccount/
+2015-03-04 15:15:07 DEBUG AuthFilter:30 - Session = null
+2015-03-04 15:15:07 DEBUG AuthFilter:34 - Unauthorized access request
+2015-03-04 15:15:07 DEBUG AuthFilter:28 - Request URI = /MobileAccount/css/index.css
+2015-03-04 15:15:07 DEBUG AuthFilter:30 - Session = org.apache.catalina.session.StandardSessionFacade@d8b870
+2015-03-04 15:18:24 DEBUG AuthFilter:28 - Request URI = /MobileAccount/
+2015-03-04 15:18:24 DEBUG AuthFilter:30 - Session = null
+2015-03-04 15:18:24 DEBUG AuthFilter:34 - Unauthorized access request
+2015-03-04 15:18:26 DEBUG AuthFilter:28 - Request URI = /MobileAccount/
+2015-03-04 15:18:26 DEBUG AuthFilter:30 - Session = null
+2015-03-04 15:18:26 DEBUG AuthFilter:34 - Unauthorized access request
+2015-03-04 15:20:23 DEBUG AuthFilter:28 - Request URI = /MobileAccount/test.jsp
+2015-03-04 15:20:23 DEBUG AuthFilter:30 - Session = org.apache.catalina.session.StandardSessionFacade@3248be
+2015-03-04 15:20:57 DEBUG AuthFilter:28 - Request URI = /MobileAccount/login
+2015-03-04 15:20:57 DEBUG AuthFilter:30 - Session = org.apache.catalina.session.StandardSessionFacade@3248be
+2015-03-04 15:20:57 INFO  LoginServlet:30 - Starting login servlet
+2015-03-04 15:21:00 INFO  ClientServiceImpl:27 - Creating client service
+2015-03-04 15:21:00 DEBUG AuthFilter:28 - Request URI = /MobileAccount/login
+2015-03-04 15:21:00 DEBUG AuthFilter:30 - Session = org.apache.catalina.session.StandardSessionFacade@3248be
+2015-03-04 15:21:00 INFO  LoginServlet:30 - Starting login servlet
+2015-03-04 15:21:00 INFO  ClientServiceImpl:27 - Creating client service
+2015-03-04 15:21:01 DEBUG AuthFilter:28 - Request URI = /MobileAccount/css/client.css
+2015-03-04 15:21:01 DEBUG AuthFilter:30 - Session = org.apache.catalina.session.StandardSessionFacade@3248be
+2015-03-04 15:21:16 DEBUG AuthFilter:28 - Request URI = /MobileAccount/index.jsp
+2015-03-04 15:21:16 DEBUG AuthFilter:30 - Session = org.apache.catalina.session.StandardSessionFacade@3248be
+2015-03-04 15:21:42 DEBUG AuthFilter:28 - Request URI = /MobileAccount/login
+2015-03-04 15:21:42 DEBUG AuthFilter:30 - Session = org.apache.catalina.session.StandardSessionFacade@3248be
+2015-03-04 15:21:42 INFO  LoginServlet:30 - Starting login servlet
+2015-03-04 15:21:42 INFO  ClientServiceImpl:27 - Creating client service
+2015-03-04 15:21:42 DEBUG LoginServlet:55 - Client is not found
+2015-03-04 15:21:48 DEBUG AuthFilter:28 - Request URI = /MobileAccount/index.jsp
+2015-03-04 15:21:48 DEBUG AuthFilter:30 - Session = org.apache.catalina.session.StandardSessionFacade@3248be
+2015-03-04 15:56:03 INFO  LoginServlet:30 - Starting login servlet
+2015-03-04 15:56:05 INFO  ClientServiceImpl:27 - Creating client service

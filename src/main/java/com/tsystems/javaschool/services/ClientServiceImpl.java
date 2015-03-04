@@ -31,6 +31,16 @@ public class ClientServiceImpl implements ClientService {
         optionDAO = new OptionDAOImpl(em);
     }
 
+    private static String setToMessage(Set<Option> set) {
+        String message = "";
+        int size = set.size();
+        for (Option item : set) {
+            message += item.getName();
+            message += (--size == 0) ? "." : ", ";
+        }
+        return message;
+    }
+
     /**
      * View contract.
      */
@@ -55,31 +65,13 @@ public class ClientServiceImpl implements ClientService {
         Set<Option> contractOptions = contract.getOptions();
         Set<Option> tariffOptions = tariff.getOptions();
 
-        String message = "";
-        int size = contractOptions.size();
-        for (Option contractOption : contractOptions) {
-            message += contractOption.getName();
-            message += (--size == 0) ? "." : ", ";
-        }
-        logger.debug("contractOptions " + message);
-
-        message = "";
-        size = tariffOptions.size();
-        for (Option tariffOption : tariffOptions) {
-            message += tariffOption.getName();
-            message += (--size == 0) ? "." : ", ";
-        }
-        logger.debug("tariffOptions " + message);
+        logger.debug("contractOptions " + setToMessage(contractOptions));
+        logger.debug("tariffOptions " + setToMessage(tariffOptions));
 
         if (!tariffOptions.containsAll(contractOptions)) {
             contractOptions.removeAll(tariffOptions);
-            message = "";
-            size = contractOptions.size();
-            for (Option contractOption : contractOptions) {
-                message += contractOption.getName();
-                message += (--size == 0) ? "." : ", ";
-            }
-            throw new TariffNotSupportedOptionException("Tariff not supported options: " + message);
+            throw new TariffNotSupportedOptionException("Tariff not supported options: "
+                    + setToMessage(contractOptions));
         }
         contract.setTariff(tariff);
         contractDAO.update(contract);
@@ -92,6 +84,19 @@ public class ClientServiceImpl implements ClientService {
         Long optId = Long.parseLong(optionId);
         Contract contract = contractDAO.read(conId);
         Option option = optionDAO.read(optId);
+        Set<Option> contractOptions = contract.getOptions();
+        Set<Option> incompatibleOptions = option.getIncompatibleOptions();
+        Set<Option> requiredOptions = option.getRequiredOptions();
+
+        logger.debug("contractOptions " + setToMessage(contractOptions));
+        logger.debug("incompatibleOptions " + setToMessage(incompatibleOptions));
+        logger.debug("requiredOptions " + setToMessage(requiredOptions));
+
+        for (Option incompatibleOption : incompatibleOptions) {
+            if (contractOptions.contains(incompatibleOption)) {
+                contractOptions.retainAll(incompatibleOptions);
+            }
+        }
         contract.getOptions().add(option);
         contractDAO.update(contract);
     }

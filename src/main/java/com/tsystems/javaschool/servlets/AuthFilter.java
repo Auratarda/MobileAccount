@@ -1,46 +1,43 @@
 package com.tsystems.javaschool.servlets;
 
-import org.apache.log4j.Logger;
-
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-
+@WebFilter("/AuthenticationFilter")
 public class AuthFilter implements Filter {
-    private static final Logger LOGGER = Logger.getLogger(AuthFilter.class);
-    private String pathToBeIgnored;
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        pathToBeIgnored = filterConfig.getInitParameter("pathToBeIgnored");
+    private ServletContext context;
+
+    public void init(FilterConfig fConfig) throws ServletException {
+        this.context = fConfig.getServletContext();
+        this.context.log("AuthenticationFilter initialized");
     }
 
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-            throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
-        HttpServletResponse res = (HttpServletResponse) servletResponse;
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
 
         String uri = req.getRequestURI();
-        LOGGER.debug("Request URI = " + uri);
-        HttpSession session = req.getSession(false);
-        LOGGER.debug("Session = " + session);
+        this.context.log("Requested Resource::" + uri);
 
-        if (session == null) {
-            if (!uri.contains(pathToBeIgnored)) {
-                LOGGER.debug("Unauthorized access request");
-                res.sendRedirect("index.jsp");
-            }
+        HttpSession session = req.getSession(false);
+
+        if (session == null && !(uri.endsWith("index.jsp") || uri.endsWith("Login"))) {
+            this.context.log("Unauthorized access request");
+            res.sendRedirect("index.jsp");
         } else {
-            filterChain.doFilter(servletRequest, servletResponse);
+            // pass the request along the filter chain
+            chain.doFilter(request, response);
         }
     }
 
-    @Override
     public void destroy() {
-        this.pathToBeIgnored = null;
+        //close any resources here
     }
+
 }
