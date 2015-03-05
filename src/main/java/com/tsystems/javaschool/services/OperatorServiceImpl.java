@@ -139,6 +139,11 @@ public class OperatorServiceImpl implements OperatorService {
         return tariffDAO.getAll();
     }
 
+    public List<Option> findAllOptions() {
+        logger.debug("Reading all options");
+        return optionDAO.getAll();
+    }
+
     public Client findById(Long clientId) {
         logger.debug("Reading a client");
         return clientDAO.read(clientId);
