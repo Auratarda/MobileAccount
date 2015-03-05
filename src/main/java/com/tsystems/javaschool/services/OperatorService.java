@@ -55,6 +55,8 @@ public interface OperatorService {
 
     List<Contract> findAllContracts();
 
+    public List<Tariff> findAllTariffs();
+
     /**
      * Lock/unlock contracts.
      */

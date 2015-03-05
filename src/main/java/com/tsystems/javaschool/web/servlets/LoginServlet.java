@@ -2,6 +2,7 @@ package com.tsystems.javaschool.web.servlets;
 
 import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
+import com.tsystems.javaschool.entities.Tariff;
 import com.tsystems.javaschool.exceptions.LoginException;
 import com.tsystems.javaschool.persistence.PersistenceUtil;
 import com.tsystems.javaschool.services.ClientService;
@@ -59,7 +60,9 @@ public class LoginServlet extends HttpServlet {
             response.addCookie(userID);
             if (email.equals("sidor@ya.ru") && password.equals("admin")) {
                 List<Contract> contracts = operatorService.findAllContracts();
+                List<Tariff> tariffs = operatorService.findAllTariffs();
                 session.setAttribute("contracts", contracts);
+                session.setAttribute("tariffs", tariffs);
                 RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/admin.jsp");
                 view.forward(request, response);
             } else {

@@ -46,6 +46,11 @@ TD {
     width: 90%;
 }
 
+div.table {
+    margin-left: 170px;
+    display: none;
+}
+
 #login {
     float: left;
     position: absolute;

@@ -122,7 +122,7 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     /**
-     * View all clients and contracts. Find client by ID.
+     * View all clients, contracts, tariffs. Find client by ID.
      */
     public List<Client> findAllClients() {
         logger.debug("Reading all clients");
@@ -132,6 +132,11 @@ public class OperatorServiceImpl implements OperatorService {
     public List<Contract> findAllContracts() {
         logger.debug("Reading all contracts");
         return contractDAO.getAll();
+    }
+
+    public List<Tariff> findAllTariffs() {
+        logger.debug("Reading all tariffs");
+        return tariffDAO.getAll();
     }
 
     public Client findById(Long clientId) {
