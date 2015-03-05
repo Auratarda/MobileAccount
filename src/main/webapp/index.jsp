@@ -11,6 +11,7 @@
 <div align="center">
   <h1>Добро пожаловать в Java School Mobile Operator!</h1>
 
+    <%--TODO: use relative urls--%>
   <form method="POST" action="/MobileAccount/login">
     <table>
       <tr>

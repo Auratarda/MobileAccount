@@ -41,6 +41,7 @@
             <td>${sessionScope.passport}</td>
         </tr>
     </table>
+    <%--TODO: use relative urls--%>
     <a id="main" href="http://localhost:8080/MobileAccount/index.jsp"> <input type="button" value="На Главную"/></a>
 </div>
 </body>

@@ -45,6 +45,10 @@ public class InitAppTestData {
             // TODO: it is still type casting
             for (int i = 0; i < 5; i++) {
                 /** Create client */
+                // TODO: hard to understand which data belongs where
+                // TODO: rewrite it like
+                // TODO: operatorService.createNewClient("вася", "123", new Date(), "туточкина", ...
+
                 operatorService.createNewClient(firstNames.get(i),
                         lastNames.get(i), new Date(), addresses.get(i),
                         passports.get(i), emails.get(i), passwords.get(i));
