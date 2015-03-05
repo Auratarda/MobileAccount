@@ -44,6 +44,7 @@ public class InitAppTestData {
 
             // TODO Type casting is ugly and can cause performance problems
             // TODO use types that you need at start
+            // TODO Done
             for (int i = 0; i < 5; i++) {
                 /** Create client */
                 operatorService.createNewClient(firstNames.get(i),
@@ -52,19 +53,20 @@ public class InitAppTestData {
                 /** Create contract */
                 operatorService.createNewContract(contracts.get(i));
                 /** Create tariff */
-                operatorService.createNewTariff(tariffs.get(i), (long) ((i + 1) * 100));
+                operatorService.createNewTariff(tariffs.get(i), ((i + 1L) * 100));
                 /** Create options */
                 operatorService.createNewOption(options.get(i * 2),
-                        (long) ((i + 1) * 10), (long) ((i + 1) * 20));
+                        ((i + 1L) * 10), ((i + 1L) * 20));
                 operatorService.createNewOption(options.get(i * 2 + 1),
-                        (long) ((i + 1) * 10), (long) ((i + 1) * 20));
+                        ((i + 1L) * 10), ((i + 1L) * 20));
             }
             // TODO for this you can use suffixes for ex.: 1L, 2L ...
-            Option option_1 = operatorService.findOptionByID((long) (1));
-            Option option_2 = operatorService.findOptionByID((long) (2));
-            Option option_3 = operatorService.findOptionByID((long) (3));
-            Option option_4 = operatorService.findOptionByID((long) (4));
-            Option option_5 = operatorService.findOptionByID((long) (5));
+            // TODO Done
+            Option option_1 = operatorService.findOptionByID((1L));
+            Option option_2 = operatorService.findOptionByID((2L));
+            Option option_3 = operatorService.findOptionByID((3L));
+            Option option_4 = operatorService.findOptionByID((4L));
+            Option option_5 = operatorService.findOptionByID((5L));
             /** 1 & 2 - set required options */
             option_1.getRequiredOptions().add(option_2);
             /** 1 & 5 - set incompatible options */
