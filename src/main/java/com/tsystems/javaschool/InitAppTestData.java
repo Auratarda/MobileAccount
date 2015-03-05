@@ -66,7 +66,7 @@ public class InitAppTestData {
             /** 1 & 2 - set required options */
             option_1.getRequiredOptions().add(option_2);
             /** 1 & 5 - set incompatible options */
-//            option_1.getIncompatibleOptions().add(option_5);
+            option_1.getIncompatibleOptions().add(option_5);
             // TODO: it is still type casting
             for (int i = 0; i < 5; i++) {
                 /** Find entities */
