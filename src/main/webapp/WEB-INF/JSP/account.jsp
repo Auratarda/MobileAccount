@@ -8,7 +8,7 @@
 <body>
 
 <div id="header">
-    <h1>Администратор ${sessionScope.firstName}</h1>
+    <h1>Добро пожаловать в личный кабинет, ${client.firstName} ${client.lastName}</h1>
 </div>
 <div id="nav">
     <div class="link">
@@ -22,20 +22,21 @@
 
     <div id="topNav">
         <ul>
+            <li><input class="myButton" type="button" value="Личные данные"></li>
             <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="contracts">
-                    <input class="myButton" type="submit" value="Контракты">
+                <form method="post" action="client">
+                    <input type="hidden" name="source" value="contract">
+                    <input class="myButton" type="submit" value="Контракт">
                 </form>
             </li>
             <li>
-                <form method="post" action="admin">
+                <form method="post" action="client">
                     <input type="hidden" name="source" value="tariffs">
                     <input class="myButton" type="submit" value="Тарифы">
                 </form>
             </li>
             <li>
-                <form method="post" action="admin">
+                <form method="post" action="client">
                     <input type="hidden" name="source" value="options">
                     <input class="myButton" type="submit" value="Опции">
                 </form>

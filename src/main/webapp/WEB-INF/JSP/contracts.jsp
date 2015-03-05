@@ -4,6 +4,20 @@
 <head>
     <title>Админка</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script type="text/javascript">
+        //<![CDATA[
+        function get_form(element) {
+            while (element) {
+                element = element.parentNode
+                if (element.tagName.toLowerCase() == "form") {
+                    //alert( element ) //debug/test
+                    return element
+                }
+            }
+            return 0; //error: no form found in ancestors
+        }
+        //]]>
+    </script>
 </head>
 <body>
 
@@ -47,7 +61,14 @@
             <c:forEach var="contract" items="${sessionScope.contracts}">
                 <tr>
                     <td>${contract.client}</td>
-                    <td>+7${contract.number}</td>
+                    <td>
+                        <form action="admin" method="post">
+                            <a href="javascript:;"
+                               onclick="get_form(this).submit(); return false">+7${contract.number}</a>
+                            <input type="hidden" name="source" value="client">
+                            <input type="hidden" name="number" value=${contract.number}>
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
@@ -56,7 +77,7 @@
 
 <div id="footer">
     <p>
-        CreatedBy © Stanchin Denis & Vasilevskii Stanislav
+        CreatedBy © Vasilevskii Stanislav
     </p>
 </div>
 </body>

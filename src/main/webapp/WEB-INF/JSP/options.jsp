@@ -58,7 +58,7 @@
 
 <div id="footer">
     <p>
-        CreatedBy © Stanchin Denis & Vasilevskii Stanislav
+        CreatedBy © Vasilevskii Stanislav
     </p>
 </div>
 </body>

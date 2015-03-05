@@ -28,6 +28,8 @@ public interface OperatorService {
     /**
      * Find entities.
      */
+    Client findClientByNumber(String number);
+
     Client findClientByID(Long clientId);
 
     Contract findContractByID(Long contractId);

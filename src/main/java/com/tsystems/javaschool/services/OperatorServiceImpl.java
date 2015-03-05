@@ -67,6 +67,10 @@ public class OperatorServiceImpl implements OperatorService {
     /**
      * Find entities.
      */
+    public Client findClientByNumber(String number) {
+        return contractDAO.findClientByNumber(number);
+    }
+
     public Client findClientByID(Long clientId) {
         return clientDAO.read(clientId);
     }

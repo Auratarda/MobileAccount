@@ -1,5 +1,6 @@
 package com.tsystems.javaschool.web.servlets;
 
+import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
 import com.tsystems.javaschool.entities.Tariff;
@@ -48,6 +49,13 @@ public class AdminServlet extends HttpServlet {
             List<Option> options = operatorService.findAllOptions();
             session.setAttribute("options", options);
             RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/options.jsp");
+            view.forward(request, response);
+        } else if (source.equals("client")) {
+            String number = request.getParameter("number");
+            logger.debug("Contract number = " + number);
+            Client client = operatorService.findClientByNumber(number);
+            session.setAttribute("client", client);
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/client.jsp");
             view.forward(request, response);
         }
     }

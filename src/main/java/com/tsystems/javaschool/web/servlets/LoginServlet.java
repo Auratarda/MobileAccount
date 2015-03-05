@@ -17,8 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,6 +31,7 @@ public class LoginServlet extends HttpServlet {
         logger.info("Starting login servlet");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        HttpSession session = request.getSession();
         EntityManager em = PersistenceUtil.getEntityManager();
         OperatorService operatorService = new OperatorServiceImpl(em);
         ClientService clientService = new ClientServiceImpl(em);
@@ -40,21 +39,7 @@ public class LoginServlet extends HttpServlet {
         try {
             client = clientService.login(email, password);
             String id = "" + client.getId();
-            String firstName = client.getFirstName();
-            String lastName = client.getLastName();
-            Date date = client.getDateOfBirth();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            String dateOfBirth = sdf.format(date);
-            String address = client.getAddress();
-            String passport = client.getPassport();
-            email = client.getEmail();
-            HttpSession session = request.getSession();
-            session.setAttribute("firstName", firstName);
-            session.setAttribute("lastName", lastName);
-            session.setAttribute("dateOfBirth", dateOfBirth);
-            session.setAttribute("email", email);
-            session.setAttribute("address", address);
-            session.setAttribute("passport", passport);
+            session.setAttribute("client", client);
             Cookie userID = new Cookie("id", id);
             userID.setMaxAge(24 * 60 * 60);
             response.addCookie(userID);
@@ -66,7 +51,7 @@ public class LoginServlet extends HttpServlet {
                 RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/admin.jsp");
                 view.forward(request, response);
             } else {
-                RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/client.jsp");
+                RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/account.jsp");
                 view.forward(request, response);
             }
         } catch (LoginException e) {
