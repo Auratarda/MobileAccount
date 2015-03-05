@@ -30,9 +30,6 @@ public class ClientServiceImpl implements ClientService {
         optionDAO = new OptionDAOImpl(em);
     }
 
-    // TODO: better call it optionsToString it is more readable and have meaning
-    // TODO: set always mean setter for something
-    // TODO: Done
     private static String optionsToString(Set<Option> set) {
         String message = "";
         int size = set.size();
@@ -56,8 +53,6 @@ public class ClientServiceImpl implements ClientService {
         return client.getContracts();
     }
 
-    // TODO: where will you check if contract is blocked?
-    // TODO: Done
     public void changeTariff(String contractId, String tariffId) throws TariffNotSupportedOptionException, ContractIsBlockedException {
         Long conId = Long.parseLong(contractId);
         Long tarId = Long.parseLong(tariffId);
@@ -75,7 +70,6 @@ public class ClientServiceImpl implements ClientService {
         // TODO: how do you explain to customer what was happened?
         // TODO: I will catch exception in servlet, parse the message
         // TODO: and notify the client
-        // TODO: Not yet done
         if (!tariffOptions.containsAll(contractOptions)) {
             contractOptions.removeAll(tariffOptions);
             throw new TariffNotSupportedOptionException("Tariff not supported options: "
@@ -85,8 +79,6 @@ public class ClientServiceImpl implements ClientService {
         contractDAO.update(contract);
     }
 
-    // TODO: where will you check if contract is blocked?
-    // TODO: Done
     public void addOption(String contractId, String optionId) throws IncompatibleOptionException, RequiredOptionException, ContractIsBlockedException {
         Long conId = Long.parseLong(contractId);
         Long optId = Long.parseLong(optionId);

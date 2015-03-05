@@ -42,9 +42,7 @@ public class InitAppTestData {
             /** Option dump */
             List<String> options = createOptions();
 
-            // TODO Type casting is ugly and can cause performance problems
-            // TODO use types that you need at start
-            // TODO Done
+            // TODO: it is still type casting
             for (int i = 0; i < 5; i++) {
                 /** Create client */
                 operatorService.createNewClient(firstNames.get(i),
@@ -60,8 +58,6 @@ public class InitAppTestData {
                 operatorService.createNewOption(options.get(i * 2 + 1),
                         ((i + 1L) * 10), ((i + 1L) * 20));
             }
-            // TODO for this you can use suffixes for ex.: 1L, 2L ...
-            // TODO Done
             Option option_1 = operatorService.findOptionByID((1L));
             Option option_2 = operatorService.findOptionByID((2L));
             Option option_3 = operatorService.findOptionByID((3L));
@@ -71,6 +67,7 @@ public class InitAppTestData {
             option_1.getRequiredOptions().add(option_2);
             /** 1 & 5 - set incompatible options */
             option_1.getIncompatibleOptions().add(option_5);
+            // TODO: it is still type casting
             for (int i = 0; i < 5; i++) {
                 /** Find entities */
                 Client client = operatorService.findClientByID((long) (i + 1));
