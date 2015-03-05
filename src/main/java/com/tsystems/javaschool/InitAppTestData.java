@@ -42,6 +42,8 @@ public class InitAppTestData {
             /** Option dump */
             List<String> options = createOptions();
 
+            // TODO Type casting is ugly and can cause performance problems
+            // TODO use types that you need at start
             for (int i = 0; i < 5; i++) {
                 /** Create client */
                 operatorService.createNewClient(firstNames.get(i),
@@ -57,6 +59,7 @@ public class InitAppTestData {
                 operatorService.createNewOption(options.get(i * 2 + 1),
                         (long) ((i + 1) * 10), (long) ((i + 1) * 20));
             }
+            // TODO for this you can use suffixes for ex.: 1L, 2L ...
             Option option_1 = operatorService.findOptionByID((long) (1));
             Option option_2 = operatorService.findOptionByID((long) (2));
             Option option_3 = operatorService.findOptionByID((long) (3));

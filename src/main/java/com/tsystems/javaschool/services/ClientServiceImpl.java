@@ -33,6 +33,8 @@ public class ClientServiceImpl implements ClientService {
         optionDAO = new OptionDAOImpl(em);
     }
 
+    // TODO: better call it optionsToString it is more readable and have meaning
+    // TODO: set always mean setter for something
     private static String setToMessage(Set<Option> set) {
         String message = "";
         int size = set.size();
@@ -56,9 +58,7 @@ public class ClientServiceImpl implements ClientService {
         return client.getContracts();
     }
 
-    // TODO: what will happen with options?
-    // TODO: locked check
-    // TODO: Done
+    // TODO: where will you check if contract is blocked?
     public void changeTariff(String contractId, String tariffId) throws TariffNotSupportedOptionException {
         Long conId = Long.parseLong(contractId);
         Long tarId = Long.parseLong(tariffId);
@@ -70,6 +70,7 @@ public class ClientServiceImpl implements ClientService {
         logger.debug("contractOptions " + setToMessage(contractOptions));
         logger.debug("tariffOptions " + setToMessage(tariffOptions));
 
+        // TODO: how do you explain to customer what was happened?
         if (!tariffOptions.containsAll(contractOptions)) {
             contractOptions.removeAll(tariffOptions);
             throw new TariffNotSupportedOptionException("Tariff not supported options: "
@@ -79,9 +80,7 @@ public class ClientServiceImpl implements ClientService {
         contractDAO.update(contract);
     }
 
-    // TODO: how will you check options compatibility?
-    // TODO: locked check
-    // TODO: Done
+    // TODO: where will you check if contract is blocked?
     public void addOption(String contractId, String optionId) throws IncompatibleOptionException, RequiredOptionException {
         Long conId = Long.parseLong(contractId);
         Long optId = Long.parseLong(optionId);
@@ -95,6 +94,9 @@ public class ClientServiceImpl implements ClientService {
         logger.debug("incompatibleOptions " + setToMessage(incompatibleOptions));
         logger.debug("requiredOptions " + setToMessage(requiredOptions));
 
+        // TODO: Create method isOptionCompatible it will help you to make code easier to understand.
+        // TODO: It is better to check if options is compatible on higher level of abstraction
+        // TODO: and returns more understandable result.
         for (Option incompatibleOption : incompatibleOptions) {
             if (contractOptions.contains(incompatibleOption)) {
                 contractOptions.retainAll(incompatibleOptions);
@@ -110,8 +112,7 @@ public class ClientServiceImpl implements ClientService {
         contractDAO.update(contract);
     }
 
-    // TODO: locked check
-    // TODO: Done
+    // TODO: where will you check if contract is blocked?
     public void removeOption(String contractId, String optionId) throws RequiredOptionException {
         Long conId = Long.parseLong(contractId);
         Long optId = Long.parseLong(optionId);
