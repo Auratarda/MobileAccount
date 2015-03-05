@@ -5,10 +5,7 @@ import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
 import com.tsystems.javaschool.entities.Tariff;
-import com.tsystems.javaschool.exceptions.IncompatibleOptionException;
-import com.tsystems.javaschool.exceptions.LoginException;
-import com.tsystems.javaschool.exceptions.RequiredOptionException;
-import com.tsystems.javaschool.exceptions.TariffNotSupportedOptionException;
+import com.tsystems.javaschool.exceptions.*;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -35,7 +32,8 @@ public class ClientServiceImpl implements ClientService {
 
     // TODO: better call it optionsToString it is more readable and have meaning
     // TODO: set always mean setter for something
-    private static String setToMessage(Set<Option> set) {
+    // TODO: Done
+    private static String optionsToString(Set<Option> set) {
         String message = "";
         int size = set.size();
         for (Option item : set) {
@@ -59,40 +57,51 @@ public class ClientServiceImpl implements ClientService {
     }
 
     // TODO: where will you check if contract is blocked?
-    public void changeTariff(String contractId, String tariffId) throws TariffNotSupportedOptionException {
+    // TODO: Done
+    public void changeTariff(String contractId, String tariffId) throws TariffNotSupportedOptionException, ContractIsBlockedException {
         Long conId = Long.parseLong(contractId);
         Long tarId = Long.parseLong(tariffId);
         Contract contract = contractDAO.read(conId);
+        if (contract.getBlockedByClient() || contract.getBlockedByOperator()) {
+            throw new ContractIsBlockedException();
+        }
         Tariff tariff = tariffDAO.read(tarId);
         Set<Option> contractOptions = contract.getOptions();
         Set<Option> tariffOptions = tariff.getOptions();
 
-        logger.debug("contractOptions " + setToMessage(contractOptions));
-        logger.debug("tariffOptions " + setToMessage(tariffOptions));
+        logger.debug("contractOptions " + optionsToString(contractOptions));
+        logger.debug("tariffOptions " + optionsToString(tariffOptions));
 
         // TODO: how do you explain to customer what was happened?
+        // TODO: I will catch exception in servlet, parse the message
+        // TODO: and notify the client
+        // TODO: Not yet done
         if (!tariffOptions.containsAll(contractOptions)) {
             contractOptions.removeAll(tariffOptions);
             throw new TariffNotSupportedOptionException("Tariff not supported options: "
-                    + setToMessage(contractOptions));
+                    + optionsToString(contractOptions));
         }
         contract.setTariff(tariff);
         contractDAO.update(contract);
     }
 
     // TODO: where will you check if contract is blocked?
-    public void addOption(String contractId, String optionId) throws IncompatibleOptionException, RequiredOptionException {
+    // TODO: Done
+    public void addOption(String contractId, String optionId) throws IncompatibleOptionException, RequiredOptionException, ContractIsBlockedException {
         Long conId = Long.parseLong(contractId);
         Long optId = Long.parseLong(optionId);
         Contract contract = contractDAO.read(conId);
+        if (contract.getBlockedByClient() || contract.getBlockedByOperator()) {
+            throw new ContractIsBlockedException();
+        }
         Option option = optionDAO.read(optId);
         Set<Option> contractOptions = contract.getOptions();
         Set<Option> incompatibleOptions = option.getIncompatibleOptions();
         Set<Option> requiredOptions = option.getRequiredOptions();
 
-        logger.debug("contractOptions " + setToMessage(contractOptions));
-        logger.debug("incompatibleOptions " + setToMessage(incompatibleOptions));
-        logger.debug("requiredOptions " + setToMessage(requiredOptions));
+        logger.debug("contractOptions " + optionsToString(contractOptions));
+        logger.debug("incompatibleOptions " + optionsToString(incompatibleOptions));
+        logger.debug("requiredOptions " + optionsToString(requiredOptions));
 
         // TODO: Create method isOptionCompatible it will help you to make code easier to understand.
         // TODO: It is better to check if options is compatible on higher level of abstraction
@@ -101,28 +110,31 @@ public class ClientServiceImpl implements ClientService {
             if (contractOptions.contains(incompatibleOption)) {
                 contractOptions.retainAll(incompatibleOptions);
                 throw new IncompatibleOptionException("Incompatible Options: "
-                        + setToMessage(incompatibleOptions));
+                        + optionsToString(incompatibleOptions));
             }
         }
         if (requiredOptions.size() > 0) {
             throw new RequiredOptionException("Required Options: "
-                    + setToMessage(requiredOptions));
+                    + optionsToString(requiredOptions));
         }
         contract.getOptions().add(option);
         contractDAO.update(contract);
     }
 
     // TODO: where will you check if contract is blocked?
-    public void removeOption(String contractId, String optionId) throws RequiredOptionException {
+    public void removeOption(String contractId, String optionId) throws RequiredOptionException, ContractIsBlockedException {
         Long conId = Long.parseLong(contractId);
         Long optId = Long.parseLong(optionId);
         Contract contract = contractDAO.read(conId);
+        if (contract.getBlockedByClient() || contract.getBlockedByOperator()) {
+            throw new ContractIsBlockedException();
+        }
         Option option = optionDAO.read(optId);
         Set<Option> requiredOptions = option.getRequiredOptions();
-        logger.debug("requiredOptions " + setToMessage(requiredOptions));
+        logger.debug("requiredOptions " + optionsToString(requiredOptions));
         if (requiredOptions.size() > 0) {
             throw new RequiredOptionException("Required Options: "
-                    + setToMessage(requiredOptions));
+                    + optionsToString(requiredOptions));
         }
         contract.getOptions().remove(option);
         contractDAO.update(contract);
