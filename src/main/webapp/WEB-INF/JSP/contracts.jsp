@@ -22,12 +22,7 @@
 
     <div id="topNav">
         <ul>
-            <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="contracts">
-                    <input class="myButton" type="submit" value="Контракты">
-                </form>
-            </li>
+            <li><input class="myButton" type="button" value="Контракты"></li>
             <li>
                 <form method="post" action="admin">
                     <input type="hidden" name="source" value="tariffs">
@@ -43,6 +38,20 @@
         </ul>
     </div>
 
+    <div class="table" id="contract">
+        <table>
+            <tr>
+                <th>Клиент</th>
+                <th>Номер</th>
+            </tr>
+            <c:forEach var="contract" items="${sessionScope.contracts}">
+                <tr>
+                    <td>${contract.client}</td>
+                    <td>+7${contract.number}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 </div>
 
 <div id="footer">

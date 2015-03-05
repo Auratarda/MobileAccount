@@ -28,12 +28,7 @@
                     <input class="myButton" type="submit" value="Контракты">
                 </form>
             </li>
-            <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="tariffs">
-                    <input class="myButton" type="submit" value="Тарифы">
-                </form>
-            </li>
+            <li><input class="myButton" type="button" value="Тарифы"></li>
             <li>
                 <form method="post" action="admin">
                     <input type="hidden" name="source" value="options">
@@ -43,6 +38,20 @@
         </ul>
     </div>
 
+    <div class="table" id="tariff">
+        <table>
+            <tr>
+                <th>Тариф</th>
+                <th>Цена</th>
+            </tr>
+            <c:forEach var="tariff" items="${sessionScope.tariffs}">
+                <tr>
+                    <td>${tariff.name}</td>
+                    <td>${tariff.price}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 </div>
 
 <div id="footer">

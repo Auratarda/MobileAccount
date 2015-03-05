@@ -15,7 +15,7 @@ public class Option {
     @Column(name = "OPTION_NAME")
     private String name;
     @Column(name = "OPTION_PRICE")
-    private long optionPrice;
+    private long price;
     @Column(name = "CONNECTION_COST")
     private long connectionCost;
 
@@ -34,9 +34,9 @@ public class Option {
     public Option() {
     }
 
-    public Option(String name, long optionPrice, long connectionCost) {
+    public Option(String name, long price, long connectionCost) {
         this.name = name;
-        this.optionPrice = optionPrice;
+        this.price = price;
         this.connectionCost = connectionCost;
     }
 
@@ -56,12 +56,12 @@ public class Option {
         this.name = name;
     }
 
-    public long getOptionPrice() {
-        return optionPrice;
+    public long getPrice() {
+        return price;
     }
 
-    public void setOptionPrice(long optionPrice) {
-        this.optionPrice = optionPrice;
+    public void setPrice(long optionPrice) {
+        this.price = optionPrice;
     }
 
     public long getConnectionCost() {
@@ -93,7 +93,7 @@ public class Option {
         return "Option{" +
                 "optionId=" + optionId +
                 ", name='" + name + '\'' +
-                ", optionPrice=" + optionPrice +
+                ", optionPrice=" + price +
                 ", connectionCost=" + connectionCost +
                 '}';
     }

@@ -30,6 +30,16 @@
         <servlet-class>com.tsystems.javaschool.web.servlets.LoginServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>Admin</servlet-name>
+        <servlet-class>com.tsystems.javaschool.web.servlets.AdminServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>

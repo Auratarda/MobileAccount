@@ -13,6 +13,6 @@
 <body>
 <h3>Сожалеем, Ваш <b>емаил</b> или <b>пароль</b> введены неверно.<br>
     Попробуйте ввести данные еще раз!</h3>
-<a href="/index.jsp"> <input type="button" value="На Главную"/></a>
+<a href="index.jsp"> <input type="button" value="На Главную"/></a>
 </body>
 </html>

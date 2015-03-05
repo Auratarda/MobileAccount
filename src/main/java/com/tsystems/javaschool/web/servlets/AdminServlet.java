@@ -1,6 +1,8 @@
 package com.tsystems.javaschool.web.servlets;
 
 import com.tsystems.javaschool.entities.Contract;
+import com.tsystems.javaschool.entities.Option;
+import com.tsystems.javaschool.entities.Tariff;
 import com.tsystems.javaschool.persistence.PersistenceUtil;
 import com.tsystems.javaschool.services.OperatorService;
 import com.tsystems.javaschool.services.OperatorServiceImpl;
@@ -30,12 +32,24 @@ public class AdminServlet extends HttpServlet {
         HttpSession session = request.getSession();
         EntityManager em = PersistenceUtil.getEntityManager();
         OperatorService operatorService = new OperatorServiceImpl(em);
+        String source = request.getParameter("source");
 
-        List<Contract> contracts = operatorService.findAllContracts();
-        session.setAttribute("contracts", contracts);
-        RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/admin.jsp");
-        view.forward(request, response);
-
+        if (source.equals("contracts")) {
+            List<Contract> contracts = operatorService.findAllContracts();
+            session.setAttribute("contracts", contracts);
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/contracts.jsp");
+            view.forward(request, response);
+        } else if (source.equals("tariffs")) {
+            List<Tariff> tariffs = operatorService.findAllTariffs();
+            session.setAttribute("tariffs", tariffs);
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/tariffs.jsp");
+            view.forward(request, response);
+        } else if (source.equals("options")) {
+            List<Option> options = operatorService.findAllOptions();
+            session.setAttribute("options", options);
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/options.jsp");
+            view.forward(request, response);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
             Cookie userID = new Cookie("id", id);
             userID.setMaxAge(24 * 60 * 60);
             response.addCookie(userID);
-            if (email.equals("sidor@ya.ru") && password.equals("admin")) {
+            if (email.equals("sidor@ya.ru") && password.equals("sidor")) {
                 List<Contract> contracts = operatorService.findAllContracts();
                 List<Tariff> tariffs = operatorService.findAllTariffs();
                 session.setAttribute("contracts", contracts);

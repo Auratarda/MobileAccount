@@ -67,7 +67,7 @@ public class InitAppTestData {
             operatorService.createNewOption("Детализация", 35L, 55L);
             operatorService.createNewOption("Роуминг", 40L, 60L);
             operatorService.createNewOption("Смс-свобода", 45L, 65L);
-            operatorService.createNewOption("Смс-свобода", 50L, 70L);
+            operatorService.createNewOption("Погода", 50L, 70L);
             operatorService.createNewOption("Черный список", 55L, 75L);
 
             List<Client> clients = operatorService.findAllClients();
