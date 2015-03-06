@@ -39,7 +39,7 @@
     </div>
 
     <div class="table" id="option">
-        <table>
+        <table class="innerTable">
             <tr>
                 <th>Опция</th>
                 <th>Цена</th>

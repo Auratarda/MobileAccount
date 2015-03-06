@@ -44,7 +44,7 @@
     </div>
 
     <div class="table" id="contract">
-        <table>
+        <table class="innerTable">
             <tr>
                 <td><b>Имя: </b></td>
                 <td>${client.firstName}</td>

@@ -4,9 +4,9 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter("/AuthenticationFilter")
@@ -28,10 +28,16 @@ public class AuthFilter implements Filter {
         String uri = req.getRequestURI();
         logger.debug("Requested Resource:: " + uri);
 
-        HttpSession session = req.getSession(false);
+        String userId = null;
+        Cookie[] cookies = req.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("uid")) {
+                userId = cookie.getValue();
+            }
+        }
 
-        if (session == null && !(uri.endsWith("index.jsp") || uri.endsWith("Login"))) {
-            this.context.log("Unauthorized access request");
+        if (userId == null) {
+            logger.debug("Unauthorized access request");
             res.sendRedirect("index.jsp");
         } else {
             // pass the request along the filter chain
@@ -42,5 +48,4 @@ public class AuthFilter implements Filter {
     public void destroy() {
         //close any resources here
     }
-
 }

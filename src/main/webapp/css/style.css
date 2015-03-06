@@ -13,20 +13,26 @@ body {
     padding: 15px;
 }
 
-TABLE {
+table.innerTable {
     width: 300px;
     border-collapse: collapse;
 }
 
-TH {
+table.innerTable th {
     padding: 3px;
     border: 1px solid black;
     background-color: lightgreen;
 }
 
-TD {
+table.innerTable td {
     padding: 3px;
     border: 1px solid black;
+}
+
+table.loginTable {
+    border: none;
+    width: 35%;
+    margin: 0 auto;
 }
 
 #nav {
@@ -48,14 +54,6 @@ TD {
 
 div.table {
     margin-left: 170px;
-}
-
-#login {
-    float: left;
-    position: absolute;
-    top: 40%;
-    left: 47%;
-    text-align: center;
 }
 
 #topNav {

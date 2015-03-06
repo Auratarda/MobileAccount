@@ -38,9 +38,10 @@ public class LoginServlet extends HttpServlet {
         Client client;
         try {
             client = clientService.login(email, password);
-            String id = "" + client.getId();
+            String uid = "" + client.getId();
+            logger.debug("UserID = " + uid);
             session.setAttribute("client", client);
-            Cookie userID = new Cookie("id", id);
+            Cookie userID = new Cookie("uid", uid);
             userID.setMaxAge(24 * 60 * 60);
             response.addCookie(userID);
             if (email.equals("sidor@ya.ru") && password.equals("sidor")) {

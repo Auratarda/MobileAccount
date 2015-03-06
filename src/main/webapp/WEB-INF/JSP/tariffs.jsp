@@ -39,7 +39,7 @@
     </div>
 
     <div class="table" id="tariff">
-        <table>
+        <table class="innerTable">
             <tr>
                 <th>Тариф</th>
                 <th>Цена</th>

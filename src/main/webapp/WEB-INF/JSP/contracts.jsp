@@ -53,7 +53,7 @@
     </div>
 
     <div class="table" id="contract">
-        <table>
+        <table class="innerTable">
             <tr>
                 <th>Клиент</th>
                 <th>Номер</th>

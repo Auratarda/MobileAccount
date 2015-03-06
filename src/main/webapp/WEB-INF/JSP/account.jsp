@@ -8,13 +8,11 @@
 <body>
 
 <div id="header">
-    <h1>Добро пожаловать в личный кабинет, ${client.firstName} ${client.lastName}</h1>
+    <h1>Здравствуйте, ${client.firstName} ${client.lastName}</h1>
 </div>
 <div id="nav">
     <div class="link">
-        <a href="login.jsp">Логин</a>
-        <br>
-        <a href="client.jsp">Профиль</a>
+        <a href="logout">Выйти</a>
     </div>
 </div>
 
@@ -45,7 +43,7 @@
     </div>
 
     <div class="table" id="contract">
-        <table>
+        <table class="innerTable">
             <tr>
                 <td><b>Имя: </b></td>
                 <td>${client.firstName}</td>
