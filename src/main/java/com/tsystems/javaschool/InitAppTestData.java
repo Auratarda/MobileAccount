@@ -29,11 +29,6 @@ public class InitAppTestData {
 
             OperatorService operatorService = new OperatorServiceImpl(em);
 
-            // TODO: hard to understand which data belongs where
-            // TODO: rewrite it like
-            // TODO: operatorService.createNewClient("вася", "123", new Date(), "туточкина", ...
-            // TODO: Done
-
             /** Create client */
             operatorService.createNewClient("Иван", "Иванов", new Date(),
                     "Крыленко, 11", "4004000000", "ivan@ya.ru", "ivan");
