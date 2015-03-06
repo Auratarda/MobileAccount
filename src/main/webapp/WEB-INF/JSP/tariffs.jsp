@@ -12,9 +12,7 @@
 </div>
 <div id="nav">
     <div class="link">
-        <a href="login.jsp">Логин</a>
-        <br>
-        <a href="client.jsp">Профиль</a>
+        <a href="logout">Выйти</a>
     </div>
 </div>
 
