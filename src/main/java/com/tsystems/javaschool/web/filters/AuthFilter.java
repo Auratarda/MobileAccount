@@ -36,7 +36,7 @@ public class AuthFilter implements Filter {
             }
         }
 
-        if (userId == null) {
+        if (userId == null && !(uri.endsWith("index.jsp") || uri.endsWith("login"))) {
             logger.debug("Unauthorized access request");
             res.sendRedirect("index.jsp");
         } else {

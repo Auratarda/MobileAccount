@@ -2448,3 +2448,17 @@ Caused by: java.net.ConnectException: Connection refused: connect
 2015-03-06 12:23:25 DEBUG AuthFilter:29 - Requested Resource:: /MobileAccount/
 2015-03-06 12:23:26 DEBUG AuthFilter:29 - Requested Resource:: /MobileAccount/
 2015-03-06 12:23:27 DEBUG AuthFilter:29 - Requested Resource:: /MobileAccount/css/style.css
+2015-03-06 12:51:15 DEBUG AuthFilter:29 - Requested Resource:: /MobileAccount/
+2015-03-06 12:51:16 DEBUG AuthFilter:29 - Requested Resource:: /MobileAccount/
+2015-03-06 12:51:17 DEBUG AuthFilter:29 - Requested Resource:: /MobileAccount/css/style.css
+2015-03-06 12:51:31 DEBUG AuthFilter:29 - Requested Resource:: /MobileAccount/login
+2015-03-06 12:51:31 INFO  LoginServlet:31 - Starting login servlet
+2015-03-06 12:51:32 INFO  OperatorService:27 - Creating operator service
+2015-03-06 12:51:33 INFO  ClientServiceImpl:26 - Creating client service
+2015-03-06 12:51:33 DEBUG LoginServlet:42 - UserID = 3
+2015-03-06 12:51:33 DEBUG OperatorService:137 - Reading all contracts
+2015-03-06 12:51:33 DEBUG OperatorService:142 - Reading all tariffs
+2015-03-06 12:51:35 DEBUG AuthFilter:29 - Requested Resource:: /MobileAccount/admin
+2015-03-06 12:51:35 INFO  LoginServlet:32 - Starting admin servlet
+2015-03-06 12:51:35 INFO  OperatorService:27 - Creating operator service
+2015-03-06 12:51:35 DEBUG OperatorService:137 - Reading all contracts
