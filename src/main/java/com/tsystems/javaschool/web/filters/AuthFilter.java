@@ -30,15 +30,19 @@ public class AuthFilter implements Filter {
 
         String userId = null;
         Cookie[] cookies = req.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("uid")) {
-                userId = cookie.getValue();
+        if (cookies.length != 0) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("uid")) {
+                    userId = cookie.getValue();
+                }
             }
         }
 
-        if (userId == null && !(uri.endsWith("index.jsp") || uri.endsWith("login"))) {
-            logger.debug("Unauthorized access request");
-            res.sendRedirect("index.jsp");
+        if (userId == null) {
+            if (!uri.endsWith("index.jsp") && !uri.endsWith("login")) {
+                logger.debug("Unauthorized access request");
+                res.sendRedirect("index.jsp");
+            }
         } else {
             // pass the request along the filter chain
             chain.doFilter(request, response);

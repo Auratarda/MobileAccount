@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -29,6 +30,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         logger.info("Starting login servlet");
+        PrintWriter out = response.getWriter();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
@@ -57,8 +59,10 @@ public class LoginServlet extends HttpServlet {
             }
         } catch (LoginException e) {
             logger.debug("Client is not found");
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/loginError.jsp");
-            view.forward(request, response);
+            RequestDispatcher view = getServletContext().getRequestDispatcher("/index.jsp");
+            view.include(request, response);
+            out.print("Сожалеем, Ваш <b>емаил</b> или <b>пароль</b> введены неверно.<br>\n" +
+                    " Попробуйте ввести данные еще раз!");
         }
     }
 
