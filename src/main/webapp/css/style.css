@@ -32,7 +32,8 @@ table.innerTable td {
 table.loginTable {
     border: none;
     width: 35%;
-    margin: 0 auto;
+    margin: 50px auto;
+    opacity: 1;
 }
 
 #nav {
@@ -45,7 +46,7 @@ table.loginTable {
 }
 
 #section {
-    margin-left: 50px;
+    margin-left: 135px;
     opacity: 0.7;
     font-size: 25px;
     height: 75%;
@@ -53,13 +54,18 @@ table.loginTable {
 }
 
 div.table {
-    margin-left: 170px;
+    margin-left: 40px;
+}
+
+#loginError {
+    margin-left: 40px;
+    margin-top: 100px;
+    display: none;
 }
 
 #topNav {
-    width: 70%;
+    width: 100%;
     float: left;
-    margin: 0 0 3em 0;
     padding: 0;
     list-style: none;
 }
@@ -70,7 +76,7 @@ div.table {
 
 #topNav li a {
     display: block;
-    padding: 8px 15px;
+    padding: 8px;
     text-decoration: none;
     font-weight: bold;
     color: #069;
@@ -83,6 +89,15 @@ div.table {
 
 .link {
     text-align: center;
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #069;
+}
+
+.link:hover {
+    color: #c00;
 }
 
 #nav a {

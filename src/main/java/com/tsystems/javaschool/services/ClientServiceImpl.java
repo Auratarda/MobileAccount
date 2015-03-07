@@ -9,6 +9,7 @@ import com.tsystems.javaschool.exceptions.*;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -47,7 +48,7 @@ public class ClientServiceImpl implements ClientService {
         return clientDAO.login(email, password);
     }
 
-    public Set<Contract> viewContracts(String clientId) {
+    public List<Contract> viewContracts(String clientId) {
         Long id = Long.parseLong(clientId);
         Client client = clientDAO.read(id);
         return client.getContracts();

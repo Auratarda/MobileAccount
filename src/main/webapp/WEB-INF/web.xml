@@ -7,19 +7,9 @@
     <display-name>Archetype Created Web Application</display-name>
 
     <filter>
-        <filter-name>EncodingFilter</filter-name>
-        <filter-class>com.tsystems.javaschool.web.filters.EncodingFilter</filter-class>
-    </filter>
-    <filter>
         <filter-name>AuthFilter</filter-name>
         <filter-class>com.tsystems.javaschool.web.filters.AuthFilter</filter-class>
     </filter>
-
-    <filter-mapping>
-        <filter-name>EncodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
 
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
@@ -40,6 +30,16 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>com.tsystems.javaschool.web.servlets.LogoutServlet</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>ClientServlet</servlet-name>
+        <servlet-class>com.tsystems.javaschool.web.servlets.ClientServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ClientServlet</servlet-name>
+        <url-pattern>/client</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>

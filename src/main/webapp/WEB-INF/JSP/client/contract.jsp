@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Личный кабинет</title>
+    <title>Админка</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 <body>
@@ -20,13 +20,13 @@
 
     <div id="topNav">
         <ul>
-            <li><input class="myButton" type="button" value="Личные данные"></li>
             <li>
                 <form method="post" action="client">
-                    <input type="hidden" name="source" value="contract">
-                    <input class="myButton" type="submit" value="Контракт">
+                    <input type="hidden" name="source" value="personal">
+                    <input class="myButton" type="submit" value="Личные данные">
                 </form>
             </li>
+            <li><input class="myButton" type="button" value="Контракт"></li>
             <li>
                 <form method="post" action="client">
                     <input type="hidden" name="source" value="tariffs">
@@ -45,28 +45,12 @@
     <div class="table" id="contract">
         <table class="innerTable">
             <tr>
-                <td><b>Имя: </b></td>
-                <td>${client.firstName}</td>
+                <td><b>Номер: </b></td>
+                <td>${contract.number}</td>
             </tr>
             <tr>
-                <td><b>Фамилия: </b></td>
-                <td>${client.lastName}</td>
-            </tr>
-            <tr>
-                <td><b>Дата рождения: </b></td>
-                <td>${client.dateOfBirth}</td>
-            </tr>
-            <tr>
-                <td><b>Емейл: </b></td>
-                <td>${client.email}</td>
-            </tr>
-            <tr>
-                <td><b>Адрес: </b></td>
-                <td>${client.address}</td>
-            </tr>
-            <tr>
-                <td><b>Паспорт: </b></td>
-                <td>${client.passport}</td>
+                <td><b>Тариф: </b></td>
+                <td>${tariff.name}</td>
             </tr>
         </table>
     </div>

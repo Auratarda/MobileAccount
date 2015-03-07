@@ -25,28 +25,33 @@ public class AuthFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
+        req.setCharacterEncoding("UTF-8");
+        res.setContentType("text/html;charset=UTF-8");
+
         String uri = req.getRequestURI();
-        logger.debug("Requested Resource:: " + uri);
+        logger.debug("Requested Resource: " + uri);
 
         String userId = null;
         Cookie[] cookies = req.getCookies();
-        if (cookies.length != 0) {
+        if (cookies != null && cookies.length != 0) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("uid")) {
                     userId = cookie.getValue();
                 }
             }
         }
+        logger.debug("UserId: " + userId);
 
         if (userId == null) {
-            if (!uri.endsWith("index.jsp") && !uri.endsWith("login")) {
+            if (!uri.contains("index.jsp") && !uri.contains("login")
+                    && !uri.contains("style.css") && !uri.contains("loginError.jsp")) {
                 logger.debug("Unauthorized access request");
                 res.sendRedirect("index.jsp");
+                return;
             }
-        } else {
-            // pass the request along the filter chain
-            chain.doFilter(request, response);
         }
+        logger.debug("Successful access request");
+        chain.doFilter(request, response);
     }
 
     public void destroy() {

@@ -4,7 +4,7 @@ import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.exceptions.*;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * ClientService.
@@ -16,7 +16,7 @@ public interface ClientService {
      */
     Client login(String email, String password) throws LoginException;
 
-    Set<Contract> viewContracts(String clientId);
+    List<Contract> viewContracts(String clientId);
 
     /**
      * Modify contract.

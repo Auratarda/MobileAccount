@@ -2,9 +2,9 @@ package com.tsystems.javaschool.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "CLIENT")
@@ -29,7 +29,7 @@ public class Client implements Serializable{
     @Column(name = "PASSWORD")
     private String password;
     @OneToMany(mappedBy = "client")
-    private Set<Contract> contracts = new HashSet<Contract>(0);
+    private List<Contract> contracts = new ArrayList<Contract>(0);
 
     public Client() {
     }
@@ -107,11 +107,11 @@ public class Client implements Serializable{
         this.password = password;
     }
 
-    public Set<Contract> getContracts() {
+    public List<Contract> getContracts() {
         return contracts;
     }
 
-    public void setContracts(Set<Contract> numbers) {
+    public void setContracts(List<Contract> numbers) {
         this.contracts = numbers;
     }
 
