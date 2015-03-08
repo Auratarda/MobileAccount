@@ -2,13 +2,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Админка</title>
+    <title>Кабинет администратора</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 <body>
 
 <div id="header">
-    <h1>Администратор ${sessionScope.firstName}</h1>
+    <h1>Администратор</h1>
 </div>
 <div id="nav">
     <div class="link">

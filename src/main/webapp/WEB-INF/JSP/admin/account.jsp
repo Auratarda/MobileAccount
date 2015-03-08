@@ -2,13 +2,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Админка</title>
+    <title>Кабинет администратора</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 <body>
 
 <div id="header">
-    <h1>Администратор ${sessionScope.firstName}</h1>
+    <h1>Администратор</h1>
 </div>
 <div id="nav">
     <div class="link">
@@ -32,24 +32,41 @@
                     <input class="myButton" type="submit" value="Тарифы">
                 </form>
             </li>
-            <li><input class="myButton" type="button" value="Опции"></li>
+            <li>
+                <form method="post" action="admin">
+                    <input type="hidden" name="source" value="options">
+                    <input class="myButton" type="submit" value="Опции">
+                </form>
+            </li>
         </ul>
     </div>
 
-    <div class="table" id="option">
+    <div class="table" id="contract">
         <table class="innerTable">
             <tr>
-                <th>Опция</th>
-                <th>Цена</th>
-                <th>Стоимость подключения</th>
+                <td><b>Имя: </b></td>
+                <td>${client.firstName}</td>
             </tr>
-            <c:forEach var="option" items="${sessionScope.options}">
-                <tr>
-                    <td>${option.name}</td>
-                    <td>${option.price}</td>
-                    <td>${option.connectionCost}</td>
-                </tr>
-            </c:forEach>
+            <tr>
+                <td><b>Фамилия: </b></td>
+                <td>${client.lastName}</td>
+            </tr>
+            <tr>
+                <td><b>Дата рождения: </b></td>
+                <td>${client.dateOfBirth}</td>
+            </tr>
+            <tr>
+                <td><b>Емейл: </b></td>
+                <td>${client.email}</td>
+            </tr>
+            <tr>
+                <td><b>Адрес: </b></td>
+                <td>${client.address}</td>
+            </tr>
+            <tr>
+                <td><b>Паспорт: </b></td>
+                <td>${client.passport}</td>
+            </tr>
         </table>
     </div>
 </div>

@@ -30,6 +30,11 @@ public class Client implements Serializable{
     private String password;
     @OneToMany(mappedBy = "client")
     private List<Contract> contracts = new ArrayList<Contract>(0);
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "CLIENT_ROLES",
+            joinColumns = @JoinColumn(name = "CLIENT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+    private List<Role> roles = new ArrayList<Role>(0);
 
     public Client() {
     }
@@ -113,6 +118,14 @@ public class Client implements Serializable{
 
     public void setContracts(List<Contract> numbers) {
         this.contracts = numbers;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

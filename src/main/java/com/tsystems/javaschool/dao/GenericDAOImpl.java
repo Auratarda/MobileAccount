@@ -29,7 +29,9 @@ class GenericDAOImpl<T, PK extends Serializable>
     }
 
     public T create(T t) {
+        entityManager.getTransaction().begin();
         this.entityManager.persist(t);
+        entityManager.getTransaction().commit();
         return t;
     }
 
@@ -38,12 +40,17 @@ class GenericDAOImpl<T, PK extends Serializable>
     }
 
     public T update(T t) {
-        return this.entityManager.merge(t);
+        entityManager.getTransaction().begin();
+        this.entityManager.merge(t);
+        entityManager.getTransaction().commit();
+        return t;
     }
 
     public void delete(T t) {
+        entityManager.getTransaction().begin();
         t = this.entityManager.merge(t);
         this.entityManager.remove(t);
+        entityManager.getTransaction().commit();
     }
 
     public List<T> getAll() {

@@ -4,9 +4,9 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter("/AuthenticationFilter")
@@ -17,7 +17,7 @@ public class AuthFilter implements Filter {
 
     public void init(FilterConfig fConfig) throws ServletException {
         this.context = fConfig.getServletContext();
-        this.context.log("AuthenticationFilter initialized");
+        logger.info("AuthenticationFilter initialized");
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -28,29 +28,27 @@ public class AuthFilter implements Filter {
         req.setCharacterEncoding("UTF-8");
         res.setContentType("text/html;charset=UTF-8");
 
+        HttpSession session = req.getSession(false);
+        Object roles;
+        try {
+            roles = session.getAttribute("roles");
+        } catch (NullPointerException e) {
+            roles = null;
+        }
+
         String uri = req.getRequestURI();
         logger.debug("Requested Resource: " + uri);
 
-        String userId = null;
-        Cookie[] cookies = req.getCookies();
-        if (cookies != null && cookies.length != 0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("uid")) {
-                    userId = cookie.getValue();
-                }
-            }
-        }
-        logger.debug("UserId: " + userId);
 
-        if (userId == null) {
+        if (roles == null) {
             if (!uri.contains("index.jsp") && !uri.contains("login")
-                    && !uri.contains("style.css") && !uri.contains("loginError.jsp")) {
+                    && !uri.contains(".css") && !uri.contains(".js") && !uri.contains("loginError.jsp")) {
                 logger.debug("Unauthorized access request");
-                res.sendRedirect("index.jsp");
+                res.sendRedirect(req.getContextPath() + "/index.jsp");
                 return;
             }
         }
-        logger.debug("Successful access request");
+        logger.debug("Request accessed successfully");
         chain.doFilter(request, response);
     }
 

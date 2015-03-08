@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Set;
 
 /**
  * ClientServiceImpl.
@@ -31,7 +30,7 @@ public class ClientServiceImpl implements ClientService {
         optionDAO = new OptionDAOImpl(em);
     }
 
-    private static String optionsToString(Set<Option> set) {
+    private static String optionsToString(List<Option> set) {
         String message = "";
         int size = set.size();
         for (Option item : set) {
@@ -54,16 +53,14 @@ public class ClientServiceImpl implements ClientService {
         return client.getContracts();
     }
 
-    public void changeTariff(String contractId, String tariffId) throws TariffNotSupportedOptionException, ContractIsBlockedException {
-        Long conId = Long.parseLong(contractId);
-        Long tarId = Long.parseLong(tariffId);
-        Contract contract = contractDAO.read(conId);
+    public void changeTariff(String contractNumber, String tariffName) throws TariffNotSupportedOptionException, ContractIsBlockedException {
+        Contract contract = contractDAO.findContractByNumber(contractNumber);
         if (contract.getBlockedByClient() || contract.getBlockedByOperator()) {
             throw new ContractIsBlockedException();
         }
-        Tariff tariff = tariffDAO.read(tarId);
-        Set<Option> contractOptions = contract.getOptions();
-        Set<Option> tariffOptions = tariff.getOptions();
+        Tariff tariff = tariffDAO.findTariffByName(tariffName);
+        List<Option> contractOptions = contract.getOptions();
+        List<Option> tariffOptions = tariff.getOptions();
 
         logger.debug("contractOptions " + optionsToString(contractOptions));
         logger.debug("tariffOptions " + optionsToString(tariffOptions));
@@ -80,17 +77,15 @@ public class ClientServiceImpl implements ClientService {
         contractDAO.update(contract);
     }
 
-    public void addOption(String contractId, String optionId) throws IncompatibleOptionException, RequiredOptionException, ContractIsBlockedException {
-        Long conId = Long.parseLong(contractId);
-        Long optId = Long.parseLong(optionId);
-        Contract contract = contractDAO.read(conId);
+    public void addOption(String contractNumber, String optionName) throws IncompatibleOptionException, RequiredOptionException, ContractIsBlockedException {
+        Contract contract = contractDAO.findContractByNumber(contractNumber);
+        Option option = optionDAO.findOptionByName(optionName);
         if (contract.getBlockedByClient() || contract.getBlockedByOperator()) {
             throw new ContractIsBlockedException();
         }
-        Option option = optionDAO.read(optId);
-        Set<Option> contractOptions = contract.getOptions();
-        Set<Option> incompatibleOptions = option.getIncompatibleOptions();
-        Set<Option> requiredOptions = option.getRequiredOptions();
+        List<Option> contractOptions = contract.getOptions();
+        List<Option> incompatibleOptions = option.getIncompatibleOptions();
+        List<Option> requiredOptions = option.getRequiredOptions();
 
         logger.debug("contractOptions " + optionsToString(contractOptions));
         logger.debug("incompatibleOptions " + optionsToString(incompatibleOptions));
@@ -115,15 +110,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     // TODO: where will you check if contract is blocked?
-    public void removeOption(String contractId, String optionId) throws RequiredOptionException, ContractIsBlockedException {
-        Long conId = Long.parseLong(contractId);
-        Long optId = Long.parseLong(optionId);
-        Contract contract = contractDAO.read(conId);
+    public void removeOption(String contractNumber, String optionName) throws RequiredOptionException, ContractIsBlockedException {
+        Contract contract = contractDAO.findContractByNumber(contractNumber);
+        Option option = optionDAO.findOptionByName(optionName);
         if (contract.getBlockedByClient() || contract.getBlockedByOperator()) {
             throw new ContractIsBlockedException();
         }
-        Option option = optionDAO.read(optId);
-        Set<Option> requiredOptions = option.getRequiredOptions();
+        List<Option> requiredOptions = option.getRequiredOptions();
         logger.debug("requiredOptions " + optionsToString(requiredOptions));
         if (requiredOptions.size() > 0) {
             throw new RequiredOptionException("Required Options: "
@@ -133,16 +126,14 @@ public class ClientServiceImpl implements ClientService {
         contractDAO.update(contract);
     }
 
-    public void lockContract(String contractId) {
-        Long conId = Long.parseLong(contractId);
-        Contract contract = contractDAO.read(conId);
+    public void lockContract(String contractNumber) {
+        Contract contract = contractDAO.findContractByNumber(contractNumber);
         contract.setBlockedByClient(true);
         contractDAO.update(contract);
     }
 
-    public void unLockContract(String contractId) {
-        Long conId = Long.parseLong(contractId);
-        Contract contract = contractDAO.read(conId);
+    public void unLockContract(String contractNumber) {
+        Contract contract = contractDAO.findContractByNumber(contractNumber);
         contract.setBlockedByClient(false);
         contractDAO.update(contract);
     }

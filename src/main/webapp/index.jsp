@@ -41,10 +41,6 @@
   </div>
 </div>
 
-<div id="loginError">Сожалеем, Ваш емаил или пароль введены неверно.<br>
-  Попробуйте ввести данные еще раз!
-</div>
-
 <div id="footer">
   <p>
     CreatedBy © Vasilevskii Stanislav

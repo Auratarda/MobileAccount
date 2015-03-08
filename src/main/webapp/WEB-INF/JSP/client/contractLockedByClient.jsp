@@ -18,29 +18,9 @@
 
 <div id="section">
 
-    <div id="topNav">
-        <ul>
-            <li>
-                <form method="post" action="client">
-                    <input type="hidden" name="source" value="personal">
-                    <input class="myButton" type="submit" value="Личные данные">
-                </form>
-            </li>
-            <li><input class="myButton" type="button" value="Контракт"></li>
-            <li>
-                <form method="post" action="client">
-                    <input type="hidden" name="source" value="tariffs">
-                    <input class="myButton" type="submit" value="Тарифы">
-                </form>
-            </li>
-            <li>
-                <form method="post" action="client">
-                    <input type="hidden" name="source" value="options">
-                    <input class="myButton" type="submit" value="Опции">
-                </form>
-            </li>
-        </ul>
-    </div>
+    <div id="topNav"></div>
+
+    <div id="blocked">Номер заблокирован!</div>
 
     <div class="table" id="contract">
         <table class="innerTable">
@@ -70,21 +50,15 @@
                     <td>${option.name}</td>
                     <td>${option.price}</td>
                     <td>${option.connectionCost}</td>
-                    <td>
-                        <form method="post" action="client">
-                            <input type="hidden" name="source" value="removeOption">
-                            <input type="hidden" name="optionName" value="${option.name}">
-                            <input class="link" type="submit" value="Отключить">
-                        </form>
-                    </td>
+                    <td>Недоступно</td>
                 </tr>
             </c:forEach>
         </table>
     </div>
     <form method="post" action="client">
-        <input type="hidden" name="source" value="lockContract">
+        <input type="hidden" name="source" value="unLockContract">
         <input type="hidden" name="contractNumber" value="${contract.number}">
-        <input class="link" id="blockButton" type="submit" value="Заблокировать номер">
+        <input class="link" type="submit" id="blockButton" value="Разблокировать номер">
     </form>
 </div>
 

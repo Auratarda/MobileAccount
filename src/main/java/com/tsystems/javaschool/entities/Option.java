@@ -1,8 +1,8 @@
 package com.tsystems.javaschool.entities;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "OPTIONS")
@@ -23,13 +23,13 @@ public class Option {
     @JoinTable(name = "REQUIRED_OPTIONS",
             joinColumns = @JoinColumn(name = "REQ_OPTION_ID"),
             inverseJoinColumns = @JoinColumn(name = "CURRENT_OPTION_ID"))
-    private Set<Option> requiredOptions = new HashSet<Option>(0);
+    private List<Option> requiredOptions = new ArrayList<Option>(0);
 
     @ManyToMany(cascade={CascadeType.ALL})
     @JoinTable(name = "INCOMPATIBLE_OPTIONS",
             joinColumns = @JoinColumn(name = "INC_OPTION_ID"),
             inverseJoinColumns = @JoinColumn(name = "CURRENT_OPTION_ID"))
-    private Set<Option> incompatibleOptions = new HashSet<Option>(0);
+    private List<Option> incompatibleOptions = new ArrayList<Option>(0);
 
     public Option() {
     }
@@ -72,19 +72,19 @@ public class Option {
         this.connectionCost = connectionCost;
     }
 
-    public Set<Option> getRequiredOptions() {
+    public List<Option> getRequiredOptions() {
         return requiredOptions;
     }
 
-    public void setRequiredOptions(Set<Option> requiredOptions) {
+    public void setRequiredOptions(List<Option> requiredOptions) {
         this.requiredOptions = requiredOptions;
     }
 
-    public Set<Option> getIncompatibleOptions() {
+    public List<Option> getIncompatibleOptions() {
         return incompatibleOptions;
     }
 
-    public void setIncompatibleOptions(Set<Option> incompatibleOptions) {
+    public void setIncompatibleOptions(List<Option> incompatibleOptions) {
         this.incompatibleOptions = incompatibleOptions;
     }
 

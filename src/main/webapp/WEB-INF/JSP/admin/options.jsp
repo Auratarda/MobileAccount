@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Кабинет администратора</title>
+    <title>Кабинет администратора/title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 <body>
@@ -32,15 +32,26 @@
                     <input class="myButton" type="submit" value="Тарифы">
                 </form>
             </li>
-            <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="options">
-                    <input class="myButton" type="submit" value="Опции">
-                </form>
-            </li>
+            <li><input class="myButton" type="button" value="Опции"></li>
         </ul>
     </div>
 
+    <div class="table" id="option">
+        <table class="innerTable">
+            <tr>
+                <th>Опция</th>
+                <th>Цена</th>
+                <th>Стоимость подключения</th>
+            </tr>
+            <c:forEach var="option" items="${sessionScope.options}">
+                <tr>
+                    <td>${option.name}</td>
+                    <td>${option.price}</td>
+                    <td>${option.connectionCost}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 </div>
 
 <div id="footer">

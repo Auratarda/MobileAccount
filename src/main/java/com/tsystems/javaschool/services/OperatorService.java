@@ -17,6 +17,8 @@ public interface OperatorService {
     /**
      * Create new entities.
      */
+    void createNewAdmin(String firstName, String lastName, Date dateOfBirth, String address, String passport, String email, String password);
+
     void createNewClient(String firstName, String lastName, Date dateOfBirth, String address, String passport, String email, String password);
 
     void createNewContract(String number);
@@ -24,6 +26,8 @@ public interface OperatorService {
     void createNewTariff(String name, Long price);
 
     void createNewOption(String name, Long optionPrice, Long connectionCost);
+
+    void createNewRole(String role);
 
     /**
      * Find entities.

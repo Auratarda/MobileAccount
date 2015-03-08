@@ -6,4 +6,5 @@ import com.tsystems.javaschool.entities.Option;
  * OptionDAO.
  */
 public interface OptionDAO extends GenericDAO<Option, Long> {
+    Option findOptionByName(String optionName);
 }

@@ -97,9 +97,6 @@
                     <fork>true</fork>
                     <meminitial>128m</meminitial>
                     <maxmem>1024m</maxmem>
-                    <compilerArgs>
-                        <arg>-XX:MaxPermSize=256m</arg>
-                    </compilerArgs>
                 </configuration>
             </plugin>
 

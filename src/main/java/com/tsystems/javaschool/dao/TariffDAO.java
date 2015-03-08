@@ -6,4 +6,5 @@ import com.tsystems.javaschool.entities.Tariff;
  * TariffDAO.
  */
 public interface TariffDAO extends GenericDAO<Tariff, Long> {
+    Tariff findTariffByName(String tariffName);
 }

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Админка</title>
+    <title>Кабинет администратора</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script type="text/javascript">
         //<![CDATA[
@@ -22,7 +22,7 @@
 <body>
 
 <div id="header">
-    <h1>Администратор ${sessionScope.firstName}</h1>
+    <h1>Администратор ${client.firstName}</h1>
 </div>
 <div id="nav">
     <div class="link">
@@ -50,6 +50,15 @@
         </ul>
     </div>
 
+    <div>
+        <form method="post" action="admin">
+            <input type="hidden" name="source" value="assignNewContract">
+            <input class="myButton" id="assignNewContractButton"
+                   type="submit" value="Заключить новый контракт">
+        </form>
+    </div>
+
+
     <div class="table" id="contract">
         <table class="innerTable">
             <tr>
@@ -60,7 +69,7 @@
                 <tr>
                     <td>${contract.client}</td>
                     <td>
-                        <form action="admin" method="post">
+                        <form action="" method="post">
                             <a href="javascript:;"
                                onclick="get_form(this).submit(); return false">+7${contract.number}</a>
                             <input type="hidden" name="source" value="client">

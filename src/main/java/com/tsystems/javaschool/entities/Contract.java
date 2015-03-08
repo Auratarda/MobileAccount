@@ -2,8 +2,8 @@ package com.tsystems.javaschool.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "CONTRACT")
@@ -29,7 +29,7 @@ public class Contract implements Serializable{
     @JoinTable(name = "CONTRACT_OPTIONS",
             joinColumns = @JoinColumn(name = "OPTION_ID"),
             inverseJoinColumns = @JoinColumn(name = "CONTRACT_ID"))
-    private Set<Option> options = new HashSet<Option>(0);
+    private List<Option> options = new ArrayList<Option>(0);
 
     public Contract() {
     }
@@ -88,11 +88,11 @@ public class Contract implements Serializable{
         this.tariff = tariff;
     }
 
-    public Set<Option> getOptions() {
+    public List<Option> getOptions() {
         return options;
     }
 
-    public void setOptions(Set<Option> options) {
+    public void setOptions(List<Option> options) {
         this.options = options;
     }
 

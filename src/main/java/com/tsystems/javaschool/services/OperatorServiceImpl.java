@@ -1,10 +1,7 @@
 package com.tsystems.javaschool.services;
 
 import com.tsystems.javaschool.dao.*;
-import com.tsystems.javaschool.entities.Client;
-import com.tsystems.javaschool.entities.Contract;
-import com.tsystems.javaschool.entities.Option;
-import com.tsystems.javaschool.entities.Tariff;
+import com.tsystems.javaschool.entities.*;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -22,6 +19,7 @@ public class OperatorServiceImpl implements OperatorService {
     private ContractDAO contractDAO;
     private TariffDAO tariffDAO;
     private OptionDAO optionDAO;
+    private RoleDAO roleDAO;
 
     public OperatorServiceImpl(EntityManager em) {
         logger.info("Creating operator service");
@@ -30,6 +28,7 @@ public class OperatorServiceImpl implements OperatorService {
         contractDAO = new ContractDAOImpl(em);
         tariffDAO = new TariffDAOImpl(em);
         optionDAO = new OptionDAOImpl(em);
+        roleDAO = new RoleDAOImpl(em);
     }
 
     public EntityManager getEm() {
@@ -42,7 +41,17 @@ public class OperatorServiceImpl implements OperatorService {
     public void createNewClient(String firstName, String lastName, Date dateOfBirth, String address, String passport, String email, String password) {
         logger.debug("Creating new client");
         Client client = new Client(firstName, lastName, dateOfBirth, address, passport, email, password);
+        Role role = new Role("CLIENT");
+        client.getRoles().add(role);
         clientDAO.create(client);
+    }
+
+    public void createNewAdmin(String firstName, String lastName, Date dateOfBirth, String address, String passport, String email, String password) {
+        logger.debug("Creating new admin");
+        Client admin = new Client(firstName, lastName, dateOfBirth, address, passport, email, password);
+        Role role = new Role("ADMIN");
+        admin.getRoles().add(role);
+        clientDAO.create(admin);
     }
 
     public void createNewTariff(String name, Long price) {
@@ -62,6 +71,12 @@ public class OperatorServiceImpl implements OperatorService {
         logger.debug("Adding new option");
         Option option = new Option(name, optionPrice, connectionCost);
         optionDAO.create(option);
+    }
+
+    public void createNewRole(String role) {
+        logger.debug("Creating a new role");
+        Role newRole = new Role(role);
+        roleDAO.create(newRole);
     }
 
     /**
@@ -135,7 +150,7 @@ public class OperatorServiceImpl implements OperatorService {
 
     public List<Contract> findAllContracts() {
         logger.debug("Reading all contracts");
-        return contractDAO.getAll();
+        return contractDAO.findAllContracts();
     }
 
     public List<Tariff> findAllTariffs() {

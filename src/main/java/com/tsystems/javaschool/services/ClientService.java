@@ -21,13 +21,13 @@ public interface ClientService {
     /**
      * Modify contract.
      */
-    void changeTariff(String contractId, String tariffId) throws TariffNotSupportedOptionException, ContractIsBlockedException;
+    void changeTariff(String contractNumber, String tariffName) throws TariffNotSupportedOptionException, ContractIsBlockedException;
 
-    void addOption(String contractId, String optionId) throws IncompatibleOptionException, RequiredOptionException, ContractIsBlockedException;
+    void addOption(String v, String optionName) throws IncompatibleOptionException, RequiredOptionException, ContractIsBlockedException;
 
-    void removeOption(String contractId, String optionId) throws RequiredOptionException, ContractIsBlockedException;
+    void removeOption(String contractNumber, String optionName) throws RequiredOptionException, ContractIsBlockedException;
 
-    void lockContract(String contractId);
+    void lockContract(String contractNumber);
 
-    void unLockContract(String contractId);
+    void unLockContract(String contractNumber);
 }
