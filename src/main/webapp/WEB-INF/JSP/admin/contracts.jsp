@@ -4,25 +4,12 @@
 <head>
     <title>Кабинет администратора</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
-    <script type="text/javascript">
-        //<![CDATA[
-        function get_form(element) {
-            while (element) {
-                element = element.parentNode
-                if (element.tagName.toLowerCase() == "form") {
-                    //alert( element ) //debug/test
-                    return element
-                }
-            }
-            return 0; //error: no form found in ancestors
-        }
-        //]]>
-    </script>
+    <script src="js/link_submit.js"></script>
 </head>
 <body>
 
 <div id="header">
-    <h1>Администратор ${client.firstName}</h1>
+    <h1>Администратор</h1>
 </div>
 <div id="nav">
     <div class="link">

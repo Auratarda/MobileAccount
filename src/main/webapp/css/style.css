@@ -44,6 +44,12 @@ table.loginTable {
     opacity: 1;
 }
 
+#clientForm {
+    width: 430px;
+    border: none;
+    opacity: 1;
+}
+
 #nav {
     font-size: 20px;
     line-height: 30px;
@@ -103,7 +109,7 @@ div.table {
     font-family: sans-serif;
 }
 
-#blockButton {
+#innerButton {
     margin: 40px 40px 40px 175px;
 }
 

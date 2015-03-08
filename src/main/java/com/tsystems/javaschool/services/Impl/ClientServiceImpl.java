@@ -1,11 +1,19 @@
-package com.tsystems.javaschool.services;
+package com.tsystems.javaschool.services.Impl;
 
-import com.tsystems.javaschool.dao.*;
+import com.tsystems.javaschool.dao.ClientDAO;
+import com.tsystems.javaschool.dao.ContractDAO;
+import com.tsystems.javaschool.dao.Impl.ClientDAOImpl;
+import com.tsystems.javaschool.dao.Impl.ContractDAOImpl;
+import com.tsystems.javaschool.dao.Impl.OptionDAOImpl;
+import com.tsystems.javaschool.dao.Impl.TariffDAOImpl;
+import com.tsystems.javaschool.dao.OptionDAO;
+import com.tsystems.javaschool.dao.TariffDAO;
 import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
 import com.tsystems.javaschool.entities.Tariff;
 import com.tsystems.javaschool.exceptions.*;
+import com.tsystems.javaschool.services.ClientService;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;

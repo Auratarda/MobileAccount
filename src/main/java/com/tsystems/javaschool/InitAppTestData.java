@@ -1,8 +1,8 @@
 package com.tsystems.javaschool;
 
 import com.tsystems.javaschool.persistence.PersistenceUtil;
+import com.tsystems.javaschool.services.Impl.OperatorServiceImpl;
 import com.tsystems.javaschool.services.OperatorService;
-import com.tsystems.javaschool.services.OperatorServiceImpl;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;

@@ -1,4 +1,6 @@
-package com.tsystems.javaschool.dao;
+package com.tsystems.javaschool.dao.Impl;
+
+import com.tsystems.javaschool.dao.GenericDAO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;

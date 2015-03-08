@@ -1,10 +1,14 @@
-package com.tsystems.javaschool.services;
+package com.tsystems.javaschool.services.Impl;
 
 import com.tsystems.javaschool.dao.*;
+import com.tsystems.javaschool.dao.Impl.*;
 import com.tsystems.javaschool.entities.*;
+import com.tsystems.javaschool.services.OperatorService;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +44,21 @@ public class OperatorServiceImpl implements OperatorService {
      */
     public void createNewClient(String firstName, String lastName, Date dateOfBirth, String address, String passport, String email, String password) {
         logger.debug("Creating new client");
+        Client client = new Client(firstName, lastName, dateOfBirth, address, passport, email, password);
+        Role role = new Role("CLIENT");
+        client.getRoles().add(role);
+        clientDAO.create(client);
+    }
+
+    public void createNewClient(String firstName, String lastName, String birthday, String address, String passport, String email, String password) {
+        logger.debug("Creating new client");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateOfBirth = null;
+        try {
+            dateOfBirth = sdf.parse(birthday);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Client client = new Client(firstName, lastName, dateOfBirth, address, passport, email, password);
         Role role = new Role("CLIENT");
         client.getRoles().add(role);
@@ -151,6 +170,11 @@ public class OperatorServiceImpl implements OperatorService {
     public List<Contract> findAllContracts() {
         logger.debug("Reading all contracts");
         return contractDAO.findAllContracts();
+    }
+
+    public List<Contract> findFreeNumbers() {
+        logger.debug("Reading free numbers");
+        return contractDAO.findFreeNumbers();
     }
 
     public List<Tariff> findAllTariffs() {

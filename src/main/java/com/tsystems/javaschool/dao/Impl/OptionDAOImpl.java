@@ -1,5 +1,6 @@
-package com.tsystems.javaschool.dao;
+package com.tsystems.javaschool.dao.Impl;
 
+import com.tsystems.javaschool.dao.OptionDAO;
 import com.tsystems.javaschool.entities.Option;
 
 import javax.persistence.EntityManager;

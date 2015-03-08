@@ -2,9 +2,9 @@ package com.tsystems.javaschool.web.servlets;
 
 import com.tsystems.javaschool.persistence.PersistenceUtil;
 import com.tsystems.javaschool.services.ClientService;
-import com.tsystems.javaschool.services.ClientServiceImpl;
+import com.tsystems.javaschool.services.Impl.ClientServiceImpl;
+import com.tsystems.javaschool.services.Impl.OperatorServiceImpl;
 import com.tsystems.javaschool.services.OperatorService;
-import com.tsystems.javaschool.services.OperatorServiceImpl;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletContext;

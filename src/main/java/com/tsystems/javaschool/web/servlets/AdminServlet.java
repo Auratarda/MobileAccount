@@ -7,7 +7,6 @@ import com.tsystems.javaschool.entities.Tariff;
 import com.tsystems.javaschool.services.OperatorService;
 import org.apache.log4j.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,25 +32,37 @@ public class AdminServlet extends HttpServlet {
         if (source.equals("contracts")) {
             List<Contract> contracts = operatorService.findAllContracts();
             session.setAttribute("contracts", contracts);
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/admin/contracts.jsp");
-            view.forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/JSP/admin/contracts.jsp").forward(request, response);
         } else if (source.equals("tariffs")) {
             List<Tariff> tariffs = operatorService.findAllTariffs();
             session.setAttribute("tariffs", tariffs);
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/admin/tariffs.jsp");
-            view.forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/JSP/admin/tariffs.jsp").forward(request, response);
         } else if (source.equals("options")) {
             List<Option> options = operatorService.findAllOptions();
             session.setAttribute("options", options);
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/admin/options.jsp");
-            view.forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/JSP/admin/options.jsp").forward(request, response);
         } else if (source.equals("client")) {
             String number = request.getParameter("number");
             logger.debug("Contract number = " + number);
             Client client = operatorService.findClientByNumber(number);
             session.setAttribute("client", client);
-            RequestDispatcher view = getServletContext().getRequestDispatcher("/WEB-INF/JSP/admin/account.jsp");
-            view.forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/JSP/admin/account.jsp").forward(request, response);
+        } else if (source.equals("assignNewContract")) {
+            List<Contract> freeNumbers = operatorService.findFreeNumbers();
+            session.setAttribute("freeNumbers", freeNumbers);
+            request.getRequestDispatcher("/WEB-INF/JSP/admin/assignContract.jsp").forward(request, response);
+        } else if (source.equals("addNewClient")) {
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+            String dateOfBirth = request.getParameter("dateOfBirth");
+            String address = request.getParameter("address");
+            String passport = request.getParameter("passport");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            operatorService.createNewClient(firstName, lastName, dateOfBirth, address, passport, email, password);
+            List<Contract> contracts = operatorService.findAllContracts();
+            session.setAttribute("contracts", contracts);
+            request.getRequestDispatcher("/WEB-INF/JSP/admin/contracts.jsp").forward(request, response);
         }
     }
 

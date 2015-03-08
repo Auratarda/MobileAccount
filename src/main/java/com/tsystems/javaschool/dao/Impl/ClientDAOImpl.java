@@ -1,5 +1,6 @@
-package com.tsystems.javaschool.dao;
+package com.tsystems.javaschool.dao.Impl;
 
+import com.tsystems.javaschool.dao.ClientDAO;
 import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.exceptions.LoginException;
 

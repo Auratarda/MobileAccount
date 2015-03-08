@@ -84,7 +84,7 @@
     <form method="post" action="client">
         <input type="hidden" name="source" value="lockContract">
         <input type="hidden" name="contractNumber" value="${contract.number}">
-        <input class="link" id="blockButton" type="submit" value="Заблокировать номер">
+        <input class="link" id="innerButton" type="submit" value="Заблокировать номер">
     </form>
 </div>
 

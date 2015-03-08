@@ -21,6 +21,8 @@ public interface OperatorService {
 
     void createNewClient(String firstName, String lastName, Date dateOfBirth, String address, String passport, String email, String password);
 
+    void createNewClient(String firstName, String lastName, String birthday, String address, String passport, String email, String password);
+
     void createNewContract(String number);
 
     void createNewTariff(String name, Long price);
@@ -64,6 +66,8 @@ public interface OperatorService {
     List<Tariff> findAllTariffs();
 
     List<Option> findAllOptions();
+
+    List<Contract> findFreeNumbers();
 
     /**
      * Lock/unlock contracts.

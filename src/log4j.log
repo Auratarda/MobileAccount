@@ -845,8 +845,8 @@ javax.persistence.PersistenceException: org.hibernate.exception.SQLGrammarExcept
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1677)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1683)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.persist(AbstractEntityManagerImpl.java:1187)
-	at com.tsystems.javaschool.dao.GenericDAOImpl.create(GenericDAOImpl.java:32)
-	at com.tsystems.javaschool.services.OperatorServiceImpl.createNewAdmin(OperatorServiceImpl.java:54)
+	at com.tsystems.javaschool.dao.Impl.GenericDAOImpl.create(GenericDAOImpl.java:32)
+	at com.tsystems.javaschool.services.Impl.OperatorServiceImpl.createNewAdmin(OperatorServiceImpl.java:54)
 	at com.tsystems.javaschool.InitAppTestData.main(InitAppTestData.java:33)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
@@ -2233,23 +2233,23 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 16:58:03 INFO  LoginServlet:36 - Starting client servlet
 2015-03-08 16:58:03 DEBUG ClientServiceImpl:93 - contractOptions 
 2015-03-08 16:58:03 DEBUG ClientServiceImpl:94 - incompatibleOptions 
-2015-03-08 16:58:03 DEBUG ClientServiceImpl:95 - requiredOptions Маячок.
+2015-03-08 16:58:03 DEBUG ClientServiceImpl:95 - requiredOptions пїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 16:58:30 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 16:58:30 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 16:58:30 INFO  LoginServlet:36 - Starting client servlet
 2015-03-08 16:58:30 DEBUG ClientServiceImpl:93 - contractOptions 
-2015-03-08 16:58:30 DEBUG ClientServiceImpl:94 - incompatibleOptions Антиспам.
+2015-03-08 16:58:30 DEBUG ClientServiceImpl:94 - incompatibleOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 16:58:30 DEBUG ClientServiceImpl:95 - requiredOptions 
 2015-03-08 16:58:45 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 16:58:45 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 16:58:45 INFO  LoginServlet:36 - Starting client servlet
-2015-03-08 16:58:45 DEBUG ClientServiceImpl:93 - contractOptions Обещанный платеж.
+2015-03-08 16:58:45 DEBUG ClientServiceImpl:93 - contractOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 16:58:45 DEBUG ClientServiceImpl:94 - incompatibleOptions 
 2015-03-08 16:58:45 DEBUG ClientServiceImpl:95 - requiredOptions 
 2015-03-08 16:59:00 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 16:59:00 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 16:59:00 INFO  LoginServlet:36 - Starting client servlet
-2015-03-08 16:59:00 DEBUG ClientServiceImpl:93 - contractOptions Обещанный платеж, Гудок.
+2015-03-08 16:59:00 DEBUG ClientServiceImpl:93 - contractOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 16:59:00 DEBUG ClientServiceImpl:94 - incompatibleOptions 
 2015-03-08 16:59:00 DEBUG ClientServiceImpl:95 - requiredOptions 
 2015-03-08 16:59:08 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
@@ -2428,7 +2428,7 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 17:26:59 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 17:26:59 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 17:26:59 INFO  LoginServlet:36 - Starting client servlet
-2015-03-08 17:26:59 DEBUG ClientServiceImpl:93 - contractOptions Погода.
+2015-03-08 17:26:59 DEBUG ClientServiceImpl:93 - contractOptions пїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 17:26:59 DEBUG ClientServiceImpl:94 - incompatibleOptions 
 2015-03-08 17:26:59 DEBUG ClientServiceImpl:95 - requiredOptions 
 2015-03-08 17:27:03 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/logout
@@ -2569,7 +2569,7 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 18:32:10 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 18:32:10 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 18:32:10 INFO  LoginServlet:36 - Starting client servlet
-2015-03-08 18:32:10 DEBUG ClientServiceImpl:93 - contractOptions Антиспам.
+2015-03-08 18:32:10 DEBUG ClientServiceImpl:93 - contractOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 18:32:10 DEBUG ClientServiceImpl:94 - incompatibleOptions 
 2015-03-08 18:32:10 DEBUG ClientServiceImpl:95 - requiredOptions 
 2015-03-08 18:32:14 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
@@ -2611,7 +2611,7 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 18:33:18 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 18:33:18 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 18:33:18 INFO  LoginServlet:36 - Starting client servlet
-2015-03-08 18:33:18 DEBUG ClientServiceImpl:93 - contractOptions Погода.
+2015-03-08 18:33:18 DEBUG ClientServiceImpl:93 - contractOptions пїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 18:33:18 DEBUG ClientServiceImpl:94 - incompatibleOptions 
 2015-03-08 18:33:18 DEBUG ClientServiceImpl:95 - requiredOptions 
 2015-03-08 18:33:24 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
@@ -2729,7 +2729,7 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 18:52:53 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 18:52:53 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 18:52:53 INFO  LoginServlet:32 - Starting client servlet
-2015-03-08 18:52:53 DEBUG ClientServiceImpl:91 - contractOptions Роуминг.
+2015-03-08 18:52:53 DEBUG ClientServiceImpl:91 - contractOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 18:52:53 DEBUG ClientServiceImpl:92 - incompatibleOptions 
 2015-03-08 18:52:53 DEBUG ClientServiceImpl:93 - requiredOptions 
 2015-03-08 18:52:56 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
@@ -2739,18 +2739,18 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 18:52:58 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 18:52:58 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 18:52:58 INFO  LoginServlet:32 - Starting client servlet
-2015-03-08 18:52:58 DEBUG ClientServiceImpl:66 - contractOptions Роуминг, Черный список.
-2015-03-08 18:52:58 DEBUG ClientServiceImpl:67 - tariffOptions Маячок.
+2015-03-08 18:52:58 DEBUG ClientServiceImpl:66 - contractOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+2015-03-08 18:52:58 DEBUG ClientServiceImpl:67 - tariffOptions пїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 18:53:57 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 18:53:57 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 18:53:57 INFO  LoginServlet:32 - Starting client servlet
-2015-03-08 18:53:57 DEBUG ClientServiceImpl:66 - contractOptions Роуминг, Черный список.
-2015-03-08 18:53:57 DEBUG ClientServiceImpl:67 - tariffOptions Обещанный платеж.
+2015-03-08 18:53:57 DEBUG ClientServiceImpl:66 - contractOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+2015-03-08 18:53:57 DEBUG ClientServiceImpl:67 - tariffOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 18:54:00 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 18:54:00 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 18:54:00 INFO  LoginServlet:32 - Starting client servlet
-2015-03-08 18:54:00 DEBUG ClientServiceImpl:66 - contractOptions Роуминг, Черный список.
-2015-03-08 18:54:00 DEBUG ClientServiceImpl:67 - tariffOptions Гудок.
+2015-03-08 18:54:00 DEBUG ClientServiceImpl:66 - contractOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+2015-03-08 18:54:00 DEBUG ClientServiceImpl:67 - tariffOptions пїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 18:54:04 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 18:54:04 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 18:54:04 INFO  LoginServlet:32 - Starting client servlet
@@ -2765,8 +2765,8 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 18:54:08 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 18:54:08 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 18:54:08 INFO  LoginServlet:32 - Starting client servlet
-2015-03-08 18:54:08 DEBUG ClientServiceImpl:66 - contractOptions Роуминг.
-2015-03-08 18:54:08 DEBUG ClientServiceImpl:67 - tariffOptions Маячок.
+2015-03-08 18:54:08 DEBUG ClientServiceImpl:66 - contractOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+2015-03-08 18:54:08 DEBUG ClientServiceImpl:67 - tariffOptions пїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 18:54:14 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 18:54:14 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 18:54:14 INFO  LoginServlet:32 - Starting client servlet
@@ -2785,12 +2785,12 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 18:54:20 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 18:54:20 INFO  LoginServlet:32 - Starting client servlet
 2015-03-08 18:54:20 DEBUG ClientServiceImpl:66 - contractOptions 
-2015-03-08 18:54:20 DEBUG ClientServiceImpl:67 - tariffOptions Антиспам.
+2015-03-08 18:54:20 DEBUG ClientServiceImpl:67 - tariffOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 18:54:26 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 18:54:26 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 18:54:26 INFO  LoginServlet:32 - Starting client servlet
 2015-03-08 18:54:26 DEBUG ClientServiceImpl:66 - contractOptions 
-2015-03-08 18:54:26 DEBUG ClientServiceImpl:67 - tariffOptions Антиспам.
+2015-03-08 18:54:26 DEBUG ClientServiceImpl:67 - tariffOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 18:54:26 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/css/style.css
 2015-03-08 18:54:26 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 18:55:55 INFO  OperatorService:25 - Creating operator service
@@ -2820,7 +2820,7 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 18:56:22 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 18:56:22 INFO  LoginServlet:32 - Starting client servlet
 2015-03-08 18:56:22 DEBUG ClientServiceImpl:66 - contractOptions 
-2015-03-08 18:56:22 DEBUG ClientServiceImpl:67 - tariffOptions Обещанный платеж.
+2015-03-08 18:56:22 DEBUG ClientServiceImpl:67 - tariffOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 19:01:35 INFO  OperatorService:25 - Creating operator service
 2015-03-08 19:01:35 INFO  ClientServiceImpl:27 - Creating client service
 2015-03-08 19:01:35 INFO  AuthFilter:23 - AuthenticationFilter initialized
@@ -2848,7 +2848,7 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 19:02:02 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 19:02:02 INFO  LoginServlet:32 - Starting client servlet
 2015-03-08 19:02:02 DEBUG ClientServiceImpl:66 - contractOptions 
-2015-03-08 19:02:02 DEBUG ClientServiceImpl:67 - tariffOptions Любимый номер.
+2015-03-08 19:02:02 DEBUG ClientServiceImpl:67 - tariffOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 19:02:05 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 19:02:05 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 19:02:05 INFO  LoginServlet:32 - Starting client servlet
@@ -2857,7 +2857,7 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 19:02:09 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 19:02:09 INFO  LoginServlet:32 - Starting client servlet
 2015-03-08 19:02:09 DEBUG ClientServiceImpl:66 - contractOptions 
-2015-03-08 19:02:09 DEBUG ClientServiceImpl:67 - tariffOptions Маячок.
+2015-03-08 19:02:09 DEBUG ClientServiceImpl:67 - tariffOptions пїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 19:02:11 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 19:02:11 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 19:02:11 INFO  LoginServlet:32 - Starting client servlet
@@ -2875,7 +2875,7 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 19:02:17 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 19:02:17 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 19:02:17 INFO  LoginServlet:32 - Starting client servlet
-2015-03-08 19:02:17 DEBUG ClientServiceImpl:91 - contractOptions Смс-свобода.
+2015-03-08 19:02:17 DEBUG ClientServiceImpl:91 - contractOptions пїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 19:02:17 DEBUG ClientServiceImpl:92 - incompatibleOptions 
 2015-03-08 19:02:17 DEBUG ClientServiceImpl:93 - requiredOptions 
 2015-03-08 19:02:22 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
@@ -3119,7 +3119,7 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 19:32:53 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 19:32:53 INFO  LoginServlet:32 - Starting client servlet
 2015-03-08 19:32:53 DEBUG ClientServiceImpl:66 - contractOptions 
-2015-03-08 19:32:53 DEBUG ClientServiceImpl:67 - tariffOptions Гудок.
+2015-03-08 19:32:53 DEBUG ClientServiceImpl:67 - tariffOptions пїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 19:32:58 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 19:32:58 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 19:32:58 INFO  LoginServlet:32 - Starting client servlet
@@ -3146,7 +3146,7 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 19:33:13 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 19:33:13 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 19:33:13 INFO  LoginServlet:32 - Starting client servlet
-2015-03-08 19:33:13 DEBUG ClientServiceImpl:91 - contractOptions Антиспам.
+2015-03-08 19:33:13 DEBUG ClientServiceImpl:91 - contractOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 19:33:13 DEBUG ClientServiceImpl:92 - incompatibleOptions 
 2015-03-08 19:33:13 DEBUG ClientServiceImpl:93 - requiredOptions 
 2015-03-08 19:33:15 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
@@ -3194,7 +3194,7 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 19:34:42 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 19:34:42 INFO  LoginServlet:32 - Starting client servlet
 2015-03-08 19:34:42 DEBUG ClientServiceImpl:66 - contractOptions 
-2015-03-08 19:34:42 DEBUG ClientServiceImpl:67 - tariffOptions Обещанный платеж.
+2015-03-08 19:34:42 DEBUG ClientServiceImpl:67 - tariffOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 19:34:44 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 19:34:44 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 19:34:44 INFO  LoginServlet:32 - Starting client servlet
@@ -3203,7 +3203,7 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 19:34:46 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 19:34:46 INFO  LoginServlet:32 - Starting client servlet
 2015-03-08 19:34:46 DEBUG ClientServiceImpl:66 - contractOptions 
-2015-03-08 19:34:46 DEBUG ClientServiceImpl:67 - tariffOptions Маячок.
+2015-03-08 19:34:46 DEBUG ClientServiceImpl:67 - tariffOptions пїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 19:34:49 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 19:34:49 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 19:34:49 INFO  LoginServlet:32 - Starting client servlet
@@ -3223,7 +3223,7 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 19:34:55 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
 2015-03-08 19:34:55 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 19:34:55 INFO  LoginServlet:32 - Starting client servlet
-2015-03-08 19:34:55 DEBUG ClientServiceImpl:91 - contractOptions Антиспам.
+2015-03-08 19:34:55 DEBUG ClientServiceImpl:91 - contractOptions пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 2015-03-08 19:34:55 DEBUG ClientServiceImpl:92 - incompatibleOptions 
 2015-03-08 19:34:55 DEBUG ClientServiceImpl:93 - requiredOptions 
 2015-03-08 19:34:59 DEBUG AuthFilter:43 - Requested Resource: /MobileAccount/client
@@ -3239,8 +3239,8 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mob
 2015-03-08 20:12:34 ERROR InitAppTestData:91 - Sorry, something wrong!
 java.lang.IllegalStateException: Transaction already active
 	at org.hibernate.jpa.internal.TransactionImpl.begin(TransactionImpl.java:58)
-	at com.tsystems.javaschool.dao.GenericDAOImpl.create(GenericDAOImpl.java:32)
-	at com.tsystems.javaschool.services.OperatorServiceImpl.createNewContract(OperatorServiceImpl.java:67)
+	at com.tsystems.javaschool.dao.Impl.GenericDAOImpl.create(GenericDAOImpl.java:32)
+	at com.tsystems.javaschool.services.Impl.OperatorServiceImpl.createNewContract(OperatorServiceImpl.java:67)
 	at com.tsystems.javaschool.InitAppTestData.main(InitAppTestData.java:47)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
@@ -3530,3 +3530,338 @@ java.lang.IllegalStateException: Transaction already active
 2015-03-08 20:58:49 DEBUG AuthFilter:54 - Request accessed successfully
 2015-03-08 20:58:49 INFO  LoginServlet:32 - Starting admin servlet
 2015-03-08 20:58:49 DEBUG OperatorService:152 - Reading all contracts
+2015-03-08 22:22:03 INFO  OperatorService:27 - Creating operator service
+2015-03-08 22:22:03 INFO  ClientServiceImpl:31 - Creating client service
+2015-03-08 22:22:03 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:22:03 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:22:12 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:22:12 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:22:14 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/login
+2015-03-08 22:22:14 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:22:14 INFO  LoginServlet:28 - Starting login servlet
+2015-03-08 22:22:15 DEBUG LoginServlet:40 - UserID = 6
+2015-03-08 22:22:15 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:22:15 DEBUG OperatorService:164 - Reading all tariffs
+2015-03-08 22:22:15 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:22:15 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:22:17 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:22:17 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:22:17 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:22:17 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:22:17 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/js/link_submit.js
+2015-03-08 22:22:17 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:22:19 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:22:19 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:22:19 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:22:19 DEBUG OperatorService:159 - Reading free numbers
+2015-03-08 22:24:01 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/logout
+2015-03-08 22:24:01 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:33:01 INFO  OperatorService:27 - Creating operator service
+2015-03-08 22:33:01 INFO  ClientServiceImpl:31 - Creating client service
+2015-03-08 22:33:01 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:33:01 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:33:06 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/logout
+2015-03-08 22:33:06 DEBUG AuthFilter:46 - Unauthorized access request
+2015-03-08 22:33:07 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/index.jsp
+2015-03-08 22:33:07 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:33:07 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:33:07 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:33:48 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/login
+2015-03-08 22:33:48 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:33:48 INFO  LoginServlet:28 - Starting login servlet
+2015-03-08 22:33:49 DEBUG LoginServlet:40 - UserID = 6
+2015-03-08 22:33:49 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:33:49 DEBUG OperatorService:164 - Reading all tariffs
+2015-03-08 22:33:51 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:33:51 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:33:51 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:33:51 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:33:51 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/js/link_submit.js
+2015-03-08 22:33:51 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:33:52 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:33:52 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:33:52 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:33:52 DEBUG OperatorService:159 - Reading free numbers
+2015-03-08 22:36:15 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:36:15 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:42:22 INFO  OperatorService:27 - Creating operator service
+2015-03-08 22:42:22 INFO  ClientServiceImpl:31 - Creating client service
+2015-03-08 22:42:22 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:42:22 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:42:27 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:42:27 DEBUG AuthFilter:46 - Unauthorized access request
+2015-03-08 22:42:27 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/index.jsp
+2015-03-08 22:42:27 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:42:28 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:42:28 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:42:36 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/login
+2015-03-08 22:42:36 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:42:36 INFO  LoginServlet:28 - Starting login servlet
+2015-03-08 22:42:36 DEBUG LoginServlet:40 - UserID = 6
+2015-03-08 22:42:36 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:42:37 DEBUG OperatorService:164 - Reading all tariffs
+2015-03-08 22:42:37 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:42:37 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:42:42 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:42:42 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:42:42 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:42:42 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:42:42 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:42:42 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:42:42 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/js/link_submit.js
+2015-03-08 22:42:42 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:42:44 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:42:44 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:42:44 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:42:44 DEBUG OperatorService:159 - Reading free numbers
+2015-03-08 22:43:07 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:43:07 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:45:00 INFO  OperatorService:27 - Creating operator service
+2015-03-08 22:45:00 INFO  ClientServiceImpl:31 - Creating client service
+2015-03-08 22:45:00 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:45:00 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:45:05 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:45:05 DEBUG AuthFilter:46 - Unauthorized access request
+2015-03-08 22:45:05 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/index.jsp
+2015-03-08 22:45:05 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:45:05 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:45:05 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:45:10 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/login
+2015-03-08 22:45:10 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:45:10 INFO  LoginServlet:28 - Starting login servlet
+2015-03-08 22:45:10 DEBUG LoginServlet:40 - UserID = 6
+2015-03-08 22:45:10 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:45:10 DEBUG OperatorService:164 - Reading all tariffs
+2015-03-08 22:45:12 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:45:12 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:45:12 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:45:12 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:45:13 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:45:13 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:45:13 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:45:13 DEBUG OperatorService:159 - Reading free numbers
+2015-03-08 22:46:02 INFO  OperatorService:27 - Creating operator service
+2015-03-08 22:46:02 INFO  ClientServiceImpl:31 - Creating client service
+2015-03-08 22:46:02 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:46:02 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:46:07 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:46:07 DEBUG AuthFilter:46 - Unauthorized access request
+2015-03-08 22:46:07 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/index.jsp
+2015-03-08 22:46:07 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:46:07 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:46:07 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:46:12 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/login
+2015-03-08 22:46:12 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:46:12 INFO  LoginServlet:28 - Starting login servlet
+2015-03-08 22:46:12 DEBUG LoginServlet:40 - UserID = 6
+2015-03-08 22:46:12 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:46:12 DEBUG OperatorService:164 - Reading all tariffs
+2015-03-08 22:46:13 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:46:13 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:46:13 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:46:13 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:46:14 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:46:14 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:46:14 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:46:14 DEBUG OperatorService:159 - Reading free numbers
+2015-03-08 22:49:04 INFO  OperatorService:27 - Creating operator service
+2015-03-08 22:49:04 INFO  ClientServiceImpl:31 - Creating client service
+2015-03-08 22:49:04 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:49:04 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:49:09 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:49:09 DEBUG AuthFilter:46 - Unauthorized access request
+2015-03-08 22:49:09 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/index.jsp
+2015-03-08 22:49:09 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:49:10 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:49:10 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:49:14 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/login
+2015-03-08 22:49:14 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:49:14 INFO  LoginServlet:28 - Starting login servlet
+2015-03-08 22:49:14 DEBUG LoginServlet:40 - UserID = 6
+2015-03-08 22:49:14 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:49:14 DEBUG OperatorService:164 - Reading all tariffs
+2015-03-08 22:49:15 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:49:15 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:49:16 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:49:16 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:49:16 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:49:16 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:49:16 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:49:16 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:49:16 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/js/link_submit.js
+2015-03-08 22:49:16 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:49:17 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:49:17 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:49:17 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:49:17 DEBUG OperatorService:159 - Reading free numbers
+2015-03-08 22:49:36 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:49:36 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:53:22 INFO  OperatorService:27 - Creating operator service
+2015-03-08 22:53:22 INFO  ClientServiceImpl:31 - Creating client service
+2015-03-08 22:53:22 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:53:22 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:53:27 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:53:27 DEBUG AuthFilter:46 - Unauthorized access request
+2015-03-08 22:53:27 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/index.jsp
+2015-03-08 22:53:27 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:53:27 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:53:27 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:53:33 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/login
+2015-03-08 22:53:33 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:53:33 INFO  LoginServlet:28 - Starting login servlet
+2015-03-08 22:53:33 DEBUG LoginServlet:40 - UserID = 6
+2015-03-08 22:53:33 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:53:33 DEBUG OperatorService:164 - Reading all tariffs
+2015-03-08 22:53:33 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:53:33 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:53:34 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:53:34 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:53:34 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:53:34 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:53:35 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:53:35 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:53:35 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:53:35 DEBUG OperatorService:159 - Reading free numbers
+2015-03-08 22:53:35 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:53:35 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:55:23 INFO  OperatorService:27 - Creating operator service
+2015-03-08 22:55:23 INFO  ClientServiceImpl:31 - Creating client service
+2015-03-08 22:55:23 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:55:23 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 22:55:26 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/logout
+2015-03-08 22:55:26 DEBUG AuthFilter:46 - Unauthorized access request
+2015-03-08 22:55:26 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/index.jsp
+2015-03-08 22:55:26 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:55:26 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:55:26 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:55:27 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/index.jsp
+2015-03-08 22:55:27 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:55:27 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:55:27 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:55:32 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/login
+2015-03-08 22:55:32 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:55:32 INFO  LoginServlet:28 - Starting login servlet
+2015-03-08 22:55:32 DEBUG LoginServlet:40 - UserID = 6
+2015-03-08 22:55:32 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:55:32 DEBUG OperatorService:164 - Reading all tariffs
+2015-03-08 22:55:32 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:55:32 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:55:33 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:55:33 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:55:33 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:55:33 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 22:55:33 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:55:33 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:55:33 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/js/link_submit.js
+2015-03-08 22:55:33 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:55:34 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 22:55:34 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 22:55:34 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 22:55:34 DEBUG OperatorService:159 - Reading free numbers
+2015-03-08 22:55:35 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 22:55:35 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:06:25 INFO  OperatorService:27 - Creating operator service
+2015-03-08 23:06:25 INFO  ClientServiceImpl:31 - Creating client service
+2015-03-08 23:06:25 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 23:06:25 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 23:06:29 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 23:06:29 DEBUG AuthFilter:46 - Unauthorized access request
+2015-03-08 23:06:29 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/index.jsp
+2015-03-08 23:06:29 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:06:29 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 23:06:29 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:06:34 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/login
+2015-03-08 23:06:34 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:06:34 INFO  LoginServlet:28 - Starting login servlet
+2015-03-08 23:06:34 DEBUG LoginServlet:40 - UserID = 6
+2015-03-08 23:06:34 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 23:06:34 DEBUG OperatorService:164 - Reading all tariffs
+2015-03-08 23:06:36 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 23:06:36 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:06:36 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 23:06:36 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 23:06:36 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/js/link_submit.js
+2015-03-08 23:06:36 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:06:37 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 23:06:37 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:06:37 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 23:06:37 DEBUG OperatorService:159 - Reading free numbers
+2015-03-08 23:07:38 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 23:07:38 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:07:38 INFO  LoginServlet:27 - Starting admin servlet
+2015-03-08 23:07:38 DEBUG LoginServlet:59 - 1988-02-22
+2015-03-08 23:07:38 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 23:07:38 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:13:02 INFO  OperatorService:27 - Creating operator service
+2015-03-08 23:13:02 INFO  ClientServiceImpl:31 - Creating client service
+2015-03-08 23:13:02 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 23:13:02 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 23:13:09 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/logout
+2015-03-08 23:13:09 DEBUG AuthFilter:46 - Unauthorized access request
+2015-03-08 23:13:09 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/index.jsp
+2015-03-08 23:13:09 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:13:10 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 23:13:10 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:13:11 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/index.jsp
+2015-03-08 23:13:11 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:13:11 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 23:13:11 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:13:16 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/login
+2015-03-08 23:13:16 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:13:16 INFO  LoginServlet:28 - Starting login servlet
+2015-03-08 23:13:16 DEBUG LoginServlet:40 - UserID = 6
+2015-03-08 23:13:16 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 23:13:16 DEBUG OperatorService:164 - Reading all tariffs
+2015-03-08 23:13:17 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 23:13:17 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:13:17 INFO  LoginServlet:30 - Starting admin servlet
+2015-03-08 23:13:17 DEBUG OperatorService:154 - Reading all contracts
+2015-03-08 23:13:18 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/js/link_submit.js
+2015-03-08 23:13:18 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:13:19 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 23:13:19 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:13:19 INFO  LoginServlet:30 - Starting admin servlet
+2015-03-08 23:13:19 DEBUG OperatorService:159 - Reading free numbers
+2015-03-08 23:13:40 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 23:13:40 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:13:40 INFO  LoginServlet:30 - Starting admin servlet
+2015-03-08 23:13:40 DEBUG LoginServlet:69 - Mon Feb 22 00:00:00 AST 1988
+2015-03-08 23:21:52 INFO  OperatorService:29 - Creating operator service
+2015-03-08 23:21:52 INFO  ClientServiceImpl:31 - Creating client service
+2015-03-08 23:21:52 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 23:21:52 INFO  AuthFilter:20 - AuthenticationFilter initialized
+2015-03-08 23:21:53 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/logout
+2015-03-08 23:21:53 DEBUG AuthFilter:46 - Unauthorized access request
+2015-03-08 23:21:53 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/index.jsp
+2015-03-08 23:21:53 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:21:53 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/css/style.css
+2015-03-08 23:21:53 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:21:59 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/login
+2015-03-08 23:21:59 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:21:59 INFO  LoginServlet:28 - Starting login servlet
+2015-03-08 23:21:59 DEBUG LoginServlet:40 - UserID = 6
+2015-03-08 23:21:59 DEBUG OperatorService:171 - Reading all contracts
+2015-03-08 23:21:59 DEBUG OperatorService:181 - Reading all tariffs
+2015-03-08 23:22:01 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 23:22:01 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:22:01 INFO  LoginServlet:30 - Starting admin servlet
+2015-03-08 23:22:01 DEBUG OperatorService:171 - Reading all contracts
+2015-03-08 23:22:01 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/js/link_submit.js
+2015-03-08 23:22:01 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:22:02 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 23:22:02 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:22:02 INFO  LoginServlet:30 - Starting admin servlet
+2015-03-08 23:22:02 DEBUG OperatorService:176 - Reading free numbers
+2015-03-08 23:23:25 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 23:23:25 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:23:25 INFO  LoginServlet:30 - Starting admin servlet
+2015-03-08 23:23:25 DEBUG OperatorService:54 - Creating new client
+2015-03-08 23:23:25 DEBUG OperatorService:171 - Reading all contracts
+2015-03-08 23:23:35 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 23:23:35 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:23:35 INFO  LoginServlet:30 - Starting admin servlet
+2015-03-08 23:23:35 DEBUG OperatorService:181 - Reading all tariffs
+2015-03-08 23:23:36 DEBUG AuthFilter:40 - Requested Resource: /MobileAccount/admin
+2015-03-08 23:23:36 DEBUG AuthFilter:51 - Request accessed successfully
+2015-03-08 23:23:36 INFO  LoginServlet:30 - Starting admin servlet
+2015-03-08 23:23:36 DEBUG OperatorService:171 - Reading all contracts

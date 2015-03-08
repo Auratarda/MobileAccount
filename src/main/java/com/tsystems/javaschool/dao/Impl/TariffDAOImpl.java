@@ -1,5 +1,6 @@
-package com.tsystems.javaschool.dao;
+package com.tsystems.javaschool.dao.Impl;
 
+import com.tsystems.javaschool.dao.TariffDAO;
 import com.tsystems.javaschool.entities.Tariff;
 
 import javax.persistence.EntityManager;

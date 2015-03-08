@@ -3,7 +3,7 @@ package com.tsystems.javaschool.test;
 import com.tsystems.javaschool.exceptions.TariffNotSupportedOptionException;
 import com.tsystems.javaschool.persistence.PersistenceUtil;
 import com.tsystems.javaschool.services.ClientService;
-import com.tsystems.javaschool.services.ClientServiceImpl;
+import com.tsystems.javaschool.services.Impl.ClientServiceImpl;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;

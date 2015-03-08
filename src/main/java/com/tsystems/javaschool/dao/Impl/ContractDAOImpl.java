@@ -1,5 +1,6 @@
-package com.tsystems.javaschool.dao;
+package com.tsystems.javaschool.dao.Impl;
 
+import com.tsystems.javaschool.dao.ContractDAO;
 import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
 
@@ -33,6 +34,12 @@ public class ContractDAOImpl extends GenericDAOImpl<Contract, Long> implements C
     public List<Contract> findAllContracts() {
         TypedQuery<Contract> contractTypedQuery = getEntityManager().createQuery
                 ("SELECT c FROM Contract c WHERE c.client IS NOT NULL", Contract.class);
+        return contractTypedQuery.getResultList();
+    }
+
+    public List<Contract> findFreeNumbers() {
+        TypedQuery<Contract> contractTypedQuery = getEntityManager().createQuery
+                ("SELECT c FROM Contract c WHERE c.client IS NULL", Contract.class);
         return contractTypedQuery.getResultList();
     }
 }

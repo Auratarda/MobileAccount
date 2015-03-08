@@ -13,5 +13,7 @@ public interface ContractDAO extends GenericDAO<Contract, Long> {
 
     Contract findContractByNumber(String number);
 
-    public List<Contract> findAllContracts();
+    List<Contract> findAllContracts();
+
+    List<Contract> findFreeNumbers();
 }
