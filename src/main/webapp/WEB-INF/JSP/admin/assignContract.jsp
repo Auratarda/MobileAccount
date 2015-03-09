@@ -74,6 +74,36 @@
                     <td><input type="text" name="password" maxlength="30" required></td>
                 </tr>
                 <tr>
+                    <td>Выберите номер телефона</td>
+                    <td>
+                        <select name="numbers[]" required>
+                            <c:forEach var="contract" items="${freeContracts}">
+                                <option value="${contract.number}">+7${contract.number}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Выберите тариф</td>
+                    <td>
+                        <select name="tariffs[]" required>
+                            <c:forEach var="tariff" items="${tariffs}">
+                                <option value="${tariff.name}">${tariff.name}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Выберите опции</td>
+                    <td>
+                        <select multiple size="5" name="options[]">
+                            <c:forEach var="option" items="${allOptions}">
+                                <option value="${option.name}">${option.name}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="0"><input class="myButton" type="SUBMIT" value="Заключить договор с абонентом"></td>
                 </tr>
             </table>

@@ -3,12 +3,14 @@ package com.tsystems.javaschool.services.Impl;
 import com.tsystems.javaschool.dao.*;
 import com.tsystems.javaschool.dao.Impl.*;
 import com.tsystems.javaschool.entities.*;
+import com.tsystems.javaschool.exceptions.LoginException;
 import com.tsystems.javaschool.services.OperatorService;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -105,6 +107,22 @@ public class OperatorServiceImpl implements OperatorService {
         return contractDAO.findClientByNumber(number);
     }
 
+    public Client findClientByEmailAndPassword(String email, String password) throws LoginException {
+        return clientDAO.login(email, password);
+    }
+
+    public Contract findContractByNumber(String contractNumber) {
+        return contractDAO.findContractByNumber(contractNumber);
+    }
+
+    public Option findOptionByName(String optionName) {
+        return optionDAO.findOptionByName(optionName);
+    }
+
+    public Tariff findTariffByName(String tariffName) {
+        return tariffDAO.findTariffByName(tariffName);
+    }
+
     public Client findClientByID(Long clientId) {
         return clientDAO.read(clientId);
     }
@@ -125,10 +143,9 @@ public class OperatorServiceImpl implements OperatorService {
     /**
      * Modify a contract.
      */
-    public void setNumber(Long clientId, Long contractId) {
+    public void setNumber(Client client, String number) {
         logger.debug("Setting a contract to a client");
-        Client client = clientDAO.read(clientId);
-        Contract contract = contractDAO.read(contractId);
+        Contract contract = contractDAO.findContractByNumber(number);
         contract.setClient(client);
         client.getContracts().add(contract);
         contractDAO.update(contract);
@@ -159,6 +176,24 @@ public class OperatorServiceImpl implements OperatorService {
         contractDAO.update(contract);
     }
 
+    public void removeClient(Client client) {
+        logger.debug("Removing client " + client.getFirstName() + ", " + client.getLastName());
+        List<Contract> contracts = client.getContracts();
+        for (Contract contract : contracts) {
+            contract.setClient(null);
+            contract.setTariff(null);
+            List<Option> options = new ArrayList<Option>(0);
+            contract.setOptions(options);
+        }
+        client.setContracts(new ArrayList<Contract>(0));
+        List<Role> roles = client.getRoles();
+        client.setRoles(new ArrayList<Role>(0));
+        for (Role role : roles) {
+            roleDAO.delete(role);
+        }
+        clientDAO.delete(client);
+    }
+
     /**
      * View all clients, contracts, tariffs. Find client by ID.
      */
@@ -172,7 +207,7 @@ public class OperatorServiceImpl implements OperatorService {
         return contractDAO.findAllContracts();
     }
 
-    public List<Contract> findFreeNumbers() {
+    public List<Contract> findFreeContracts() {
         logger.debug("Reading free numbers");
         return contractDAO.findFreeNumbers();
     }
@@ -195,16 +230,14 @@ public class OperatorServiceImpl implements OperatorService {
     /**
      * Lock/unlock contracts.
      */
-    public void lockContract(Long contractId) {
+    public void lockContract(Contract contract) {
         logger.debug("Blocking a contract by Operator");
-        Contract contract = contractDAO.read(contractId);
         contract.setBlockedByOperator(true);
         contractDAO.update(contract);
     }
 
-    public void unLockContract(Long contractId) {
+    public void unLockContract(Contract contract) {
         logger.debug("Unlocking a contract by Operator");
-        Contract contract = contractDAO.read(contractId);
         contract.setBlockedByOperator(false);
         contractDAO.update(contract);
     }

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Кабинет администратора/title>
+    <title>Кабинет администратора</title>
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 <body>
@@ -43,7 +43,7 @@
                 <th>Цена</th>
                 <th>Стоимость подключения</th>
             </tr>
-            <c:forEach var="option" items="${sessionScope.options}">
+            <c:forEach var="option" items="${allOptions}">
                 <tr>
                     <td>${option.name}</td>
                     <td>${option.price}</td>

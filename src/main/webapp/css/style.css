@@ -71,6 +71,28 @@ table.loginTable {
 
 div.table {
     margin-left: 40px;
+    margin-bottom: 20px;
+}
+
+.operatorBlockButton {
+    margin-left: 40px;
+}
+
+.search {
+    padding-left: 30px;
+    font-size: 20px;
+    color: red;
+    line-height: 30px;
+    opacity: 1;
+}
+
+.row {
+    display: table;
+}
+
+.col {
+    display: table-cell;
+    width: 50%;
 }
 
 #loginError {

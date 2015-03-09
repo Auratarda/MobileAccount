@@ -4,6 +4,7 @@ import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
 import com.tsystems.javaschool.entities.Tariff;
+import com.tsystems.javaschool.exceptions.LoginException;
 
 import java.util.Date;
 import java.util.List;
@@ -36,6 +37,14 @@ public interface OperatorService {
      */
     Client findClientByNumber(String number);
 
+    Client findClientByEmailAndPassword(String email, String password) throws LoginException;
+
+    Contract findContractByNumber(String contractNumber);
+
+    Tariff findTariffByName(String tariffName);
+
+    Option findOptionByName(String optionName);
+
     Client findClientByID(Long clientId);
 
     Contract findContractByID(Long contractId);
@@ -48,13 +57,15 @@ public interface OperatorService {
      * Modify a contract.
      */
 
-    void setNumber(Long clientId, Long contractId);
+    void setNumber(Client client, String number);
 
     void setTariff(Long contractId, Long tariffId); //Also change tariff.
 
     void addOption(Long contractId, Long optionId);
 
     void removeOption(Long contractId, Long optionId);
+
+    void removeClient(Client client);
 
     /**
      * View all clients and contracts. Find client by ID.
@@ -67,14 +78,14 @@ public interface OperatorService {
 
     List<Option> findAllOptions();
 
-    List<Contract> findFreeNumbers();
+    List<Contract> findFreeContracts();
 
     /**
      * Lock/unlock contracts.
      */
-    void lockContract(Long contractId);
+    public void lockContract(Contract contract);
 
-    void unLockContract(Long contractId);
+    void unLockContract(Contract contract);
 
     /**
      * Modify a tariff.

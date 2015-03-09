@@ -54,7 +54,7 @@
             </tr>
             <tr>
                 <td><b>Дата рождения: </b></td>
-                <td>${client.dateOfBirth}</td>
+                <td>${dateOfBirth}</td>
             </tr>
             <tr>
                 <td><b>Емейл: </b></td>

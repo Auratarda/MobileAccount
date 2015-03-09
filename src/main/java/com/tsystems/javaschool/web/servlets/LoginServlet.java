@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,6 +38,10 @@ public class LoginServlet extends HttpServlet {
         Client client;
         try {
             client = clientService.login(email, password);
+            Date date = client.getDateOfBirth();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String dateOfBirth = sdf.format(date);
+            session.setAttribute("dateOfBirth", dateOfBirth);
             String uid = "" + client.getId();
             logger.debug("UserID = " + uid);
             session.setAttribute("client", client);
@@ -50,6 +56,7 @@ public class LoginServlet extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/JSP/admin.jsp").forward(request, response);
                 }
                 if (role.getRole().equals("CLIENT")) {
+
                     request.getRequestDispatcher("/WEB-INF/JSP/client.jsp").forward(request, response);
                 }
             }

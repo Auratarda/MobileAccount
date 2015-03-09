@@ -37,36 +37,52 @@
         </ul>
     </div>
 
-    <div>
-        <form method="post" action="admin">
-            <input type="hidden" name="source" value="assignNewContract">
-            <input class="myButton" id="assignNewContractButton"
-                   type="submit" value="Заключить новый контракт">
-        </form>
+    <div class="row">
+        <div class="col">
+            <div class="table" id="contract">
+                <table class="innerTable">
+                    <tr>
+                        <th>Клиент</th>
+                        <th>Номер</th>
+                    </tr>
+                    <c:forEach var="contract" items="${contracts}">
+                        <tr>
+                            <td>${contract.client}</td>
+                            <td>
+                                <form action="" method="post">
+                                    <a href="javascript:;"
+                                       onclick="get_form(this).submit(); return false">+7${contract.number}</a>
+                                    <input type="hidden" name="source" value="client">
+                                    <input type="hidden" name="number" value=${contract.number}>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
+        </div>
+
+        <div class="col">
+            <div>
+                <form method="post" action="admin">
+                    <input type="hidden" name="source" value="assignNewContract">
+                    <input class="myButton" id="assignNewContractButton" type="submit" value="Заключить новый контракт">
+                </form>
+            </div>
+            <div class="search">
+                <form method="post" action="admin">
+                    <input type="hidden" name="source" value="findClientByNumber">
+                    +7<input type="text" name="searchNumber" placeholder="Введите номер телефона" maxlength="10"
+                             required>
+                    <input class="myButton" type="submit" value="Искать">
+                </form>
+            </div>
+            <c:if test="${sessionScope.notFound=='notFound'}">
+                <div class="search">Абонент не зарегистрирован в системе</div>
+            </c:if>
+        </div>
     </div>
 
-
-    <div class="table" id="contract">
-        <table class="innerTable">
-            <tr>
-                <th>Клиент</th>
-                <th>Номер</th>
-            </tr>
-            <c:forEach var="contract" items="${sessionScope.contracts}">
-                <tr>
-                    <td>${contract.client}</td>
-                    <td>
-                        <form action="" method="post">
-                            <a href="javascript:;"
-                               onclick="get_form(this).submit(); return false">+7${contract.number}</a>
-                            <input type="hidden" name="source" value="client">
-                            <input type="hidden" name="number" value=${contract.number}>
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-    </div>
 </div>
 
 <div id="footer">

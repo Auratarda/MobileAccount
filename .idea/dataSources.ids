@@ -39,6 +39,7 @@
       <foreign-key name="FK_hxx77el4m0mqka6p6uca9qxo4" columns="CLIENT_ID" ref-table="client" ref-schema="" ref-catalog="mobile" ref-columns="CLIENT_ID" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FK_lpr1ow4rioj17w7sajnno10sk" columns="TARIFF_ID" ref-table="tariff" ref-schema="" ref-catalog="mobile" ref-columns="TARIFF_ID" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="FK_2tlt6yl7rg5q3ftx8hylrgs65" table="contract_options" schema="" catalog="mobile" columns="OPTION_ID"/>
+      <index name="CONTRACT_NUMBER" unique="true" columns="CONTRACT_NUMBER"/>
       <index name="FK_hxx77el4m0mqka6p6uca9qxo4" unique="false" columns="CLIENT_ID"/>
       <index name="FK_lpr1ow4rioj17w7sajnno10sk" unique="false" columns="TARIFF_ID"/>
     </table>
