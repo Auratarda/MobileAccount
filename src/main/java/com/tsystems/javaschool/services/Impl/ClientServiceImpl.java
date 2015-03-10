@@ -61,7 +61,8 @@ public class ClientServiceImpl implements ClientService {
         return client.getContracts();
     }
 
-    public void changeTariff(String contractNumber, String tariffName) throws TariffNotSupportedOptionException, ContractIsBlockedException {
+    public void changeTariff(String contractNumber, String tariffName)
+            throws TariffNotSupportedOptionException, ContractIsBlockedException {
         Contract contract = contractDAO.findContractByNumber(contractNumber);
         if (contract.getBlockedByClient() || contract.getBlockedByOperator()) {
             throw new ContractIsBlockedException();

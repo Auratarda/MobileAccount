@@ -71,17 +71,36 @@
                     </tr>
                 </table>
             </div>
-            <div>
+            <div class="blockInline">
                 <form method="post" action="admin">
                     <input type="hidden" name="source" value="removeClient">
                     <input type="hidden" name="contractToRemove" value="${contract.number}">
                     <input class="myButton" id="assignNewContractButton" type="submit" value="Удалить клиента">
                 </form>
             </div>
-        </div>
+            <div class="blockInline">
+                <c:if test="${sessionScope.status!='Заблокирован оператором'}">
+                    <div class="operatorBlockButton">
+                        <form method="post" action="admin">
+                            <input type="hidden" name="source"
+                                   value="lockContract">
+                            <input type="hidden" name="contractNumber" value="${contract.number}">
+                            <input class="myButton" type="submit" value="Заблокировать номер">
+                        </form>
+                    </div>
+                </c:if>
+                <c:if test="${sessionScope.status=='Заблокирован оператором'}">
+                    <div class="operatorBlockButton">
+                        <form method="post" action="admin">
+                            <input type="hidden" name="source" value="unLockContract">
+                            <input type="hidden" name="contractNumber" value="${contract.number}">
+                            <input class="myButton" type="submit" value="Разблокировать номер">
+                        </form>
+                    </div>
+                </c:if>
+            </div>
 
-        <div class="col">
-            <div class="table">
+            <div class="table" id="clearFix">
                 <table class="innerTable">
                     <tr>
                         <td><b>Номер: </b></td>
@@ -100,12 +119,29 @@
                         <td>${status}</td>
                     </tr>
                 </table>
-                <br>
+
+                <div class="search">
+                    <form method="post" action="admin">
+                        <input type="hidden" name="source" value="changeTariff">
+                        <input type="hidden" name="contractNumber" value="${contract.number}">
+                        <select name="tariffs[]" required>
+                            <c:forEach var="tariff" items="${tariffs}">
+                                <option value="${tariff.name}">${tariff.name}</option>
+                            </c:forEach>
+                        </select>
+                        <input class="myButton" type="submit" value="Поменять тариф">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div id="rightCol">
                 <table class="innerTable">
                     <tr>
                         <th>Опция</th>
                         <th>Цена</th>
-                        <th>Стоимость подключения</th>
+                        <th>Подключение</th>
                         <th>Отключение</th>
                     </tr>
                     <c:forEach var="option" items="${options}">
@@ -114,35 +150,30 @@
                             <td>${option.price}</td>
                             <td>${option.connectionCost}</td>
                             <td>
-                                <form method="post" action="client">
-                                    <input type="hidden" name="source" value="removeOption">
+                                <form method="post" action="admin">
+                                    <input type="hidden" name="source" value="removeOptionFromContract">
                                     <input type="hidden" name="optionName" value="${option.name}">
+                                    <input type="hidden" name="currentContract" value="${contract.number}">
                                     <input class="link" type="submit" value="Отключить">
                                 </form>
                             </td>
                         </tr>
                     </c:forEach>
                 </table>
+                <div class="search">
+                    <form method="post" action="admin">
+                        <input type="hidden" name="source" value="addMoreOptions">
+                        <input type="hidden" name="contractNumber" value="${contract.number}">
+                        <select multiple size="5" name="options[]">
+                            <c:forEach var="option" items="${allOptions}">
+                                <option value="${option.name}">${option.name}</option>
+                            </c:forEach>
+                        </select>
+
+                        <div><input class="myButton" type="submit" value="Добавить опции"></div>
+                    </form>
+                </div>
             </div>
-            <c:if test="${sessionScope.status!='Заблокирован оператором'}">
-                <div class="operatorBlockButton">
-                    <form method="post" action="admin">
-                        <input type="hidden" name="source"
-                               value="lockContract">
-                        <input type="hidden" name="contractNumber" value="${contract.number}">
-                        <input class="myButton" type="submit" value="Заблокировать номер">
-                    </form>
-                </div>
-            </c:if>
-            <c:if test="${sessionScope.status=='Заблокирован оператором'}">
-                <div class="operatorBlockButton">
-                    <form method="post" action="admin">
-                        <input type="hidden" name="source" value="unLockContract">
-                        <input type="hidden" name="contractNumber" value="${contract.number}">
-                        <input class="myButton" type="submit" value="Разблокировать номер">
-                    </form>
-                </div>
-            </c:if>
         </div>
     </div>
 </div>

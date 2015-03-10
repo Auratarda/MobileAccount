@@ -61,6 +61,10 @@ public interface OperatorService {
 
     void setTariff(Long contractId, Long tariffId); //Also change tariff.
 
+    void updateContract(Contract contract);
+
+    void updateTariff(Tariff tariff);
+
     void addOption(Long contractId, Long optionId);
 
     void removeOption(Long contractId, Long optionId);
@@ -83,14 +87,16 @@ public interface OperatorService {
     /**
      * Lock/unlock contracts.
      */
-    public void lockContract(Contract contract);
+    void lockContract(Contract contract);
 
     void unLockContract(Contract contract);
 
     /**
      * Modify a tariff.
      */
-    void removeTariff(Long tariffId);
+    void removeTariff(Tariff tariff);
+
+    void removeOption(Option option);
 
     void addTariffOption(Long tariffId, Long optionId);
 

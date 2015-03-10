@@ -4,7 +4,10 @@ import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
 import com.tsystems.javaschool.entities.Tariff;
+import com.tsystems.javaschool.exceptions.ContractIsBlockedException;
 import com.tsystems.javaschool.exceptions.LoginException;
+import com.tsystems.javaschool.exceptions.RequiredOptionException;
+import com.tsystems.javaschool.services.ClientService;
 import com.tsystems.javaschool.services.OperatorService;
 import org.apache.log4j.Logger;
 
@@ -31,6 +34,8 @@ public class AdminServlet extends HttpServlet {
         HttpSession session = request.getSession();
         OperatorService operatorService = (OperatorService)
                 request.getServletContext().getAttribute("operatorService");
+        ClientService clientService = (ClientService)
+                request.getServletContext().getAttribute("clientService");
         String source = request.getParameter("source");
 
         List<Contract> contracts = operatorService.findAllContracts();
@@ -49,25 +54,29 @@ public class AdminServlet extends HttpServlet {
         } else if (source.equals("options")) {
             request.getRequestDispatcher("/WEB-INF/JSP/admin/options.jsp").forward(request, response);
         } else if (source.equals("client")) {
-            String number = request.getParameter("number");
-            logger.debug("Contract number = " + number);
-            Client client = operatorService.findClientByNumber(number);
-            Contract contract = operatorService.findContractByNumber(number);
-            Tariff tariff = contract.getTariff();
-            List<Option> options = contract.getOptions();
-            Date date = client.getDateOfBirth();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            String dateOfBirth = sdf.format(date);
-            String status = "Не заблокирован";
-            if (contract.getBlockedByClient()) status = "Заблокирован клиентом";
-            else if (contract.getBlockedByOperator()) status = "Заблокирован оператором";
-            session.setAttribute("client", client);
-            session.setAttribute("contract", contract);
-            session.setAttribute("tariff", tariff);
-            session.setAttribute("options", options);
-            session.setAttribute("dateOfBirth", dateOfBirth);
-            session.setAttribute("status", status);
-            request.getRequestDispatcher("/WEB-INF/JSP/admin/account.jsp").forward(request, response);
+            try {
+                String number = request.getParameter("number");
+                logger.debug("Contract number = " + number);
+                Client client = operatorService.findClientByNumber(number);
+                Contract contract = operatorService.findContractByNumber(number);
+                Tariff tariff = contract.getTariff();
+                List<Option> options = contract.getOptions();
+                Date date = client.getDateOfBirth();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                String dateOfBirth = sdf.format(date);
+                String status = "Не заблокирован";
+                if (contract.getBlockedByClient()) status = "Заблокирован клиентом";
+                else if (contract.getBlockedByOperator()) status = "Заблокирован оператором";
+                session.setAttribute("client", client);
+                session.setAttribute("contract", contract);
+                session.setAttribute("tariff", tariff);
+                session.setAttribute("options", options);
+                session.setAttribute("dateOfBirth", dateOfBirth);
+                session.setAttribute("status", status);
+                request.getRequestDispatcher("/WEB-INF/JSP/admin/account.jsp").forward(request, response);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         } else if (source.equals("assignNewContract")) {
             request.getRequestDispatcher("/WEB-INF/JSP/admin/assignContract.jsp").forward(request, response);
         } else if (source.equals("addNewClient")) {
@@ -155,7 +164,7 @@ public class AdminServlet extends HttpServlet {
             Contract contractToUnlock = operatorService.findContractByNumber(numberToUnlock);
             operatorService.unLockContract(contractToUnlock);
             logger.debug("Contract unlocked by Operator:" + contractToUnlock.getNumber());
-            String status = "";
+            String status;
             if (contractToUnlock.getBlockedByClient()) status = "Заблокирован клиентом";
             else status = "Не заблокирован";
             session.setAttribute("status", status);
@@ -188,6 +197,84 @@ public class AdminServlet extends HttpServlet {
             session.setAttribute("notFound", notFound);
             request.getRequestDispatcher("/WEB-INF/JSP/admin/contracts.jsp").include(request, response);
             session.setAttribute("notFound", null);
+        } else if (source.equals("addNewTariff")) {
+            String name = request.getParameter("tariffName");
+            Long price = Long.parseLong(request.getParameter("tariffPrice"));
+            operatorService.createNewTariff(name, price);
+            tariffs = operatorService.findAllTariffs();
+            session.setAttribute("tariffs", tariffs);
+            request.getRequestDispatcher("/WEB-INF/JSP/admin/tariffs.jsp").forward(request, response);
+        } else if (source.equals("addNewOption")) {
+            String name = request.getParameter("optionName");
+            Long price = Long.parseLong(request.getParameter("optionPrice"));
+            Long connectionCost = Long.parseLong(request.getParameter("connectionCost"));
+            operatorService.createNewOption(name, price, connectionCost);
+            allOptions = operatorService.findAllOptions();
+            session.setAttribute("allOptions", allOptions);
+            request.getRequestDispatcher("/WEB-INF/JSP/admin/options.jsp").forward(request, response);
+        } else if (source.equals("removeTariff")) {
+            String tariffName = request.getParameter("tariffName");
+            Tariff tariff = operatorService.findTariffByName(tariffName);
+            operatorService.removeTariff(tariff);
+            tariffs = operatorService.findAllTariffs();
+            session.setAttribute("tariffs", tariffs);
+            request.getRequestDispatcher("/WEB-INF/JSP/admin/tariffs.jsp").forward(request, response);
+        } else if (source.equals("removeOption")) {
+            String optionName = request.getParameter("optionName");
+            Option option = operatorService.findOptionByName(optionName);
+            operatorService.removeOption(option);
+            allOptions = operatorService.findAllOptions();
+            session.setAttribute("allOptions", allOptions);
+            request.getRequestDispatcher("/WEB-INF/JSP/admin/options.jsp").forward(request, response);
+        } else if (source.equals("removeOptionFromContract")) {
+            String optionName = request.getParameter("optionName");
+            String contractNumber = request.getParameter("currentContract");
+            Contract contract = operatorService.findContractByNumber(contractNumber);
+            try {
+                clientService.removeOption(contractNumber, optionName);
+                List<Option> options = contract.getOptions();
+                request.setAttribute("options", options);
+                request.getRequestDispatcher("/WEB-INF/JSP/admin/account.jsp").forward(request, response);
+            } catch (ContractIsBlockedException e) {
+                e.printStackTrace();
+            } catch (RequiredOptionException e) {
+                e.printStackTrace();
+            }
+        } else if (source.equals("changeTariff")) {
+            String[] selectedTariffs = request.getParameterValues("tariffs[]");
+            String newClientTariff = null;
+            for (String selectedTariff : selectedTariffs) {
+                for (Tariff tariff : tariffs) {
+                    if (selectedTariff.equals(tariff.getName())) {
+                        newClientTariff = tariff.getName();
+                    }
+                }
+            }
+            Tariff tariff = operatorService.findTariffByName(newClientTariff);
+            String contractNumber = request.getParameter("contractNumber");
+            Contract contract = operatorService.findContractByNumber(contractNumber);
+            contract.setTariff(tariff);
+            session.setAttribute("tariff", tariff);
+            request.getRequestDispatcher("/WEB-INF/JSP/admin/account.jsp").forward(request, response);
+        } else if (source.equals("addMoreOptions")) {
+            String[] selectedOptions = request.getParameterValues("options[]");
+            List<Option> newSelectedOptions = new ArrayList<Option>(0);
+            for (String selectedOption : selectedOptions) {
+                for (Option allOption : allOptions) {
+                    if (selectedOption.equals(allOption.getName())) {
+                        newSelectedOptions.add(operatorService.findOptionByName(selectedOption));
+                    }
+                }
+            }
+            String contractNumber = request.getParameter("contractNumber");
+            Contract contract = operatorService.findContractByNumber(contractNumber);
+            contract.setOptions(newSelectedOptions);
+            operatorService.updateContract(contract);
+            allOptions.removeAll(contract.getOptions());
+            session.setAttribute("contract", contract);
+            session.setAttribute("options", contract.getOptions());
+            session.setAttribute("allOptions", allOptions);
+            request.getRequestDispatcher("/WEB-INF/JSP/admin/account.jsp").forward(request, response);
         }
     }
 

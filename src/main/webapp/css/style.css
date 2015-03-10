@@ -16,6 +16,7 @@ body {
 }
 
 table.innerTable {
+    margin-bottom: 30px;
     width: 430px;
     border-collapse: collapse;
     vertical-align: middle;
@@ -95,6 +96,11 @@ div.table {
     width: 50%;
 }
 
+#rightCol {
+    padding-left: 40px;
+    padding-top: 40px;
+}
+
 #loginError {
     width: 50%;
     margin: 50px auto;
@@ -131,8 +137,20 @@ div.table {
     font-family: sans-serif;
 }
 
+#tariff {
+    margin: 0 0 40px 40px;
+}
+
 #innerButton {
     margin: 40px 40px 40px 175px;
+}
+
+.blockInline {
+    float: left;
+}
+
+#clearFix {
+    clear: both;
 }
 
 #assignNewContractButton {
@@ -178,7 +196,7 @@ div.table {
 
 .myButton {
     -moz-box-shadow: inset 0 1px 0 0 #54a3f7;
-    -webkit-box-shadow: inset 0 1px 0px 0px #54a3f7;
+    -webkit-box-shadow: inset 0 1px 0 0 #54a3f7;
     box-shadow: inset 0 1px 0 0 #54a3f7;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #007dc1), color-stop(1, #0061a7));
     background: -moz-linear-gradient(top, #007dc1 5%, #0061a7 100%);

@@ -38,11 +38,11 @@ public class InitAppTestData {
 //            operatorService.createNewAdmin("Станислав", "Васильевский", new Date(),
 //                    "Шотмана, 5", "4004000010", "admin@ya.ru", "admin");
             /** Create contract */
-            operatorService.createNewContract("9041111111");
-            operatorService.createNewContract("9041111112");
-            operatorService.createNewContract("9041111113");
-            operatorService.createNewContract("9041111114");
-            operatorService.createNewContract("9041111115");
+            operatorService.createNewContract("9042222222");
+            operatorService.createNewContract("9042222223");
+            operatorService.createNewContract("9042222224");
+            operatorService.createNewContract("9042222225");
+            operatorService.createNewContract("9042222226");
             /** Create tariff */
 //            operatorService.createNewTariff("Черный", 300L);
 //            operatorService.createNewTariff("Очень Черный", 400L);
@@ -71,11 +71,18 @@ public class InitAppTestData {
             /** 3 & 5 - set incompatible options */
 //            options.get(2).getIncompatibleOptions().add(options.get(4));
 
+//            List<Tariff> allTariffs = operatorService.findAllTariffs();
+//            List<Option> allOptions = operatorService.findAllOptions();
+//            for (Tariff tariff : allTariffs) {
+//                tariff.setOptions(allOptions);
+//                operatorService.updateTariff(tariff);
+//            }
+
 //            for (int i = 0; i < 5; i++) {
-                /** Set Contract & Tariff */
+//                /** Set Contract & Tariff */
 //                contracts.get(i).setClient(clients.get(i));
 //                contracts.get(i).setTariff(tariffs.get(i));
-                /** Add 1-4 options to tariffs */
+//                /** Add 1-4 options to tariffs */
 //                tariffs.get(i).getOptions().add(options.get(i));
 //            }
 

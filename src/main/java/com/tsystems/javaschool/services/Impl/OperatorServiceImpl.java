@@ -44,7 +44,8 @@ public class OperatorServiceImpl implements OperatorService {
     /**
      * Create new entities.
      */
-    public void createNewClient(String firstName, String lastName, Date dateOfBirth, String address, String passport, String email, String password) {
+    public void createNewClient(String firstName, String lastName, Date dateOfBirth,
+                                String address, String passport, String email, String password) {
         logger.debug("Creating new client");
         Client client = new Client(firstName, lastName, dateOfBirth, address, passport, email, password);
         Role role = new Role("CLIENT");
@@ -52,7 +53,8 @@ public class OperatorServiceImpl implements OperatorService {
         clientDAO.create(client);
     }
 
-    public void createNewClient(String firstName, String lastName, String birthday, String address, String passport, String email, String password) {
+    public void createNewClient(String firstName, String lastName, String birthday,
+                                String address, String passport, String email, String password) {
         logger.debug("Creating new client");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth = null;
@@ -67,7 +69,8 @@ public class OperatorServiceImpl implements OperatorService {
         clientDAO.create(client);
     }
 
-    public void createNewAdmin(String firstName, String lastName, Date dateOfBirth, String address, String passport, String email, String password) {
+    public void createNewAdmin(String firstName, String lastName, Date dateOfBirth,
+                               String address, String passport, String email, String password) {
         logger.debug("Creating new admin");
         Client admin = new Client(firstName, lastName, dateOfBirth, address, passport, email, password);
         Role role = new Role("ADMIN");
@@ -160,6 +163,14 @@ public class OperatorServiceImpl implements OperatorService {
         contractDAO.update(contract);
     }
 
+    public void updateContract(Contract contract) {
+        contractDAO.update(contract);
+    }
+
+    public void updateTariff(Tariff tariff) {
+        tariffDAO.update(tariff);
+    }
+
     public void addOption(Long contractId, Long optionId) {
         logger.debug("Setting option to contract");
         Contract contract = contractDAO.read(contractId);
@@ -245,10 +256,14 @@ public class OperatorServiceImpl implements OperatorService {
     /**
      * Modify a tariff.
      */
-    public void removeTariff(Long tariffId) {
+    public void removeTariff(Tariff tariff) {
         logger.debug("Removing a tariff");
-        Tariff tariff = tariffDAO.read(tariffId);
         tariffDAO.delete(tariff);
+    }
+
+    public void removeOption(Option option) {
+        logger.debug("Removing an option");
+        optionDAO.delete(option);
     }
 
     public void addTariffOption(Long tariffId, Long optionId) {
