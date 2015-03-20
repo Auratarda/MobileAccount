@@ -59,7 +59,7 @@ public interface OperatorService {
 
     void setNumber(Client client, String number);
 
-    void setTariff(Long contractId, Long tariffId); //Also change tariff.
+    void setTariff(Contract contract, Tariff tariff); //Also change tariff.
 
     void updateContract(Contract contract);
 

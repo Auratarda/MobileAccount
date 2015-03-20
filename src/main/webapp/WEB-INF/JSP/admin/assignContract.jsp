@@ -71,7 +71,7 @@
                 </tr>
                 <tr>
                     <td>Пароль:</td>
-                    <td><input type="text" name="password" maxlength="30" required></td>
+                    <td><input type="password" name="password" maxlength="30" required></td>
                 </tr>
                 <tr>
                     <td>Выберите номер телефона</td>

@@ -155,10 +155,8 @@ public class OperatorServiceImpl implements OperatorService {
         clientDAO.update(client);
     }
 
-    public void setTariff(Long contractId, Long tariffId) {
+    public void setTariff(Contract contract, Tariff tariff) {
         logger.debug("Setting tariff to contract");
-        Contract contract = contractDAO.read(contractId);
-        Tariff tariff = tariffDAO.read(tariffId);
         contract.setTariff(tariff);
         contractDAO.update(contract);
     }

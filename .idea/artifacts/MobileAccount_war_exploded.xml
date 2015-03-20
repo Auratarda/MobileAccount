@@ -27,6 +27,7 @@
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-entitymanager:4.3.8.Final" />
           <element id="library" level="project" name="Maven: javax.validation:validation-api:1.1.0.Final" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.18" />
+          <element id="library" level="project" name="Maven: javax.transaction:jta:1.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

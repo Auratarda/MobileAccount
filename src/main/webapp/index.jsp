@@ -2,18 +2,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>Главная страница</title>
-  <link rel="stylesheet" href="css/style.css" type="text/css">
+  <title>Java School Mobile</title>
+  <link rel="stylesheet" href="css/bootstrap/bootstrap.css" type="text/css">
+  <link rel="stylesheet" href="css/index.css" type="text/css">
 </head>
 <body>
-
-<div id="header">
-  <h1>Мобильный оператор Java School</h1>
-</div>
-<div id="nav">
-  <div class="link">
-  </div>
-</div>
+<header class="header">
+  <p>Мобильный оператор Java School</p>
+</header>
 
 <div id="section">
 
@@ -40,11 +36,11 @@
   </div>
 </div>
 
-<div id="footer">
-  <p>
-    CreatedBy © Vasilevskii Stanislav
-  </p>
-</div>
+<footer class="footer">
+  <div class="container">
+    <p class="text-vert">CreatedBy © Vasilevskii Stanislav</p>
+  </div>
+</footer>
 </body>
 </html>
 

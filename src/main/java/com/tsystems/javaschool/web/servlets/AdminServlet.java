@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * LoginServlet.
+ * AdminServlet - realises admin's functions.
  */
 public class AdminServlet extends HttpServlet {
     private final static Logger logger = Logger.getLogger(LoginServlet.class);

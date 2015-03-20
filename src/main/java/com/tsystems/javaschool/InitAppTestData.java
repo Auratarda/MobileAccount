@@ -1,5 +1,7 @@
 package com.tsystems.javaschool;
 
+import com.tsystems.javaschool.entities.Contract;
+import com.tsystems.javaschool.entities.Tariff;
 import com.tsystems.javaschool.persistence.PersistenceUtil;
 import com.tsystems.javaschool.services.Impl.OperatorServiceImpl;
 import com.tsystems.javaschool.services.OperatorService;
@@ -7,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.List;
 
 /**
  * Test.
@@ -19,8 +22,6 @@ public class InitAppTestData {
         EntityManagerFactory emf = PersistenceUtil.getEntityManagerFactory();
         EntityManager em = PersistenceUtil.getEntityManager();
         try {
-//            em.getTransaction().begin();
-//
             OperatorService operatorService = new OperatorServiceImpl(em);
 
             /** Create client */
@@ -38,11 +39,11 @@ public class InitAppTestData {
 //            operatorService.createNewAdmin("Станислав", "Васильевский", new Date(),
 //                    "Шотмана, 5", "4004000010", "admin@ya.ru", "admin");
             /** Create contract */
-            operatorService.createNewContract("9042222222");
-            operatorService.createNewContract("9042222223");
-            operatorService.createNewContract("9042222224");
-            operatorService.createNewContract("9042222225");
-            operatorService.createNewContract("9042222226");
+//            operatorService.createNewContract("9042222222");
+//            operatorService.createNewContract("9042222223");
+//            operatorService.createNewContract("9042222224");
+//            operatorService.createNewContract("9042222225");
+//            operatorService.createNewContract("9042222226");
             /** Create tariff */
 //            operatorService.createNewTariff("Черный", 300L);
 //            operatorService.createNewTariff("Очень Черный", 400L);
@@ -63,30 +64,20 @@ public class InitAppTestData {
 //            operatorService.createNewOption("Черный список", 55L, 75L);
 //
 //            List<Client> clients = operatorService.findAllClients();
-//            List<Contract> contracts = operatorService.findAllContracts();
-//            List<Tariff> tariffs = operatorService.findAllTariffs();
+//            logger.info("Client 1: " + clients.get(0));
+//            List<Contract> freeContracts = operatorService.findFreeContracts();
+//            logger.info("Contract 1: " + freeContracts.get(0));
+            List<Contract> contracts = operatorService.findAllContracts();
+            logger.info("Contract 1: " + contracts.get(0));
+            List<Tariff> tariffs = operatorService.findAllTariffs();
+            logger.info("Tariff 1: " + tariffs.get(0));
 //            List<Option> options = operatorService.findAllOptions();
-            /** 1 & 2 - set required options */
-//            options.get(0).getRequiredOptions().add(options.get(1));
-            /** 3 & 5 - set incompatible options */
-//            options.get(2).getIncompatibleOptions().add(options.get(4));
 
-//            List<Tariff> allTariffs = operatorService.findAllTariffs();
-//            List<Option> allOptions = operatorService.findAllOptions();
-//            for (Tariff tariff : allTariffs) {
-//                tariff.setOptions(allOptions);
-//                operatorService.updateTariff(tariff);
-//            }
+            for (int i = 0; i < contracts.size(); i++) {
+//                operatorService.setNumber(clients.get(i), contracts.get(i).getNumber());
+                operatorService.setTariff(contracts.get(i), tariffs.get(i));
+            }
 
-//            for (int i = 0; i < 5; i++) {
-//                /** Set Contract & Tariff */
-//                contracts.get(i).setClient(clients.get(i));
-//                contracts.get(i).setTariff(tariffs.get(i));
-//                /** Add 1-4 options to tariffs */
-//                tariffs.get(i).getOptions().add(options.get(i));
-//            }
-
-//            em.getTransaction().commit();
             logger.info("Commit success!");
         } catch (Exception e) {
             logger.error("Sorry, something wrong!", e);

@@ -4,6 +4,12 @@
     <!-- Transaction type-->
     <persistence-unit name="MobileAccountPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!--<jta-data-source>java:/jdbc/mobile</jta-data-source>-->
+        <class>com.tsystems.javaschool.entities.Client</class>
+        <class>com.tsystems.javaschool.entities.Contract</class>
+        <class>com.tsystems.javaschool.entities.Tariff</class>
+        <class>com.tsystems.javaschool.entities.Option</class>
+        <class>com.tsystems.javaschool.entities.Role</class>
         <validation-mode>AUTO</validation-mode>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8888/mobile"/>
@@ -14,7 +20,7 @@
 
             <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="true"/>
-            <!--<property name="hibernate.hbm2ddl.auto" value="update"/> &lt;!&ndash; update, create, create-drop &ndash;&gt;-->
+            <!--<property name="hibernate.hbm2ddl.auto" value="create"/> &lt;!&ndash; update, create, create-drop &ndash;&gt;-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
 
             <property name="javax.persistence.validation.group.pre-persist" value="javax.validation.groups.Default"/>
