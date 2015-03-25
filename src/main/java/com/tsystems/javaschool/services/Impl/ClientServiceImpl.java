@@ -8,6 +8,7 @@ import com.tsystems.javaschool.dao.Impl.OptionDAOImpl;
 import com.tsystems.javaschool.dao.Impl.TariffDAOImpl;
 import com.tsystems.javaschool.dao.OptionDAO;
 import com.tsystems.javaschool.dao.TariffDAO;
+import com.tsystems.javaschool.dto.ClientDTO;
 import com.tsystems.javaschool.entities.Client;
 import com.tsystems.javaschool.entities.Contract;
 import com.tsystems.javaschool.entities.Option;
@@ -15,13 +16,19 @@ import com.tsystems.javaschool.entities.Tariff;
 import com.tsystems.javaschool.exceptions.*;
 import com.tsystems.javaschool.services.ClientService;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static com.tsystems.javaschool.services.Impl.EntityToDTOConverter.clientToDTO;
+
 /**
  * ClientServiceImpl.
  */
+@Service("clientService")
+@Transactional
 public class ClientServiceImpl implements ClientService {
     private final static Logger logger = Logger.getLogger(ClientServiceImpl.class);
 
@@ -29,6 +36,9 @@ public class ClientServiceImpl implements ClientService {
     private ContractDAO contractDAO;
     private TariffDAO tariffDAO;
     private OptionDAO optionDAO;
+
+    public ClientServiceImpl() {
+    }
 
     public ClientServiceImpl(EntityManager em) {
         logger.info("Creating client service");
@@ -51,14 +61,9 @@ public class ClientServiceImpl implements ClientService {
     /**
      * View contract.
      */
-    public Client login(String email, String password) throws LoginException {
-        return clientDAO.login(email, password);
-    }
-
-    public List<Contract> viewContracts(String clientId) {
-        Long id = Long.parseLong(clientId);
-        Client client = clientDAO.read(id);
-        return client.getContracts();
+    public ClientDTO login(String email, String password) throws ClientNotFoundException {
+        Client client = clientDAO.login(email, password);
+        return clientToDTO(client);
     }
 
     public void changeTariff(String contractNumber, String tariffName)
@@ -74,9 +79,6 @@ public class ClientServiceImpl implements ClientService {
         logger.debug("contractOptions " + optionsToString(contractOptions));
         logger.debug("tariffOptions " + optionsToString(tariffOptions));
 
-        // TODO: how do you explain to customer what was happened?
-        // TODO: I will catch exception in servlet, parse the message
-        // TODO: and notify the client
         if (!tariffOptions.containsAll(contractOptions)) {
             contractOptions.removeAll(tariffOptions);
             throw new TariffNotSupportedOptionException("Tariff not supported options: "

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                 http://www.springframework.org/schema/security
+                 http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/login" access="hasRole('anonymous')"/>
+        <intercept-url pattern="/goLogin" access="hasAnyRole('anonymous', 'admin', 'client')"/>
+        <intercept-url pattern="/logout" access="hasAnyRole('admin','client')"/>
+        <intercept-url pattern="/home" access="hasAnyRole('admin','client', 'anonymous')"/>
+
+        <intercept-url pattern="/getClientContracts" access="hasRole('client')"/>
+        <intercept-url pattern="/getTariffsForClient" access="hasRole('client')"/>
+        <intercept-url pattern="/getTariffOptions" access="hasRole('client')"/>
+        <intercept-url pattern="/changeContractTariff" access="hasRole('client')"/>
+        <intercept-url pattern="/addContractOption" access="hasRole('client')"/>
+        <intercept-url pattern="/dropContractOptionByClient" access="hasRole('client')"/>
+        <intercept-url pattern="/viewContract" access="hasRole('client')"/>
+        <intercept-url pattern="/lockContractByOperator" access="hasRole('client')"/>
+        <intercept-url pattern="/unlockContractByClient" access="hasRole('client')"/>
+
+        <intercept-url pattern="/addClient" access="hasRole('admin')"/>
+        <intercept-url pattern="/addRole" access="hasRole('admin')"/>
+        <intercept-url pattern="/concludeContract" access="hasRole('admin')"/>
+        <intercept-url pattern="/generateNumber" access="hasRole('admin')"/>
+        <intercept-url pattern="/dropContractOption" access="hasRole('admin')"/>
+        <intercept-url pattern="/getClients" access="hasRole('admin')"/>
+        <intercept-url pattern="/getTariffs" access="hasRole('admin')"/>
+        <intercept-url pattern="/getContracts" access="hasRole('admin')"/>
+        <intercept-url pattern="/lockContract" access="hasRole('admin')"/>
+        <intercept-url pattern="/unlockContract" access="hasRole('admin')"/>
+        <intercept-url pattern="/findClient" access="hasRole('admin')"/>
+        <intercept-url pattern="/changeTariff" access="hasRole('admin')"/>
+        <intercept-url pattern="/addTariff" access="hasRole('admin')"/>
+        <intercept-url pattern="/dropTariff" access="hasRole('admin')"/>
+        <intercept-url pattern="/addOption" access="hasRole('admin')"/>
+        <intercept-url pattern="/deleteTariff" access="hasRole('admin')"/>
+        <intercept-url pattern="/dropTariffOption" access="hasRole('admin')"/>
+        <intercept-url pattern="/setIncOpt" access="hasRole('admin')"/>
+        <intercept-url pattern="/viewOption" access="hasRole('admin')"/>
+        <intercept-url pattern="/setReqOpt" access="hasRole('admin')"/>
+        <intercept-url pattern="/getOptions" access="hasRole('admin')"/>
+
+        <access-denied-handler error-page="/goLogin"/>
+
+        <form-login
+                login-page="/login"
+                default-target-url="/welcome"
+                always-use-default-target="true"
+                authentication-failure-url="/goLogin?error"
+                username-parameter="email"
+                password-parameter="password"/>
+        <logout logout-success-url="/logoutUser"/>
+        <anonymous username="guest" granted-authority="anonymous"/>
+    </http>
+
+    <authentication-manager alias="authenticationManager" erase-credentials="false">
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query=
+                                       "SELECT email, password, TRUE FROM clients WHERE email=?"
+                               authorities-by-username-query=
+                                       "SELECT emai, roles.role FROM clients JOIN roles WHERE email=?
+                                       AND clients.role_id=roles.role_id"/>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>

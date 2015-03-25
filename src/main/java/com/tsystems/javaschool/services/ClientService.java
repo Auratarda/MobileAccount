@@ -1,10 +1,7 @@
 package com.tsystems.javaschool.services;
 
-import com.tsystems.javaschool.entities.Client;
-import com.tsystems.javaschool.entities.Contract;
+import com.tsystems.javaschool.dto.ClientDTO;
 import com.tsystems.javaschool.exceptions.*;
-
-import java.util.List;
 
 /**
  * ClientService.
@@ -14,9 +11,7 @@ public interface ClientService {
     /**
      * View contract.
      */
-    Client login(String email, String password) throws LoginException;
-
-    List<Contract> viewContracts(String clientId);
+    ClientDTO login(String email, String password) throws ClientNotFoundException;
 
     /**
      * Modify contract.

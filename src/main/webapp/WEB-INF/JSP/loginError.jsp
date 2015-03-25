@@ -21,7 +21,7 @@
 
     <div id="loginError">Сожалеем, Ваш <b>емаил</b> или <b>пароль</b> введены неверно.<br>
         Попробуйте ввести данные еще раз!<br>
-        <a href="index.jsp"> <input type="button" class="myButton" value="Логин"/></a>
+        <a href="../../index.jsp"> <input type="button" class="myButton" value="Логин"/></a>
     </div>
 </div>
 

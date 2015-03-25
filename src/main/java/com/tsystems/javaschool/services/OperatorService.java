@@ -1,12 +1,11 @@
 package com.tsystems.javaschool.services;
 
-import com.tsystems.javaschool.entities.Client;
-import com.tsystems.javaschool.entities.Contract;
-import com.tsystems.javaschool.entities.Option;
-import com.tsystems.javaschool.entities.Tariff;
-import com.tsystems.javaschool.exceptions.LoginException;
+import com.tsystems.javaschool.dto.ClientDTO;
+import com.tsystems.javaschool.dto.ContractDTO;
+import com.tsystems.javaschool.dto.OptionDTO;
+import com.tsystems.javaschool.dto.TariffDTO;
+import com.tsystems.javaschool.exceptions.ClientNotFoundException;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,11 +17,11 @@ public interface OperatorService {
     /**
      * Create new entities.
      */
-    void createNewAdmin(String firstName, String lastName, Date dateOfBirth, String address, String passport, String email, String password);
+    void createNewAdmin(String firstName, String lastName, String dateOfBirth,
+                        String address, String passport, String email, String password);
 
-    void createNewClient(String firstName, String lastName, Date dateOfBirth, String address, String passport, String email, String password);
-
-    void createNewClient(String firstName, String lastName, String birthday, String address, String passport, String email, String password);
+    void createNewClient(String firstName, String lastName, String dateOfBirth,
+                         String address, String passport, String email, String password);
 
     void createNewContract(String number);
 
@@ -35,81 +34,55 @@ public interface OperatorService {
     /**
      * Find entities.
      */
-    Client findClientByNumber(String number);
+    ClientDTO findClientByNumber(String number);
 
-    Client findClientByEmailAndPassword(String email, String password) throws LoginException;
+    ContractDTO findContractByNumber(String contractNumber);
 
-    Contract findContractByNumber(String contractNumber);
+    TariffDTO findTariffByName(String tariffName);
 
-    Tariff findTariffByName(String tariffName);
-
-    Option findOptionByName(String optionName);
-
-    Client findClientByID(Long clientId);
-
-    Contract findContractByID(Long contractId);
-
-    Tariff findTariffByID(Long tariffId);
-
-    Option findOptionByID(Long optionId);
+    OptionDTO findOptionByName(String optionName);
 
     /**
      * Modify a contract.
      */
 
-    void setNumber(Client client, String number);
+    void setNumber(ClientDTO clientDTO, String number) throws ClientNotFoundException;
 
-    void setTariff(Contract contract, Tariff tariff); //Also change tariff.
+    void setTariff(ContractDTO contractDTO, TariffDTO tariffDTO); //Also change tariff.
 
-    void updateContract(Contract contract);
+    void addOptions(ContractDTO contractDTO, List<OptionDTO> optionDTOs);
 
-    void updateTariff(Tariff tariff);
+    void updateContract(ContractDTO contractDTO);
 
-    void addOption(Long contractId, Long optionId);
+    void updateTariff(TariffDTO tariffDTO);
 
-    void removeOption(Long contractId, Long optionId);
-
-    void removeClient(Client client);
+    void removeClient(ClientDTO clientDTO) throws ClientNotFoundException;
 
     /**
      * View all clients and contracts. Find client by ID.
      */
-    List<Client> findAllClients();
+    List<ClientDTO> findAllClients();
 
-    List<Contract> findAllContracts();
+    List<ContractDTO> findAllContracts();
 
-    List<Tariff> findAllTariffs();
+    List<TariffDTO> findAllTariffs();
 
-    List<Option> findAllOptions();
+    List<OptionDTO> findAllOptions();
 
-    List<Contract> findFreeContracts();
+    List<ContractDTO> findFreeContracts();
 
     /**
      * Lock/unlock contracts.
      */
-    void lockContract(Contract contract);
+    void lockContract(ContractDTO contractDTO);
 
-    void unLockContract(Contract contract);
+    void unlockContract(ContractDTO contractDTO);
 
     /**
      * Modify a tariff.
      */
-    void removeTariff(Tariff tariff);
+    void removeTariff(TariffDTO tariffDTO);
 
-    void removeOption(Option option);
+    void removeOption(OptionDTO optionDTO);
 
-    void addTariffOption(Long tariffId, Long optionId);
-
-    void removeTariffOption(Long tariffId, Long optionId);
-
-    /**
-     * Add/remove rules for required and incompatible options.
-     */
-    void addRequiredOption(Long optionId, Long reqOptionId);
-
-    void removeRequiredOption(Long optionId, Long reqOptionId);
-
-    void addIncompatibleOption(Long optionId, Long incOptionId);
-
-    void removeIncompatibleOption(Long optionId, Long incOptionId);
 }

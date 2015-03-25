@@ -1,0 +1,37 @@
+body {
+    padding-top: 50px;
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    color: #ffffff;
+    background-color: #000000;
+    text-align: center;
+    vertical-align: middle;
+    font-size: xx-large;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    color: #ffffff;
+    background-color: #000000;
+    text-align: center;
+}
+
+.container {
+    width: auto;
+    max-width: 680px;
+    padding: 0 15px;
+}
+
+.container .text-vert {
+    margin: 20px 0;
+}

@@ -1,11 +1,13 @@
 package com.tsystems.javaschool.dao;
 
 import com.tsystems.javaschool.entities.Client;
-import com.tsystems.javaschool.exceptions.LoginException;
+import com.tsystems.javaschool.exceptions.ClientNotFoundException;
 
 /**
  * ClientDAO.
  */
 public interface ClientDAO extends GenericDAO<Client, Long> {
-    Client login(String email, String password) throws LoginException;
+    Client login(String email, String password) throws ClientNotFoundException;
+
+    Client identify(String firstName, String lastName, String email) throws ClientNotFoundException;
 }

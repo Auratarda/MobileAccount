@@ -3,38 +3,36 @@
 <html>
 <head>
   <title>Java School Mobile</title>
-  <link rel="stylesheet" href="css/bootstrap/bootstrap.css" type="text/css">
-  <link rel="stylesheet" href="css/index.css" type="text/css">
+  <link rel="stylesheet" href="resources/css/bootstrap/bootstrap.css" type="text/css">
+  <link rel="stylesheet" href="resources/css/index.css" type="text/css">
+  <link rel="stylesheet" href="resources/css/login.css" type="text/css">
 </head>
 <body>
 <header class="header">
   <p>Мобильный оператор Java School</p>
 </header>
 
-<div id="section">
+<div class="container">
 
-  <div id="topNav"></div>
+  <form class="form-signin" method="POST" action="<c:url value='/main/login' />">
+    <h2 class="form-signin-heading">Вход в личный кабинет</h2>
+    <label for="inputEmail" class="sr-only">Адрес электронной почты</label>
+    <input type="email" id="inputEmail" name="email" size="25" class="form-control"
+           placeholder="Адрес электронной почты" required autofocus>
+    <label for="inputPassword" class="sr-only">Пароль</label>
+    <input type="password" id="inputPassword" name="password" size="25" class="form-control" placeholder="Пароль"
+           required>
 
-  <div>
-    <form method="POST" action="login">
-      <table class="loginTable">
-        <tr>
-          <td>Емейл:</td>
-          <td><input type="email" name="email" size="26" required/><br/>
-          </td>
-        </tr>
-        <tr>
-          <td>Пароль:</td>
-          <td><input type="password" name="password" size="26" required/><br/>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="0"><input type="submit" value="Войти" id="login"/></td>
-        </tr>
-      </table>
-    </form>
-  </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="remember-me"> Запомнить меня
+      </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+  </form>
+
 </div>
+
 
 <footer class="footer">
   <div class="container">

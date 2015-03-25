@@ -2,10 +2,16 @@ package com.tsystems.javaschool.services.Impl;
 
 import com.tsystems.javaschool.dao.*;
 import com.tsystems.javaschool.dao.Impl.*;
+import com.tsystems.javaschool.dto.ClientDTO;
+import com.tsystems.javaschool.dto.ContractDTO;
+import com.tsystems.javaschool.dto.OptionDTO;
+import com.tsystems.javaschool.dto.TariffDTO;
 import com.tsystems.javaschool.entities.*;
-import com.tsystems.javaschool.exceptions.LoginException;
+import com.tsystems.javaschool.exceptions.ClientNotFoundException;
 import com.tsystems.javaschool.services.OperatorService;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.text.ParseException;
@@ -14,12 +20,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.tsystems.javaschool.services.Impl.EntityToDTOConverter.*;
+
 /**
  * OperatorServiceImpl.
  */
+@Service("operatorService")
+@Transactional
 public class OperatorServiceImpl implements OperatorService {
     private final static Logger logger = Logger.getLogger(OperatorService.class);
-    private EntityManager em;
 
     private ClientDAO clientDAO;
     private ContractDAO contractDAO;
@@ -27,9 +36,11 @@ public class OperatorServiceImpl implements OperatorService {
     private OptionDAO optionDAO;
     private RoleDAO roleDAO;
 
+    public OperatorServiceImpl() {
+    }
+
     public OperatorServiceImpl(EntityManager em) {
         logger.info("Creating operator service");
-        this.em = em;
         clientDAO = new ClientDAOImpl(em);
         contractDAO = new ContractDAOImpl(em);
         tariffDAO = new TariffDAOImpl(em);
@@ -37,43 +48,34 @@ public class OperatorServiceImpl implements OperatorService {
         roleDAO = new RoleDAOImpl(em);
     }
 
-    public EntityManager getEm() {
-        return em;
-    }
-
-    /**
-     * Create new entities.
-     */
-    public void createNewClient(String firstName, String lastName, Date dateOfBirth,
-                                String address, String passport, String email, String password) {
-        logger.debug("Creating new client");
-        Client client = new Client(firstName, lastName, dateOfBirth, address, passport, email, password);
-        Role role = new Role("CLIENT");
-        client.getRoles().add(role);
-        clientDAO.create(client);
-    }
-
-    public void createNewClient(String firstName, String lastName, String birthday,
-                                String address, String passport, String email, String password) {
-        logger.debug("Creating new client");
+    private Client createNewUser(String firstName, String lastName, String dateOfBirth,
+                                 String address, String passport, String email, String password) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfBirth = null;
+        Date birthday = null;
         try {
-            dateOfBirth = sdf.parse(birthday);
+            birthday = sdf.parse(dateOfBirth);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Client client = new Client(firstName, lastName, dateOfBirth, address, passport, email, password);
+        Client client = new Client(firstName, lastName, birthday, address, passport, email, password);
+        return client;
+    }
+
+    public void createNewClient(String firstName, String lastName, String dateOfBirth,
+                                String address, String passport, String email, String password) {
+        logger.debug("Creating new client");
+
         Role role = new Role("CLIENT");
+        Client client = createNewUser(firstName, lastName, dateOfBirth, address, passport, email, password);
         client.getRoles().add(role);
         clientDAO.create(client);
     }
 
-    public void createNewAdmin(String firstName, String lastName, Date dateOfBirth,
+    public void createNewAdmin(String firstName, String lastName, String dateOfBirth,
                                String address, String passport, String email, String password) {
         logger.debug("Creating new admin");
-        Client admin = new Client(firstName, lastName, dateOfBirth, address, passport, email, password);
         Role role = new Role("ADMIN");
+        Client admin = createNewUser(firstName, lastName, dateOfBirth, address, passport, email, password);
         admin.getRoles().add(role);
         clientDAO.create(admin);
     }
@@ -106,48 +108,34 @@ public class OperatorServiceImpl implements OperatorService {
     /**
      * Find entities.
      */
-    public Client findClientByNumber(String number) {
-        return contractDAO.findClientByNumber(number);
+    public ClientDTO findClientByNumber(String number) {
+        Client client = contractDAO.findClientByNumber(number);
+        return clientToDTO(client);
     }
 
-    public Client findClientByEmailAndPassword(String email, String password) throws LoginException {
-        return clientDAO.login(email, password);
+    public ContractDTO findContractByNumber(String contractNumber) {
+        Contract contract = contractDAO.findContractByNumber(contractNumber);
+        return contractToDTO(contract);
     }
 
-    public Contract findContractByNumber(String contractNumber) {
-        return contractDAO.findContractByNumber(contractNumber);
+    public TariffDTO findTariffByName(String tariffName) {
+        Tariff tariff = tariffDAO.findTariffByName(tariffName);
+        return tariffToDTO(tariff);
     }
 
-    public Option findOptionByName(String optionName) {
-        return optionDAO.findOptionByName(optionName);
-    }
-
-    public Tariff findTariffByName(String tariffName) {
-        return tariffDAO.findTariffByName(tariffName);
-    }
-
-    public Client findClientByID(Long clientId) {
-        return clientDAO.read(clientId);
-    }
-
-    public Contract findContractByID(Long contractId) {
-        return contractDAO.read(contractId);
-    }
-
-    public Tariff findTariffByID(Long tariffId) {
-        return tariffDAO.read(tariffId);
-    }
-
-    public Option findOptionByID(Long optionId) {
-        return optionDAO.read(optionId);
+    public OptionDTO findOptionByName(String optionName) {
+        Option option = optionDAO.findOptionByName(optionName);
+        return optionToDTO(option);
     }
 
 
     /**
      * Modify a contract.
      */
-    public void setNumber(Client client, String number) {
+    public void setNumber(ClientDTO clientDTO, String number) throws ClientNotFoundException {
         logger.debug("Setting a contract to a client");
+        Client client = clientDAO.identify(clientDTO.getFirstName(), clientDTO.getLastName(),
+                clientDTO.getEmail());
         Contract contract = contractDAO.findContractByNumber(number);
         contract.setClient(client);
         client.getContracts().add(contract);
@@ -155,38 +143,40 @@ public class OperatorServiceImpl implements OperatorService {
         clientDAO.update(client);
     }
 
-    public void setTariff(Contract contract, Tariff tariff) {
+    public void setTariff(ContractDTO contractDTO, TariffDTO tariffDTO) {
         logger.debug("Setting tariff to contract");
+        Contract contract = contractDAO.findContractByNumber(contractDTO.getNumber());
+        Tariff tariff = tariffDAO.findTariffByName(tariffDTO.getName());
         contract.setTariff(tariff);
         contractDAO.update(contract);
     }
 
-    public void updateContract(Contract contract) {
+    public void addOptions(ContractDTO contractDTO, List<OptionDTO> optionDTOs) {
+        Contract contract = contractDAO.findContractByNumber(contractDTO.getNumber());
+        List<Option> options = new ArrayList<Option>(0);
+        for (OptionDTO optionDTO : optionDTOs) {
+            options.add(optionDAO.findOptionByName(optionDTO.getName()));
+        }
+        for (Option option : options) {
+            contract.getOptions().add(option);
+        }
         contractDAO.update(contract);
     }
 
-    public void updateTariff(Tariff tariff) {
+    public void updateContract(ContractDTO contractDTO) {
+        Contract contract = contractDAO.findContractByNumber(contractDTO.getNumber());
+        contractDAO.update(contract);
+    }
+
+    public void updateTariff(TariffDTO tariffDTO) {
+        Tariff tariff = tariffDAO.findTariffByName(tariffDTO.getName());
         tariffDAO.update(tariff);
     }
 
-    public void addOption(Long contractId, Long optionId) {
-        logger.debug("Setting option to contract");
-        Contract contract = contractDAO.read(contractId);
-        Option option = optionDAO.read(optionId);
-        contract.getOptions().add(option);
-        contractDAO.update(contract);
-    }
-
-    public void removeOption(Long contractId, Long optionId) {
-        logger.debug("Removing an option from a contract");
-        Contract contract = contractDAO.read(contractId);
-        Option option = optionDAO.read(optionId);
-        contract.getOptions().remove(option);
-        contractDAO.update(contract);
-    }
-
-    public void removeClient(Client client) {
-        logger.debug("Removing client " + client.getFirstName() + ", " + client.getLastName());
+    public void removeClient(ClientDTO clientDTO) throws ClientNotFoundException {
+        logger.debug("Removing client " + clientDTO.getFirstName() + ", " + clientDTO.getLastName());
+        Client client = clientDAO.identify(clientDTO.getFirstName(), clientDTO.getLastName(),
+                clientDTO.getEmail());
         List<Contract> contracts = client.getContracts();
         for (Contract contract : contracts) {
             contract.setClient(null);
@@ -206,47 +196,69 @@ public class OperatorServiceImpl implements OperatorService {
     /**
      * View all clients, contracts, tariffs. Find client by ID.
      */
-    public List<Client> findAllClients() {
+    public List<ClientDTO> findAllClients() {
         logger.debug("Reading all clients");
-        return clientDAO.getAll();
+        List<Client> clients = clientDAO.getAll();
+        List<ClientDTO> clientDTOs = new ArrayList<ClientDTO>(0);
+        for (Client client : clients) {
+            clientDTOs.add(clientToDTO(client));
+        }
+        return clientDTOs;
     }
 
-    public List<Contract> findAllContracts() {
+    public List<ContractDTO> findAllContracts() {
         logger.debug("Reading all contracts");
-        return contractDAO.findAllContracts();
+        List<Contract> contracts = contractDAO.getAll();
+        List<ContractDTO> contractDTOs = new ArrayList<ContractDTO>(0);
+        for (Contract contract : contracts) {
+            contractDTOs.add(contractToDTO(contract));
+        }
+        return contractDTOs;
     }
 
-    public List<Contract> findFreeContracts() {
+    public List<ContractDTO> findFreeContracts() {
         logger.debug("Reading free numbers");
-        return contractDAO.findFreeNumbers();
+        List<Contract> contracts = contractDAO.findFreeNumbers();
+        List<ContractDTO> contractDTOs = new ArrayList<ContractDTO>(0);
+        for (Contract contract : contracts) {
+            contractDTOs.add(contractToDTO(contract));
+        }
+        return contractDTOs;
     }
 
-    public List<Tariff> findAllTariffs() {
+    public List<TariffDTO> findAllTariffs() {
         logger.debug("Reading all tariffs");
-        return tariffDAO.getAll();
+        List<Tariff> tariffs = tariffDAO.getAll();
+        List<TariffDTO> tariffDTOs = new ArrayList<TariffDTO>(0);
+        for (Tariff tariff : tariffs) {
+            tariffDTOs.add(tariffToDTO(tariff));
+        }
+        return tariffDTOs;
     }
 
-    public List<Option> findAllOptions() {
+    public List<OptionDTO> findAllOptions() {
         logger.debug("Reading all options");
-        return optionDAO.getAll();
-    }
-
-    public Client findById(Long clientId) {
-        logger.debug("Reading a client");
-        return clientDAO.read(clientId);
+        List<Option> options = optionDAO.getAll();
+        List<OptionDTO> optionDTOs = new ArrayList<OptionDTO>(0);
+        for (Option option : options) {
+            optionDTOs.add(optionToDTO(option));
+        }
+        return optionDTOs;
     }
 
     /**
      * Lock/unlock contracts.
      */
-    public void lockContract(Contract contract) {
+    public void lockContract(ContractDTO contractDTO) {
         logger.debug("Blocking a contract by Operator");
+        Contract contract = contractDAO.findContractByNumber(contractDTO.getNumber());
         contract.setBlockedByOperator(true);
         contractDAO.update(contract);
     }
 
-    public void unLockContract(Contract contract) {
+    public void unlockContract(ContractDTO contractDTO) {
         logger.debug("Unlocking a contract by Operator");
+        Contract contract = contractDAO.findContractByNumber(contractDTO.getNumber());
         contract.setBlockedByOperator(false);
         contractDAO.update(contract);
     }
@@ -254,72 +266,16 @@ public class OperatorServiceImpl implements OperatorService {
     /**
      * Modify a tariff.
      */
-    public void removeTariff(Tariff tariff) {
+    public void removeTariff(TariffDTO tariffDTO) {
         logger.debug("Removing a tariff");
+        Tariff tariff = tariffDAO.findTariffByName(tariffDTO.getName());
         tariffDAO.delete(tariff);
     }
 
-    public void removeOption(Option option) {
+    public void removeOption(OptionDTO optionDTO) {
         logger.debug("Removing an option");
+        Option option = optionDAO.findOptionByName(optionDTO.getName());
         optionDAO.delete(option);
     }
 
-    public void addTariffOption(Long tariffId, Long optionId) {
-        logger.debug("Adding an option to a tariff");
-        Tariff tariff = tariffDAO.read(tariffId);
-        Option option = optionDAO.read(optionId);
-        tariff.getOptions().add(option);
-        tariffDAO.update(tariff);
-    }
-
-    public void removeTariffOption(Long tariffId, Long optionId) {
-        logger.debug("Removing an option from a tariff");
-        Tariff tariff = tariffDAO.read(tariffId);
-        Option option = optionDAO.read(optionId);
-        tariff.getOptions().remove(option);
-        tariffDAO.update(tariff);
-    }
-
-    /**
-     * Add/remove rules for required and incompatible options.
-     */
-    public void addRequiredOption(Long optionId, Long reqOptionId) {
-        logger.debug("Adding a new rule: required options");
-        Option option = optionDAO.read(optionId);
-        Option reqOption = optionDAO.read(reqOptionId);
-        option.getRequiredOptions().add(reqOption);
-        reqOption.getRequiredOptions().add(option);
-        optionDAO.update(option);
-        optionDAO.update(reqOption);
-    }
-
-    public void removeRequiredOption(Long optionId, Long reqOptionId) {
-        logger.debug("Removing a rule: required options");
-        Option option = optionDAO.read(optionId);
-        Option reqOption = optionDAO.read(reqOptionId);
-        option.getRequiredOptions().remove(reqOption);
-        reqOption.getRequiredOptions().remove(option);
-        optionDAO.update(option);
-        optionDAO.update(reqOption);
-    }
-
-    public void addIncompatibleOption(Long optionId, Long incOptionId) {
-        logger.debug("Adding a new rule: incompatible options");
-        Option option = optionDAO.read(optionId);
-        Option incOption = optionDAO.read(incOptionId);
-        option.getRequiredOptions().add(incOption);
-        incOption.getRequiredOptions().add(option);
-        optionDAO.update(option);
-        optionDAO.update(incOption);
-    }
-
-    public void removeIncompatibleOption(Long optionId, Long incOptionId) {
-        logger.debug("Removing a rule: incompatible options");
-        Option option = optionDAO.read(optionId);
-        Option incOption = optionDAO.read(incOptionId);
-        option.getRequiredOptions().remove(incOption);
-        incOption.getRequiredOptions().remove(option);
-        optionDAO.update(option);
-        optionDAO.update(incOption);
-    }
 }
