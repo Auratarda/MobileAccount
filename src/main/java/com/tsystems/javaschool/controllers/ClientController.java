@@ -118,14 +118,10 @@ public class ClientController {
     @RequestMapping(value = "/removeOption", method = RequestMethod.POST)
     public ModelAndView removeOption(@RequestParam Map<String, String> requestParams) {
         String contractNumber = requestParams.get("contract");
-        ContractDTO contract = operatorService.findContractByNumber(contractNumber);
-        String path = "client/contract";
-        ModelAndView optionsView = prepareJSP(contractNumber, path);
         String optionName = requestParams.get("optionName");
         clientService.removeOption(contractNumber, optionName);
-        List<OptionDTO> options = contract.getOptions();
-        optionsView.addObject("options", options);
-        return optionsView;
+        String path = "client/contract";
+        return prepareJSP(contractNumber, path);
     }
 
     @RequestMapping(value = "/lockContractByClient", method = RequestMethod.POST)

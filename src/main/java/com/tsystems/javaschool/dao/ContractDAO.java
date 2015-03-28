@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * ContractDAO.
  */
-public interface ContractDAO extends GenericDAO<Contract, Long> {
+public interface ContractDAO {
     Client findClientByNumber(String number);
 
     Contract findContractByNumber(String number);
@@ -16,4 +16,14 @@ public interface ContractDAO extends GenericDAO<Contract, Long> {
     List<Contract> findAllContracts();
 
     List<Contract> findFreeNumbers();
+
+    Contract create(Contract t);
+
+    Contract read(Long id);
+
+    Contract update(Contract t);
+
+    void delete(Contract t);
+
+    List<Contract> getAll();
 }

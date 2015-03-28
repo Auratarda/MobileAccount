@@ -85,7 +85,7 @@ public class AdminController {
         return optionsView;
     }
 
-    @RequestMapping(value = "/showCliet", method = RequestMethod.POST)
+    @RequestMapping(value = "/showClient", method = RequestMethod.POST)
     public ModelAndView showCliet(@RequestParam Map<String, String> requestParams) {
         String number = requestParams.get("number");
         return prepareAccount(number);

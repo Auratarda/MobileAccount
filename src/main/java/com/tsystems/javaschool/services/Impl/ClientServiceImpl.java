@@ -15,8 +15,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
 import java.util.List;
 
 import static com.tsystems.javaschool.services.Impl.EntityToDTOConverter.clientToDTO;
@@ -57,13 +57,13 @@ public class ClientServiceImpl implements ClientService {
     /**
      * View contract.
      */
-    @Transactional
+
     public ClientDTO login(String email, String password) throws ClientNotFoundException {
         Client client = clientDAO.login(email, password);
         return clientToDTO(client);
     }
 
-    @Transactional
+
     public void changeTariff(String contractNumber, String tariffName) {
         Contract contract = contractDAO.findContractByNumber(contractNumber);
         Tariff tariff = tariffDAO.findTariffByName(tariffName);
@@ -71,7 +71,7 @@ public class ClientServiceImpl implements ClientService {
         contractDAO.update(contract);
     }
 
-    @Transactional
+
     public void addOption(String contractNumber, String optionName) {
         Contract contract = contractDAO.findContractByNumber(contractNumber);
         Option option = optionDAO.findOptionByName(optionName);
@@ -91,22 +91,30 @@ public class ClientServiceImpl implements ClientService {
     }
 
     // TODO: where will you check if contract is blocked?
-    @Transactional
+
     public void removeOption(String contractNumber, String optionName) {
         Contract contract = contractDAO.findContractByNumber(contractNumber);
         Option option = optionDAO.findOptionByName(optionName);
-        contract.getOptions().remove(option);
+        Iterator<Option> it = contract.getOptions().iterator();
+
+        while (it.hasNext()){
+            Option opt = it.next();
+            if(opt.getOptionId() == option.getOptionId()){
+                break;
+            }
+        }
+        it.remove();
         contractDAO.update(contract);
     }
 
-    @Transactional
+
     public void lockContract(String contractNumber) {
         Contract contract = contractDAO.findContractByNumber(contractNumber);
         contract.setBlockedByClient(true);
         contractDAO.update(contract);
     }
 
-    @Transactional
+
     public void unLockContract(String contractNumber) {
         Contract contract = contractDAO.findContractByNumber(contractNumber);
         contract.setBlockedByClient(false);

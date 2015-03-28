@@ -2,30 +2,13 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <!-- Transaction type-->
-    <persistence-unit name="MobileAccountPU" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="MobileAccountPU">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <!--<jta-data-source>java:/jdbc/mobile</jta-data-source>-->
         <class>com.tsystems.javaschool.entities.Client</class>
         <class>com.tsystems.javaschool.entities.Contract</class>
         <class>com.tsystems.javaschool.entities.Tariff</class>
         <class>com.tsystems.javaschool.entities.Option</class>
         <class>com.tsystems.javaschool.entities.Role</class>
-        <validation-mode>AUTO</validation-mode>
-        <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8888/mobile"/>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.user" value="java"/>
-            <property name="javax.persistence.jdbc.password" value="bean"/>
-            <property name="javax.persistence.validation.mode" value="AUTO" />
-
-            <property name="hibernate.show_sql" value="false"/>
-            <property name="hibernate.format_sql" value="true"/>
-            <!--<property name="hibernate.hbm2ddl.auto" value="create"/> &lt;!&ndash; update, create, create-drop &ndash;&gt;-->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-
-            <property name="javax.persistence.validation.group.pre-persist" value="javax.validation.groups.Default"/>
-            <property name="javax.persistence.validation.group.pre-update" value="javax.validation.groups.Default"/>
-        </properties>
     </persistence-unit>
 </persistence>
 

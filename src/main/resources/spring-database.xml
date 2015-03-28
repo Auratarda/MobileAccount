@@ -22,21 +22,17 @@
         <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"/>
         <property name="persistenceUnitName" value="MobileAccountPU"/>
         <property name="dataSource" ref="dataSource"/>
-        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
-        <property name="jpaDialect" ref="jpaDialect"/>
+        <!--<property name="packagesToScan" value="com.tsystems.javaschool.entities.*"/>-->
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect"/>
+            </bean>
+        </property>
     </bean>
 
-    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-        <property name="database" value="MYSQL"/>
-        <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect"/>
-    </bean>
-
-    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
-        <property name="dataSource" ref="dataSource"/>
-        <property name="jpaDialect" ref="jpaDialect"/>
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
