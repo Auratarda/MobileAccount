@@ -21,20 +21,17 @@
     <div id="topNav">
         <ul>
             <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="contracts">
+                <form method="post" action="<c:url value='/main/showAllContracts' />">
                     <input class="myButton" type="submit" value="Контракты">
                 </form>
             </li>
             <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="tariffs">
+                <form method="post" action="<c:url value='/main/showAllTariffs' />">
                     <input class="myButton" type="submit" value="Тарифы">
                 </form>
             </li>
             <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="options">
+                <form method="post" action="<c:url value='/main/showAllOptions' />">
                     <input class="myButton" type="submit" value="Опции">
                 </form>
             </li>
@@ -55,7 +52,7 @@
                     </tr>
                     <tr>
                         <td><b>Дата рождения: </b></td>
-                        <td>${dateOfBirth}</td>
+                        <td>${client.dateOfBirth}</td>
                     </tr>
                     <tr>
                         <td><b>Емейл: </b></td>
@@ -72,27 +69,23 @@
                 </table>
             </div>
             <div class="blockInline">
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="removeClient">
+                <form method="post" action="<c:url value='/main/removeClient' />">
                     <input type="hidden" name="contractToRemove" value="${contract.number}">
                     <input class="myButton" id="assignNewContractButton" type="submit" value="Удалить клиента">
                 </form>
             </div>
             <div class="blockInline">
-                <c:if test="${sessionScope.status!='Заблокирован оператором'}">
+                <c:if test="${status!='Заблокирован оператором'}">
                     <div class="operatorBlockButton">
-                        <form method="post" action="admin">
-                            <input type="hidden" name="source"
-                                   value="lockContract">
+                        <form method="post" action="<c:url value='/main/lockContractByOperator' />">
                             <input type="hidden" name="contractNumber" value="${contract.number}">
                             <input class="myButton" type="submit" value="Заблокировать номер">
                         </form>
                     </div>
                 </c:if>
-                <c:if test="${sessionScope.status=='Заблокирован оператором'}">
+                <c:if test="${status=='Заблокирован оператором'}">
                     <div class="operatorBlockButton">
-                        <form method="post" action="admin">
-                            <input type="hidden" name="source" value="unLockContract">
+                        <form method="post" action="<c:url value='/main/unlockContractByOperator' />">
                             <input type="hidden" name="contractNumber" value="${contract.number}">
                             <input class="myButton" type="submit" value="Разблокировать номер">
                         </form>
@@ -121,14 +114,15 @@
                 </table>
 
                 <div class="search">
-                    <form method="post" action="admin">
-                        <input type="hidden" name="source" value="changeTariff">
+                    <form method="post" action="<c:url value='/main/setTariff' />">
                         <input type="hidden" name="contractNumber" value="${contract.number}">
-                        <select name="tariffs[]" required>
-                            <c:forEach var="tariff" items="${tariffs}">
-                                <option value="${tariff.name}">${tariff.name}</option>
-                            </c:forEach>
-                        </select>
+                        <label>
+                            <select name="tariffs[]" required>
+                                <c:forEach var="tariff" items="${tariffs}">
+                                    <option value="${tariff.name}">${tariff.name}</option>
+                                </c:forEach>
+                            </select>
+                        </label>
                         <input class="myButton" type="submit" value="Поменять тариф">
                     </form>
                 </div>
@@ -150,8 +144,7 @@
                             <td>${option.price}</td>
                             <td>${option.connectionCost}</td>
                             <td>
-                                <form method="post" action="admin">
-                                    <input type="hidden" name="source" value="removeOptionFromContract">
+                                <form method="post" action="<c:url value='/main/removeOptionFromContract' />">
                                     <input type="hidden" name="optionName" value="${option.name}">
                                     <input type="hidden" name="currentContract" value="${contract.number}">
                                     <input class="link" type="submit" value="Отключить">
@@ -161,14 +154,15 @@
                     </c:forEach>
                 </table>
                 <div class="search">
-                    <form method="post" action="admin">
-                        <input type="hidden" name="source" value="addMoreOptions">
+                    <form method="post" action="<c:url value='/main/addMoreOptions' />">
                         <input type="hidden" name="contractNumber" value="${contract.number}">
-                        <select multiple size="5" name="options[]">
-                            <c:forEach var="option" items="${allOptions}">
-                                <option value="${option.name}">${option.name}</option>
-                            </c:forEach>
-                        </select>
+                        <label>
+                            <select multiple size="5" name="options[]">
+                                <c:forEach var="option" items="${allOptions}">
+                                    <option value="${option.name}">${option.name}</option>
+                                </c:forEach>
+                            </select>
+                        </label>
 
                         <div><input class="myButton" type="submit" value="Добавить опции"></div>
                     </form>

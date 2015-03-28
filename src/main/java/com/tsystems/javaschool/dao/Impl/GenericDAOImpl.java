@@ -4,6 +4,7 @@ import com.tsystems.javaschool.dao.GenericDAO;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
@@ -43,9 +44,11 @@ abstract class GenericDAOImpl<T, PK extends Serializable>
         return this.entityManager.find(entityClass, id);
     }
 
-    @Transactional
     public T update(T t) {
-        this.entityManager.merge(t);
+        EntityTransaction tx = getEntityManager().getTransaction();
+        tx.begin();
+        entityManager.merge(t);
+        tx.commit();
         return t;
     }
 

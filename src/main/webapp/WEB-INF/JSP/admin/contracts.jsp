@@ -23,17 +23,16 @@
         <ul>
             <li><input class="myButton" type="button" value="Контракты"></li>
             <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="tariffs">
+                <form method="post" action="<c:url value='/main/showAllTariffs' />">
                     <input class="myButton" type="submit" value="Тарифы">
                 </form>
             </li>
             <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="options">
+                <form method="post" action="<c:url value='/main/showAllOptions' />">
                     <input class="myButton" type="submit" value="Опции">
                 </form>
             </li>
+            >
         </ul>
     </div>
 
@@ -45,7 +44,7 @@
                         <th>Клиент</th>
                         <th>Номер</th>
                     </tr>
-                    <c:forEach var="contract" items="${contracts}">
+                    <c:forEach var="contract" items="${allContracts}">
                         <tr>
                             <td>${contract.client}</td>
                             <td>
@@ -64,14 +63,12 @@
 
         <div class="col">
             <div>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="assignNewContract">
+                <form method="post" action="<c:url value='/main/assignNewContract' />">
                     <input class="myButton" id="assignNewContractButton" type="submit" value="Заключить новый контракт">
                 </form>
             </div>
             <div class="search">
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="findClientByNumber">
+                <form method="post" action="<c:url value='/main/findClientByNumber' />">
                     +7<input type="text" name="searchNumber" placeholder="Введите номер телефона" maxlength="10"
                              required>
                     <input class="myButton" type="submit" value="Искать">

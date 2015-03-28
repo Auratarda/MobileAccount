@@ -21,20 +21,17 @@
     <div id="topNav">
         <ul>
             <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="contracts">
+                <form method="post" action="<c:url value='/main/showAllContracts' />">
                     <input class="myButton" type="submit" value="Контракты">
                 </form>
             </li>
             <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="tariffs">
+                <form method="post" action="<c:url value='/main/showAllTariffs' />">
                     <input class="myButton" type="submit" value="Тарифы">
                 </form>
             </li>
             <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="options">
+                <form method="post" action="<c:url value='/main/showAllOptions' />">
                     <input class="myButton" type="submit" value="Опции">
                 </form>
             </li>
@@ -42,8 +39,7 @@
     </div>
 
     <div class="table">
-        <form method="post" action="admin">
-            <input type="hidden" name="source" value="addNewClient">
+        <form method="post" action="<c:url value='/main/addNewClient' />">
             <table id="clientForm">
                 <tr>
                     <td>Имя:</td>
