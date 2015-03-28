@@ -230,7 +230,7 @@ public class OperatorServiceImpl implements OperatorService {
     public List<TariffDTO> findAllTariffs() {
         logger.debug("Reading all tariffs");
         List<Tariff> tariffs = tariffDAO.getAll();
-        List<TariffDTO> tariffDTOs = new ArrayList<TariffDTO>(0);
+        List<TariffDTO> tariffDTOs = new ArrayList<TariffDTO>();
         for (Tariff tariff : tariffs) {
             tariffDTOs.add(tariffToDTO(tariff));
         }

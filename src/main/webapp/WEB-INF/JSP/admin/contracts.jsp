@@ -48,10 +48,9 @@
                         <tr>
                             <td>${contract.client}</td>
                             <td>
-                                <form action="" method="post">
+                                <form action="<c:url value='/main/showClient' />" method="post">
                                     <a href="javascript:;"
                                        onclick="get_form(this).submit(); return false">+7${contract.number}</a>
-                                    <input type="hidden" name="source" value="client">
                                     <input type="hidden" name="number" value=${contract.number}>
                                 </form>
                             </td>
