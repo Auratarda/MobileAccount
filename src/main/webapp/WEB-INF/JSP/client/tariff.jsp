@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>Личный кабинет</title>
-  <link rel="stylesheet" href="css/style.css" type="text/css">
+  <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" type="text/css">
 </head>
 <body>
 
@@ -12,7 +12,7 @@
 </div>
 <div id="nav">
   <div class="link">
-    <a href="logout">Выйти</a>
+    <a href="<c:url value="/index.jsp" />">Выйти</a>
   </div>
 </div>
 
@@ -21,21 +21,21 @@
   <div id="topNav">
     <ul>
       <li>
-        <form method="post" action="client">
-          <input type="hidden" name="source" value="personal">
+        <form method="post" action="<c:url value='/main/showPersonal' />">
+          <input type="hidden" name="contract" value="${contract.number}">
           <input class="myButton" type="submit" value="Личные данные">
         </form>
       </li>
       <li>
-        <form method="post" action="client">
-          <input type="hidden" name="source" value="contract">
+        <form method="post" action="<c:url value='/main/showContract' />">
+          <input type="hidden" name="contract" value="${contract.number}">
           <input class="myButton" type="submit" value="Контракт">
         </form>
       </li>
       <li><input class="myButton" type="button" value="Тарифы"></li>
       <li>
-        <form method="post" action="client">
-          <input type="hidden" name="source" value="options">
+        <form method="post" action="<c:url value='/main/showOptions' />">
+          <input type="hidden" name="contract" value="${contract.number}">
           <input class="myButton" type="submit" value="Опции">
         </form>
       </li>
@@ -49,13 +49,13 @@
         <th>Цена</th>
         <th>Смена тарифа</th>
       </tr>
-      <c:forEach var="tariff" items="${sessionScope.tariffs}">
+      <c:forEach var="tariff" items="${tariffs}">
         <tr>
           <td>${tariff.name}</td>
           <td>${tariff.price}</td>
           <td>
-            <form method="post" action="client">
-              <input type="hidden" name="source" value="changeTariff">
+            <form method="post" action="<c:url value='/main/changeTariff' />">
+              <input type="hidden" name="contract" value="${contract.number}">
               <input type="hidden" name="tariffName" value="${tariff.name}">
               <input class="link" type="submit" value="Перейти">
             </form>

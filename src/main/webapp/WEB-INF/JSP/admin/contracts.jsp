@@ -3,8 +3,8 @@
 <html>
 <head>
     <title>Кабинет администратора</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-    <script src="js/link_submit.js"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" type="text/css">
+    <script src=="<c:url value="/resources/js/link_submit.js" />"></script>
 </head>
 <body>
 
@@ -13,7 +13,7 @@
 </div>
 <div id="nav">
     <div class="link">
-        <a href="logout">Выйти</a>
+        <a href="<c:url value="/index.jsp" />">Выйти</a>
     </div>
 </div>
 

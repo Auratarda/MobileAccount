@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Личный кабинет</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" type="text/css">
 </head>
 <body>
 
@@ -12,7 +12,7 @@
 </div>
 <div id="nav">
     <div class="link">
-        <a href="logout">Выйти</a>
+        <a href="<c:url value="/index.jsp" />">Выйти</a>
     </div>
 </div>
 
@@ -22,20 +22,20 @@
         <ul>
             <li><input class="myButton" type="button" value="Личные данные"></li>
             <li>
-                <form method="post" action="client">
-                    <input type="hidden" name="source" value="contract">
+                <form method="post" action="<c:url value='/main/showContract' />">
+                    <input type="hidden" name="contract" value="${contract.number}">
                     <input class="myButton" type="submit" value="Контракт">
                 </form>
             </li>
             <li>
-                <form method="post" action="client">
-                    <input type="hidden" name="source" value="tariffs">
+                <form method="post" action="<c:url value='/main/showTariffs' />">
+                    <input type="hidden" name="contract" value="${contract.number}">
                     <input class="myButton" type="submit" value="Тарифы">
                 </form>
             </li>
             <li>
-                <form method="post" action="client">
-                    <input type="hidden" name="source" value="options">
+                <form method="post" action="<c:url value='/main/showOptions' />">
+                    <input type="hidden" name="contract" value="${contract.number}">
                     <input class="myButton" type="submit" value="Опции">
                 </form>
             </li>
@@ -54,7 +54,7 @@
             </tr>
             <tr>
                 <td><b>Дата рождения: </b></td>
-                <td>${dateOfBirth}</td>
+                <td>${client.dateOfBirth}</td>
             </tr>
             <tr>
                 <td><b>Емейл: </b></td>

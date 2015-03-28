@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Главная страница</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" type="text/css">
 </head>
 <body>
 
@@ -21,7 +21,7 @@
 
     <div id="loginError">Сожалеем, Ваш <b>емаил</b> или <b>пароль</b> введены неверно.<br>
         Попробуйте ввести данные еще раз!<br>
-        <a href="../../index.jsp"> <input type="button" class="myButton" value="Логин"/></a>
+        <a href="<c:url value="/index.jsp" />"> <input type="button" class="myButton" value="Логин"/></a>
     </div>
 </div>
 

@@ -17,13 +17,12 @@ public class ContractDTO implements Serializable {
     }
 
     public ContractDTO(String number, ClientDTO client, Boolean blockedByClient,
-                       Boolean blockedByOperator, TariffDTO tariff, List<OptionDTO> options) {
+                       Boolean blockedByOperator, TariffDTO tariff) {
         this.number = number;
         this.client = client;
         this.blockedByClient = blockedByClient;
         this.blockedByOperator = blockedByOperator;
         this.tariff = tariff;
-        this.options = options;
     }
 
 

@@ -5,19 +5,19 @@ import com.tsystems.javaschool.dto.ContractDTO;
 import com.tsystems.javaschool.dto.OptionDTO;
 import com.tsystems.javaschool.dto.TariffDTO;
 import com.tsystems.javaschool.exceptions.ClientNotFoundException;
-import com.tsystems.javaschool.exceptions.ContractIsBlockedException;
-import com.tsystems.javaschool.exceptions.RequiredOptionException;
 import com.tsystems.javaschool.services.ClientService;
 import com.tsystems.javaschool.services.OperatorService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,55 +31,76 @@ import java.util.Map;
 public class AdminController {
     private final static Logger logger = Logger.getLogger(ClientController.class);
 
-    @Resource(name = "operatorService")
+    @Autowired
+    @Qualifier("operatorService")
     private OperatorService operatorService;
-    @Resource(name = "clientService")
+    @Autowired
+    @Qualifier("clientService")
     private ClientService clientService;
 
-    private void prepareClient(String number, Model model) {
-        ClientDTO client = operatorService.findClientByNumber(number);
-        ContractDTO contract = operatorService.findContractByNumber(number);
+    private ModelAndView prepareClient(String contractNumber, String path) {
+        ClientDTO client = operatorService.findClientByNumber(contractNumber);
+        ContractDTO contract = operatorService.findContractByNumber(contractNumber);
         TariffDTO tariff = contract.getTariff();
         List<OptionDTO> options = contract.getOptions();
         String status = "Не заблокирован";
         if (contract.getBlockedByClient()) status = "Заблокирован клиентом";
         if (contract.getBlockedByOperator()) status = "Заблокирован оператором";
-        model.addAttribute("client", client);
-        model.addAttribute("contract", contract);
-        model.addAttribute("tariff", tariff);
-        model.addAttribute("options", options);
-        model.addAttribute("status", status);
+        ModelAndView accountView = new ModelAndView(path);
+        accountView.addObject("contract", contract);
+        accountView.addObject("client", client);
+        accountView.addObject("tariff", tariff);
+        accountView.addObject("options", options);
+        accountView.addObject("status", status);
+        return accountView;
     }
 
-    @RequestMapping(value = "/showAllContracts", method = RequestMethod.GET)
-    public String showAllContracts() {
-        return "contracts";
+    private ModelAndView prepareContracts() {
+        ModelAndView contractsView = new ModelAndView("admin/contracts");
+        List<ContractDTO> allContracts = operatorService.findAllContracts();
+        contractsView.addObject("allContracts", allContracts);
+        return contractsView;
     }
 
-    @RequestMapping(value = "/showAllTariffs", method = RequestMethod.GET)
-    public String showAllTariffs() {
-        return "tariffs";
+
+    @RequestMapping(value = "/showAllContracts", method = RequestMethod.POST)
+    public ModelAndView showAllContracts() {
+        return prepareContracts();
     }
 
-    @RequestMapping(value = "/showAllOptions", method = RequestMethod.GET)
-    public String showAllOptions() {
-        return "options";
+    @RequestMapping(value = "/showAllTariffs", method = RequestMethod.POST)
+    public ModelAndView showAllTariffs() {
+        ModelAndView tariffsView = new ModelAndView("admin/tariffs");
+        List<TariffDTO> allTariffs = operatorService.findAllTariffs();
+        tariffsView.addObject("allTariffs", allTariffs);
+        return tariffsView;
     }
 
-    @RequestMapping(value = "/showCliet", method = RequestMethod.GET)
-    public String showCliet(@RequestParam Map<String, String> requestParams, Model model) {
+    @RequestMapping(value = "/showAllOptions", method = RequestMethod.POST)
+    public ModelAndView showAllOptions() {
+        ModelAndView optionsView = new ModelAndView("admin/options");
+        List<OptionDTO> allOptions = operatorService.findAllOptions();
+        optionsView.addObject("allOptions", allOptions);
+        return optionsView;
+    }
+
+    @RequestMapping(value = "/showCliet", method = RequestMethod.POST)
+    public ModelAndView showCliet(@RequestParam Map<String, String> requestParams) {
         String number = requestParams.get("number");
-        prepareClient(number, model);
-        return "account";
+        String path = "admin/account";
+        return prepareClient(number, path);
     }
 
-    @RequestMapping(value = "/assignNewContract", method = RequestMethod.GET)
-    public String assignNewContract() {
-        return "assignContract";
+    @RequestMapping(value = "/assignNewContract", method = RequestMethod.POST)
+    public ModelAndView assignNewContract() {
+        ModelAndView assignContractView = new ModelAndView("admin/assignContract");
+        List<ContractDTO> freeContracts = operatorService.findFreeContracts();
+        assignContractView.addObject("freeContracts", freeContracts);
+        return assignContractView;
     }
 
     @RequestMapping(value = "/addNewClient", method = RequestMethod.POST)
-    public String addNewClient(@RequestParam Map<String, String> requestParams, Model model) {
+    public ModelAndView addNewClient(@RequestParam Map<String, String> requestParams) {
         String firstName = requestParams.get("firstName");
         String lastName = requestParams.get("lastName");
         String dateOfBirth = requestParams.get("dateOfBirth");
@@ -102,15 +123,11 @@ public class AdminController {
         } catch (ClientNotFoundException e) {
             logger.error("Creating new client error");
         }
-        List<ContractDTO> contracts = operatorService.findAllContracts();
-        model.addAttribute("contracts", contracts);
-        List<ContractDTO> freeContracts = operatorService.findFreeContracts();
-        model.addAttribute("freeContracts", freeContracts);
-        return "contracts";
+        return prepareContracts();
     }
 
     @RequestMapping(value = "/removeClient", method = RequestMethod.POST)
-    public String removeClient(@RequestParam Map<String, String> requestParams, Model model) {
+    public ModelAndView removeClient(@RequestParam Map<String, String> requestParams) {
         String contractToRemove = requestParams.get("contractToRemove");
         ClientDTO clientToRemove = operatorService.findClientByNumber(contractToRemove);
         List<ContractDTO> freeContracts = operatorService.findFreeContracts();
@@ -118,15 +135,12 @@ public class AdminController {
         for (ContractDTO contract : contractsToFree) {
             freeContracts.add(contract);
         }
-        model.addAttribute("freeContracts", freeContracts);
         try {
             operatorService.removeClient(clientToRemove);
         } catch (ClientNotFoundException e) {
             e.printStackTrace();
         }
-        List<ContractDTO> contracts = operatorService.findAllContracts();
-        model.addAttribute("contracts", contracts);
-        return "contracts";
+        return prepareContracts();
     }
 
     @RequestMapping(value = "/lockContractByOperator", method = RequestMethod.POST)
@@ -158,7 +172,7 @@ public class AdminController {
         model.addAttribute("contracts", contracts);
         for (ContractDTO contract : contracts) {
             if (searchNumber.equals(contract.getNumber())) {
-                prepareClient(searchNumber, model);
+//                prepareClient(searchNumber);
                 return "account";
             }
         }
@@ -212,13 +226,7 @@ public class AdminController {
     public String removeOptionFromContract(@RequestParam Map<String, String> requestParams, Model model) {
         String optionName = requestParams.get("optionName");
         String contractNumber = requestParams.get("currentContract");
-        try {
-            clientService.removeOption(contractNumber, optionName);
-        } catch (RequiredOptionException e) {
-            e.printStackTrace();
-        } catch (ContractIsBlockedException e) {
-            e.printStackTrace();
-        }
+        clientService.removeOption(contractNumber, optionName);
         return "account";
     }
 
@@ -242,7 +250,7 @@ public class AdminController {
         options.add(option);
         ContractDTO contract = operatorService.findContractByNumber(contractNumber);
         operatorService.addOptions(contract, options);
-        prepareClient(contractNumber, model);
+//        prepareClient(contractNumber, model);
         return "account";
     }
 

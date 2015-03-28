@@ -17,32 +17,47 @@ public class EntityToDTOConverter {
         Date date = client.getDateOfBirth();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String dateOfBirth = sdf.format(date);
+        ClientDTO clientDTO = new ClientDTO(client.getFirstName(), client.getLastName(),
+                dateOfBirth, client.getAddress(), client.getPassport(), client.getEmail());
         List<Contract> contracts = client.getContracts();
         List<ContractDTO> contractDTOs = new ArrayList<ContractDTO>(0);
+        for (Contract contract : contracts) {
+            contractDTOs.add(contractToDTO(contract, clientDTO));
+        }
+        clientDTO.setContracts(contractDTOs);
         List<Role> roles = client.getRoles();
         List<RoleDTO> roleDTOs = new ArrayList<RoleDTO>(0);
-        for (Contract contract : contracts) {
-            contractDTOs.add(contractToDTO(contract));
-        }
         for (Role role : roles) {
             RoleDTO roleDTO = new RoleDTO(role.getRole());
             roleDTOs.add(roleDTO);
         }
-        return new ClientDTO(client.getFirstName(), client.getLastName(),
-                dateOfBirth, client.getAddress(), client.getPassport(), client.getEmail(),
-                contractDTOs, roleDTOs);
+        clientDTO.setRoles(roleDTOs);
+        return clientDTO;
     }
 
-    public static ContractDTO contractToDTO(Contract contract) {
-        ClientDTO clientDTO = clientToDTO(contract.getClient());
+    public static ContractDTO contractToDTO(Contract contract, ClientDTO client) {
         TariffDTO tariffDTO = tariffToDTO(contract.getTariff());
         List<Option> options = contract.getOptions();
         List<OptionDTO> optionDTOs = new ArrayList<OptionDTO>(0);
         for (Option option : options) {
             optionDTOs.add(optionToDTO(option));
         }
-        return new ContractDTO(contract.getNumber(), clientDTO, contract.getBlockedByClient(),
-                contract.getBlockedByOperator(), tariffDTO, optionDTOs);
+        ContractDTO contractDTO = new ContractDTO(contract.getNumber(), client, contract.getBlockedByClient(),
+                contract.getBlockedByOperator(), tariffDTO);
+        contractDTO.setOptions(optionDTOs);
+        return contractDTO;
+    }
+
+    public static ContractDTO contractToDTO(Contract contract) {
+        Client client = contract.getClient();
+        ClientDTO clientDTO = clientToDTO(client);
+        List<ContractDTO> contractDTOs = clientDTO.getContracts();
+        for (ContractDTO contractDTO : contractDTOs) {
+            if (contractDTO.getNumber().equals(contract.getNumber())) {
+                return contractDTO;
+            }
+        }
+        return null;
     }
 
     public static TariffDTO tariffToDTO(Tariff tariff) {

@@ -1,7 +1,6 @@
 package com.tsystems.javaschool.services.Impl;
 
 import com.tsystems.javaschool.dao.*;
-import com.tsystems.javaschool.dao.Impl.*;
 import com.tsystems.javaschool.dto.ClientDTO;
 import com.tsystems.javaschool.dto.ContractDTO;
 import com.tsystems.javaschool.dto.OptionDTO;
@@ -10,10 +9,11 @@ import com.tsystems.javaschool.entities.*;
 import com.tsystems.javaschool.exceptions.ClientNotFoundException;
 import com.tsystems.javaschool.services.OperatorService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,22 +30,23 @@ import static com.tsystems.javaschool.services.Impl.EntityToDTOConverter.*;
 public class OperatorServiceImpl implements OperatorService {
     private final static Logger logger = Logger.getLogger(OperatorService.class);
 
+    @Autowired
+    @Qualifier("ClientDAOImpl")
     private ClientDAO clientDAO;
+    @Autowired
+    @Qualifier("ContractDAOImpl")
     private ContractDAO contractDAO;
+    @Autowired
+    @Qualifier("TariffDAOImpl")
     private TariffDAO tariffDAO;
+    @Autowired
+    @Qualifier("OptionDAOImpl")
     private OptionDAO optionDAO;
+    @Autowired
+    @Qualifier("RoleDAOImpl")
     private RoleDAO roleDAO;
 
     public OperatorServiceImpl() {
-    }
-
-    public OperatorServiceImpl(EntityManager em) {
-        logger.info("Creating operator service");
-        clientDAO = new ClientDAOImpl(em);
-        contractDAO = new ContractDAOImpl(em);
-        tariffDAO = new TariffDAOImpl(em);
-        optionDAO = new OptionDAOImpl(em);
-        roleDAO = new RoleDAOImpl(em);
     }
 
     private Client createNewUser(String firstName, String lastName, String dateOfBirth,

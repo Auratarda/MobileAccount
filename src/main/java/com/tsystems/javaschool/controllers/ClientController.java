@@ -1,23 +1,21 @@
 package com.tsystems.javaschool.controllers;
 
+import com.tsystems.javaschool.dto.ClientDTO;
 import com.tsystems.javaschool.dto.ContractDTO;
 import com.tsystems.javaschool.dto.OptionDTO;
 import com.tsystems.javaschool.dto.TariffDTO;
-import com.tsystems.javaschool.exceptions.ContractIsBlockedException;
-import com.tsystems.javaschool.exceptions.IncompatibleOptionException;
-import com.tsystems.javaschool.exceptions.RequiredOptionException;
-import com.tsystems.javaschool.exceptions.TariffNotSupportedOptionException;
 import com.tsystems.javaschool.services.ClientService;
 import com.tsystems.javaschool.services.OperatorService;
-import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,96 +26,123 @@ import java.util.Map;
 @RequestMapping("/main")
 @Component
 public class ClientController {
-    private final static Logger logger = Logger.getLogger(ClientController.class);
 
-    @Resource(name = "operatorService")
+    @Autowired
+    @Qualifier("operatorService")
     private OperatorService operatorService;
-    @Resource(name = "clientService")
+    @Autowired
+    @Qualifier("clientService")
     private ClientService clientService;
 
-    @RequestMapping(value = "/showPersonal", method = RequestMethod.GET)
-    public String showPersonal() {
-        return "client";
+    private ModelAndView prepareJSP(String contractNumber, String path) {
+        ClientDTO client = operatorService.findClientByNumber(contractNumber);
+        ContractDTO contract = operatorService.findContractByNumber(contractNumber);
+        TariffDTO tariff = contract.getTariff();
+        List<OptionDTO> options = contract.getOptions();
+        ModelAndView contractView = new ModelAndView(path);
+        contractView.addObject("contract", contract);
+        contractView.addObject("client", client);
+        contractView.addObject("tariff", tariff);
+        contractView.addObject("options", options);
+        return contractView;
     }
 
-    @RequestMapping(value = "/showContract", method = RequestMethod.GET)
-    public String showContract() {
-        return "contract";
+    @RequestMapping(value = "/showPersonal", method = RequestMethod.POST)
+    public ModelAndView showPersonal(@RequestParam Map<String, String> requestParams) {
+        String contractNumber = requestParams.get("contract");
+        String path = "client";
+        return prepareJSP(contractNumber, path);
     }
 
-    @RequestMapping(value = "/showTariffs", method = RequestMethod.GET)
-    public String showTariffs(Model model) {
+    @RequestMapping(value = "/showContract", method = RequestMethod.POST)
+    public ModelAndView showContract(@RequestParam Map<String, String> requestParams) {
+        String contractNumber = requestParams.get("contract");
+        String path = "client/contract";
+        return prepareJSP(contractNumber, path);
+    }
+
+    @RequestMapping(value = "/showTariffs", method = RequestMethod.POST)
+    public ModelAndView showTariffs(@RequestParam Map<String, String> requestParams) {
+        String contractNumber = requestParams.get("contract");
+        String path = "client/tariff";
+        ModelAndView tariffsView = prepareJSP(contractNumber, path);
+        ContractDTO contract = operatorService.findContractByNumber(contractNumber);
+        TariffDTO tariffDTO = contract.getTariff();
         List<TariffDTO> tariffsToSelect = operatorService.findAllTariffs();
-        ContractDTO contract = (ContractDTO) model.asMap().get("contract");
-        TariffDTO currentTarrif = contract.getTariff();
-        tariffsToSelect.remove(currentTarrif);
-        model.addAttribute("tariffsToSelect", tariffsToSelect);
-        return "tariff";
+        int index = -1;
+        for (int i = 0; i < tariffsToSelect.size(); i++) {
+            if (tariffsToSelect.get(i).getName().equals(tariffDTO.getName())) index = i;
+        }
+        tariffsToSelect.remove(index);
+        tariffsView.addObject("tariffs", tariffsToSelect);
+        return tariffsView;
     }
 
-    @RequestMapping(value = "/showOptions", method = RequestMethod.GET)
-    public String showOptions(Model model) {
+    @RequestMapping(value = "/showOptions", method = RequestMethod.POST)
+    public ModelAndView showOptions(@RequestParam Map<String, String> requestParams) {
+        String contractNumber = requestParams.get("contract");
+        ContractDTO contract = operatorService.findContractByNumber(contractNumber);
+        List<OptionDTO> currentOptions = contract.getOptions();
         List<OptionDTO> optionsToSelect = operatorService.findAllOptions();
-        model.addAttribute("optionsToSelect", optionsToSelect);
-        return "option";
+        List<Integer> indexes = new ArrayList<>();
+        for (int i = 0; i < optionsToSelect.size(); i++) {
+            for (OptionDTO currentOption : currentOptions) {
+                if (optionsToSelect.get(i).getName().equals(currentOption.getName())) indexes.add(i);
+            }
+        }
+        for (Integer index : indexes) {
+            optionsToSelect.remove((int) index);
+        }
+        String path = "client/option";
+        ModelAndView optionsView = prepareJSP(contractNumber, path);
+        optionsView.addObject("allOptions", optionsToSelect);
+        return optionsView;
     }
 
     @RequestMapping(value = "/changeTariff", method = RequestMethod.POST)
-    public String changeTariff(@RequestParam Map<String, String> requestParams) {
-        String contractNumber = requestParams.get("contractNumber");
+    public ModelAndView changeTariff(@RequestParam Map<String, String> requestParams) {
+        String contractNumber = requestParams.get("contract");
         String tariffName = requestParams.get("tariffName");
-        try {
-            clientService.changeTariff(contractNumber, tariffName);
-        } catch (TariffNotSupportedOptionException e) {
-            e.printStackTrace();
-        } catch (ContractIsBlockedException e) {
-            e.printStackTrace();
-        }
-        return "contract";
+        clientService.changeTariff(contractNumber, tariffName);
+        String path = "client/contract";
+        return prepareJSP(contractNumber, path);
     }
 
     @RequestMapping(value = "/addOption", method = RequestMethod.POST)
-    public String addOption(@RequestParam Map<String, String> requestParams) {
-        String contractNumber = requestParams.get("contractNumber");
+    public ModelAndView addOption(@RequestParam Map<String, String> requestParams) {
+        String contractNumber = requestParams.get("contract");
         String optionName = requestParams.get("optionName");
-        try {
-            clientService.addOption(contractNumber, optionName);
-        } catch (IncompatibleOptionException e) {
-            e.printStackTrace();
-        } catch (RequiredOptionException e) {
-            e.printStackTrace();
-        } catch (ContractIsBlockedException e) {
-            e.printStackTrace();
-        }
-        return "contract";
+        clientService.addOption(contractNumber, optionName);
+        String path = "client/contract";
+        return prepareJSP(contractNumber, path);
     }
 
     @RequestMapping(value = "/removeOption", method = RequestMethod.POST)
-    public String removeOption(@RequestParam Map<String, String> requestParams) {
-        String contractNumber = requestParams.get("contractNumber");
+    public ModelAndView removeOption(@RequestParam Map<String, String> requestParams) {
+        String contractNumber = requestParams.get("contract");
+        ContractDTO contract = operatorService.findContractByNumber(contractNumber);
+        String path = "client/contract";
+        ModelAndView optionsView = prepareJSP(contractNumber, path);
         String optionName = requestParams.get("optionName");
-        try {
-            clientService.removeOption(contractNumber, optionName);
-            return "contract";
-        } catch (RequiredOptionException e) {
-            e.printStackTrace();
-        } catch (ContractIsBlockedException e) {
-            e.printStackTrace();
-        }
-        return "contract";
+        clientService.removeOption(contractNumber, optionName);
+        List<OptionDTO> options = contract.getOptions();
+        optionsView.addObject("options", options);
+        return optionsView;
     }
 
     @RequestMapping(value = "/lockContractByClient", method = RequestMethod.POST)
-    public String lockContractByClient(@RequestParam Map<String, String> requestParams) {
-        String contractNumber = requestParams.get("contractNumber");
+    public ModelAndView lockContractByClient(@RequestParam Map<String, String> requestParams) {
+        String contractNumber = requestParams.get("contract");
         clientService.lockContract(contractNumber);
-        return "contractLockedByClient";
+        String path = "client/contractLockedByClient";
+        return prepareJSP(contractNumber, path);
     }
 
     @RequestMapping(value = "/unlockContractByClient", method = RequestMethod.POST)
-    public String unlockContractByClient(@RequestParam Map<String, String> requestParams) {
-        String contractNumber = requestParams.get("contractNumber");
+    public ModelAndView unlockContractByClient(@RequestParam Map<String, String> requestParams) {
+        String contractNumber = requestParams.get("contract");
         clientService.unLockContract(contractNumber);
-        return "contract";
+        String path = "client/contract";
+        return prepareJSP(contractNumber, path);
     }
 }

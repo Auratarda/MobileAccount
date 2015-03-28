@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Кабинет администратора</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" type="text/css">
 </head>
 <body>
 
@@ -12,7 +12,7 @@
 </div>
 <div id="nav">
     <div class="link">
-        <a href="logout">Выйти</a>
+        <a href="<c:url value="/index.jsp" />">Выйти</a>
     </div>
 </div>
 

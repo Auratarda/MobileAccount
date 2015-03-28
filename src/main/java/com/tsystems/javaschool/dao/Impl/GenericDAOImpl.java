@@ -1,39 +1,41 @@
 package com.tsystems.javaschool.dao.Impl;
 
 import com.tsystems.javaschool.dao.GenericDAO;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-class GenericDAOImpl<T, PK extends Serializable>
+
+abstract class GenericDAOImpl<T, PK extends Serializable>
         implements GenericDAO<T, PK> {
 
-    private Class<T> entityClass;
-    private EntityManager entityManager;
-
-    public GenericDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-        ParameterizedType genericSuperclass = (ParameterizedType) getClass()
-                .getGenericSuperclass();
-        this.entityClass = (Class<T>) genericSuperclass
-                .getActualTypeArguments()[0];
-    }
+    protected Class<T> entityClass;
+    @PersistenceContext
+    protected EntityManager entityManager;
 
     public Class<T> getEntityClass() {
         return entityClass;
+    }
+
+    public void setEntityClass(Class<T> entityClass) {
+        this.entityClass = entityClass;
     }
 
     public EntityManager getEntityManager() {
         return entityManager;
     }
 
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    @Transactional
     public T create(T t) {
-        entityManager.getTransaction().begin();
         this.entityManager.persist(t);
-        entityManager.getTransaction().commit();
         return t;
     }
 
@@ -41,18 +43,16 @@ class GenericDAOImpl<T, PK extends Serializable>
         return this.entityManager.find(entityClass, id);
     }
 
+    @Transactional
     public T update(T t) {
-        entityManager.getTransaction().begin();
         this.entityManager.merge(t);
-        entityManager.getTransaction().commit();
         return t;
     }
 
+    @Transactional
     public void delete(T t) {
-        entityManager.getTransaction().begin();
         t = this.entityManager.merge(t);
         this.entityManager.remove(t);
-        entityManager.getTransaction().commit();
     }
 
     public List<T> getAll() {

@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Личный кабинет</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" type="text/css">
 </head>
 <body>
 
@@ -12,7 +12,7 @@
 </div>
 <div id="nav">
     <div class="link">
-        <a href="logout">Выйти</a>
+        <a href="<c:url value="/index.jsp" />">Выйти</a>
     </div>
 </div>
 
@@ -21,21 +21,21 @@
     <div id="topNav">
         <ul>
             <li>
-                <form method="post" action="client">
-                    <input type="hidden" name="source" value="personal">
+                <form method="post" action="<c:url value='/main/showPersonal' />">
+                    <input type="hidden" name="contract" value="${contract.number}">
                     <input class="myButton" type="submit" value="Личные данные">
                 </form>
             </li>
             <li><input class="myButton" type="button" value="Контракт"></li>
             <li>
-                <form method="post" action="client">
-                    <input type="hidden" name="source" value="tariffs">
+                <form method="post" action="<c:url value='/main/showTariffs' />">
+                    <input type="hidden" name="contract" value="${contract.number}">
                     <input class="myButton" type="submit" value="Тарифы">
                 </form>
             </li>
             <li>
-                <form method="post" action="client">
-                    <input type="hidden" name="source" value="options">
+                <form method="post" action="<c:url value='/main/showOptions' />">
+                    <input type="hidden" name="contract" value="${contract.number}">
                     <input class="myButton" type="submit" value="Опции">
                 </form>
             </li>
@@ -71,8 +71,8 @@
                     <td>${option.price}</td>
                     <td>${option.connectionCost}</td>
                     <td>
-                        <form method="post" action="client">
-                            <input type="hidden" name="source" value="removeOption">
+                        <form method="post" action="<c:url value='/main/removeOption' />">
+                            <input type="hidden" name="contract" value="${contract.number}">
                             <input type="hidden" name="optionName" value="${option.name}">
                             <input class="link" type="submit" value="Отключить">
                         </form>
@@ -81,9 +81,8 @@
             </c:forEach>
         </table>
     </div>
-    <form method="post" action="client">
-        <input type="hidden" name="source" value="lockContract">
-        <input type="hidden" name="contractNumber" value="${contract.number}">
+    <form method="post" action="<c:url value='/main/lockContractByClient' />">
+        <input type="hidden" name="contract" value="${contract.number}">
         <input class="link" id="innerButton" type="submit" value="Заблокировать номер">
     </form>
 </div>

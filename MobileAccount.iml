@@ -21,7 +21,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="" />
         <datasource-mapping>
-          <factory-entry name="MobileAccountPU" />
+          <factory-entry name="MobileAccountPU" value="dataSource" />
           <factory-entry name="SchoolPU" value="b9cff18d-5f96-4039-869a-76ad3b8d9f73" />
           <factory-entry name="primary" />
         </datasource-mapping>

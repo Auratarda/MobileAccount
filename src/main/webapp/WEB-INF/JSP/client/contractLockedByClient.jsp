@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Личный кабинет</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" type="text/css">
 </head>
 <body>
 
@@ -12,7 +12,7 @@
 </div>
 <div id="nav">
     <div class="link">
-        <a href="logout">Выйти</a>
+        <a href="<c:url value="/index.jsp" />">Выйти</a>
     </div>
 </div>
 
@@ -55,9 +55,8 @@
             </c:forEach>
         </table>
     </div>
-    <form method="post" action="client">
-        <input type="hidden" name="source" value="unLockContract">
-        <input type="hidden" name="contractNumber" value="${contract.number}">
+    <form method="post" action="<c:url value='/main/unlockContractByClient' />">
+        <input type="hidden" name="contract" value="${contract.number}">
         <input class="link" type="submit" id="innerButton" value="Разблокировать номер">
     </form>
 </div>

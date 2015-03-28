@@ -18,16 +18,14 @@ public class ClientDTO implements Serializable {
     public ClientDTO() {
     }
 
-    public ClientDTO(String firstName, String lastName, String dateOfBirth, String address, String passport,
-                     String email, List<ContractDTO> contracts, List<RoleDTO> roles) {
+    public ClientDTO(String firstName, String lastName, String dateOfBirth, String address,
+                     String passport, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
         this.passport = passport;
         this.email = email;
-        this.contracts = contracts;
-        this.roles = roles;
     }
 
     public String getFirstName() {
