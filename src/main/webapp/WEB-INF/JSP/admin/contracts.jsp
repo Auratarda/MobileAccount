@@ -4,7 +4,7 @@
 <head>
     <title>Кабинет администратора</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" type="text/css">
-    <script src=="<c:url value="/resources/js/link_submit.js" />"></script>
+    <script type="text/javascript" src=="<c:url value="/myresources/js/link_submit.js" />"></script>
 </head>
 <body>
 
@@ -49,7 +49,7 @@
                             <td>${contract.client}</td>
                             <td>
                                 <form action="<c:url value='/main/showClient' />" method="post">
-                                    <a href="javascript:;"
+                                    <a href="javascript:"
                                        onclick="get_form(this).submit(); return false">+7${contract.number}</a>
                                     <input type="hidden" name="number" value=${contract.number}>
                                 </form>

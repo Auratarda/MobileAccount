@@ -26,7 +26,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/main")
 public class AdminController {
-    private final static Logger logger = Logger.getLogger(ClientController.class);
+    private final static Logger logger = Logger.getLogger(AdminController.class);
 
     @Autowired
     @Qualifier("operatorService")

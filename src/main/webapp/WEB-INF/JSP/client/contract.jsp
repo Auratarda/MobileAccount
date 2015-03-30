@@ -4,6 +4,7 @@
 <head>
     <title>Личный кабинет</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" type="text/css">
+    <script src="<c:url value="/resources/js/link_submit.js" />"></script>
 </head>
 <body>
 
@@ -65,6 +66,16 @@
                 <th>Стоимость подключения</th>
                 <th>Отключение</th>
             </tr>
+            <c:if test="${options.size()==0}">
+                <tr><td colspan="4">
+                <form action="<c:url value='/main/showOptions' />" method="post">
+                    У Вас нет дополнительных опций.
+                    <a href="javascript:;"
+                       onclick="get_form(this).submit(); return false">Подключить</a>
+                    <input type="hidden" name="contract" value="${contract.number}">
+                </form>
+                </td></tr>
+            </c:if>
             <c:forEach var="option" items="${options}">
                 <tr>
                     <td>${option.name}</td>
