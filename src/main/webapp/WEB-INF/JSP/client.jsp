@@ -1,11 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/WEB-INF/JSP/header.jsp" %>
 <html>
 <head>
     <title>Java Mobile</title>
-    <link rel="stylesheet" href="<c:url value="/myresources/css/style.css" />" type="text/css">
-    <script type="text/javascript" src=="<c:url value="/myresources/js/link_submit.js" />"></script>
+    <link href="<c:url value="/resources/css/bootstrap.3.2.0.css"/>" rel="stylesheet"/>
+    <%--custom styles--%>
+    <link href="<c:url value="/resources/css/javaMobile.css"/>" rel="stylesheet"/>
+    <script type="text/javascript" src=="<c:url value="/resources/js/link_submit.js" />"></script>
 </head>
 <body>
 
@@ -20,14 +21,14 @@
         <li class="navbar-item"><a href="<c:url value='/main/showContract' />" >Контракт</a></li>
         <li class="navbar-item"><a href="<c:url value='/main/showTariffs' />" >Тарифы</a></li>
         <li class="navbar-item"><a href="<c:url value='/main/showOptions' />" >Опции</a></li>
+        <li class="navbar-item"><a href="<c:url value='/main/showBasket' />" >Корзина</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
         <li class="navbar-brand"><a href="<c:url value="/index.jsp" />">Выйти</a></li>
     </ul>
 </nav>
 
-<div class="container" id="background">
-    <div class="account-wall">
+<div class="container">
     <table class="table table-striped table-bordered table-condensed">
         <tr>
             <td><b>Имя: </b></td>
@@ -54,7 +55,6 @@
             <td>${client.passport}</td>
         </tr>
     </table>
-</div>
 </div>
 
 </body>

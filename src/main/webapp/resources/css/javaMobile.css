@@ -1,0 +1,128 @@
+body {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    background-color: #f7f7f7;
+}
+
+.h-cursor-pointer:hover{
+    cursor: pointer;
+}
+
+.form-signin{
+    max-width: 330px;
+    padding: 15px;
+    font-size: large;
+    margin: 0 auto 10px;
+}
+
+.has-feedback .form-control {
+    padding-right: 34px;
+}
+.has-feedback .form-control.input-sm,
+.has-feedback.form-group-sm .form-control {
+    padding-right: 30px;
+}
+.has-feedback .form-control.input-lg,
+.has-feedback.form-group-lg .form-control {
+    padding-right: 46px;
+}
+.has-feedback-left .form-control {
+    padding-right: 12px;
+    padding-left: 34px;
+}
+.has-feedback-left .form-control.input-sm,
+.has-feedback-left.form-group-sm .form-control {
+    padding-left: 30px;
+}
+.has-feedback-left .form-control.input-lg,
+.has-feedback-left.form-group-lg .form-control {
+    padding-left: 46px;
+}
+.has-feedback-left .form-control-feedback {
+    left: 0;
+}
+.form-control-feedback {
+    line-height: 34px !important;
+}
+.input-sm + .form-control-feedback,
+.form-horizontal .form-group-sm .form-control-feedback {
+    width: 30px;
+    height: 30px;
+    line-height: 30px !important;
+}
+.input-lg + .form-control-feedback,
+.form-horizontal .form-group-lg .form-control-feedback {
+    width: 46px;
+    height: 46px;
+    line-height: 46px !important;
+}
+.has-feedback label.sr-only ~ .form-control-feedback,
+.has-feedback label.sr-only ~ div .form-control-feedback {
+    top: 0;
+}
+
+.navbar-item {
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px
+}
+
+/* Adjust Menu (red) text color, (Garamond) font-family, (1.5em) font-size  */
+.navbar .nav > li > a, .navbar .nav > li > a:first-letter,
+.navbar .nav > li.current-menu-item > a,
+.navbar .nav > li.current-menu-ancestor > a {
+    display:        inline;
+    color:          #ffffff;
+    font-family:    Garamond;
+    font-size:      1em;
+    padding:        5px 20px;
+}
+
+
+/* Remove the Hover/Focus Colors  */
+.navbar .nav > li#current-menu-item > a, .navbar .nav > li.current-menu-ancestor > a,
+.navbar .nav > li > a:hover, .navbar .nav > li > a:focus{
+    color: #d7ff26;
+}
+
+#brand{
+    color: #ff7edc;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#brand:hover{
+    color: #ffffff;
+}
+
+.btn-primary,  .btn-primary:hover, .btn-primary:focus{
+    color: #000000;
+    background-image: -webkit-gradient(linear, left 0%, left 100%, from(#70ff21), to(#70ff33));
+    border-color: #70ff21;
+}
+
+.btn-primary:hover{
+    border-color: #000000;
+}
+
+.glyphicon-user, .glyphicon-lock{
+    margin-top: 5px;
+}
+
+#unlock_button{
+    width: 300px;
+    margin: 0 auto;
+}
+
+#lock_button{
+    width: 300px;
+    margin: 0 auto;
+    background-image: -webkit-gradient(linear, left 0%, left 100%, from(#ff4522), to(#ff3810));
+    border-color: #ff3810;
+}
+
+#lock_button:hover{
+    border-color: #000000;
+}

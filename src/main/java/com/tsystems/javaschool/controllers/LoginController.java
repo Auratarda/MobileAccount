@@ -7,13 +7,17 @@ import com.tsystems.javaschool.services.OperatorService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +25,8 @@ import java.util.Map;
  * LoginServlet.
  */
 @Controller
-@SessionAttributes({"currentContract"})
+@SessionAttributes({"currentContract", "optionsInBasket", "tariffInBasket", "tariffsToSelect", "optionsToSelect"})
 @RequestMapping("/main")
-@Component
 public class LoginController extends HttpServlet {
     private final static Logger logger = Logger.getLogger(LoginController.class);
 
@@ -52,38 +55,42 @@ public class LoginController extends HttpServlet {
                 if (role.getRole().equals("CLIENT")) {
                     ModelAndView clientView = new ModelAndView("client");
                     ContractDTO contract = client.getContracts().get(0);
+                    List<TariffDTO> tariffsToSelect = operatorService.findAllTariffs();
+                    TariffDTO contractTariff = contract.getTariff();
+                    Iterator iter = tariffsToSelect.iterator();
+                    while (iter.hasNext()) {
+                        TariffDTO tariff = (TariffDTO) iter.next();
+                            if (tariff.getName().equals(contractTariff.getName())) iter.remove();
+                    }
+                    List<OptionDTO> optionsToSelect = operatorService.findAllOptions();
+                    List<OptionDTO> contractOptions = contract.getOptions();
+                    iter = optionsToSelect.iterator();
+                    while (iter.hasNext()) {
+                        OptionDTO option = (OptionDTO) iter.next();
+                        for (OptionDTO contractOption : contractOptions) {
+                            if (option.getName().equals(contractOption.getName())) iter.remove();
+                        }
+                    }
+                    List<OptionDTO> optionsInBasket = new ArrayList<>();
+                    List<OptionDTO> tariffInBasket = new ArrayList<>();
+                    httpSession.setAttribute("tariffInBasket", tariffInBasket);
+                    httpSession.setAttribute("optionsInBasket", optionsInBasket);
                     httpSession.setAttribute("currentContract", contract);
+                    httpSession.setAttribute("tariffsToSelect", tariffsToSelect);
+                    httpSession.setAttribute("optionsToSelect", optionsToSelect);
                     clientView.addObject("contract", contract);
                     clientView.addObject("client", client);
                     clientView.addObject("role", roles);
+                    if (contract.getBlockedByClient()){
+                        return new ModelAndView("client/contractLockedByClient");
+                    }
                     return clientView;
                 }
             }
         } catch (ClientNotFoundException e) {
             logger.debug("Client is not found");
-            ModelAndView errorView = new ModelAndView("loginError");
-            return errorView;
+            return new ModelAndView("loginError");
         }
         return null;
-    }
-
-    @RequestMapping(value = "/showContract", method = RequestMethod.GET)
-    public ModelAndView showContract(@ModelAttribute("currentContract") ContractDTO contract) {
-        String contractNumber = contract.getNumber();
-        String path = "client/contract";
-        return prepareJSP(contractNumber, path);
-    }
-
-    private ModelAndView prepareJSP(String contractNumber, String path) {
-        ClientDTO client = operatorService.findClientByNumber(contractNumber);
-        ContractDTO contract = operatorService.findContractByNumber(contractNumber);
-        TariffDTO tariff = contract.getTariff();
-        List<OptionDTO> options = contract.getOptions();
-        ModelAndView contractView = new ModelAndView(path);
-        contractView.addObject("contract", contract);
-        contractView.addObject("client", client);
-        contractView.addObject("tariff", tariff);
-        contractView.addObject("options", options);
-        return contractView;
     }
 }

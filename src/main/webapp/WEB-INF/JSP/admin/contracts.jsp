@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Кабинет администратора</title>
-    <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" type="text/css">
+    <link rel="stylesheet" href="<c:url value="/myresources/css/style.css" />" type="text/css">
     <script type="text/javascript" src=="<c:url value="/myresources/js/link_submit.js" />"></script>
 </head>
 <body>
