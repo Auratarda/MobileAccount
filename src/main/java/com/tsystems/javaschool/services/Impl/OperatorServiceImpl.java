@@ -189,9 +189,9 @@ public class OperatorServiceImpl implements OperatorService {
         List<Role> roles = client.getRoles();
         client.setRoles(new ArrayList<Role>(0));
         for (Role role : roles) {
-            roleDAO.delete(role);
+            roleDAO.remove(role);
         }
-        clientDAO.delete(client);
+        clientDAO.remove(client);
     }
 
     /**
@@ -270,13 +270,13 @@ public class OperatorServiceImpl implements OperatorService {
     public void removeTariff(TariffDTO tariffDTO) {
         logger.debug("Removing a tariff");
         Tariff tariff = tariffDAO.findTariffByName(tariffDTO.getName());
-        tariffDAO.delete(tariff);
+        tariffDAO.remove(tariff);
     }
 
     public void removeOption(OptionDTO optionDTO) {
         logger.debug("Removing an option");
         Option option = optionDAO.findOptionByName(optionDTO.getName());
-        optionDAO.delete(option);
+        optionDAO.remove(option);
     }
 
 }

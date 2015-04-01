@@ -45,13 +45,15 @@
     <tr>
       <th>Тариф</th>
       <th>Цена</th>
-      <th colspan="2">Убрать</th>
+      <th></th>
+      <th>Убрать</th>
     </tr>
     <c:forEach var="tariff" items="${tariffInBasket}">
     <tr>
       <td>${tariff.name}</td>
       <td>${tariff.price}</td>
-      <td colspan="2">
+      <th></th>
+      <td>
         <form method="post" action="<c:url value='/main/removeTariffFromBasket' />">
           <input type="submit" value="Убрать тариф">
         </form>

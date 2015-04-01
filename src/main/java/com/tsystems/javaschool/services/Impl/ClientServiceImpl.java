@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +26,7 @@ import static com.tsystems.javaschool.services.Impl.EntityToDTOConverter.clientT
  * ClientServiceImpl.
  */
 @Service("clientService")
+@Transactional
 public class ClientServiceImpl implements ClientService {
     private final static Logger logger = Logger.getLogger(ClientServiceImpl.class);
 
