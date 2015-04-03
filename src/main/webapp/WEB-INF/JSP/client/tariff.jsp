@@ -17,14 +17,14 @@
     </div>
     <!-- Collection of nav links and other content for toggling -->
     <ul class="nav navbar-nav">
-        <li class="navbar-item"><a href="<c:url value='/main/showPersonal' />">Личные данные</a></li>
-        <li class="navbar-item"><a href="<c:url value='/main/showContract' />">Контракт</a></li>
-        <li class="navbar-item" id="current-menu-item"><a href="<c:url value='/main/showTariffs' />">Тарифы</a></li>
-        <li class="navbar-item"><a href="<c:url value='/main/showOptions' />">Опции</a></li>
-        <li class="navbar-item"><a href="<c:url value='/main/showBasket' />" >Корзина</a></li>
+        <li class="navbar-item"><a href="<c:url value='/user/showPersonal' />">Личные данные</a></li>
+        <li class="navbar-item"><a href="<c:url value='/user/showContract' />">Контракт</a></li>
+        <li class="navbar-item" id="current-menu-item"><a href="<c:url value='/user/showTariffs' />">Тарифы</a></li>
+        <li class="navbar-item"><a href="<c:url value='/user/showOptions' />">Опции</a></li>
+        <li class="navbar-item"><a href="<c:url value='/user/showBasket' />" >Корзина</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-        <li class="navbar-brand"><a href="<c:url value="/index.jsp" />">Выйти</a></li>
+        <li class="navbar-brand"><a href="<c:url value="/j_spring_security_logout" />">Выйти</a></li>
     </ul>
 </nav>
 
@@ -40,7 +40,7 @@
                 <td>${tariff.name}</td>
                 <td>${tariff.price}</td>
                 <td>
-                    <form method="post" action="<c:url value='/main/changeTariff' />">
+                    <form method="post" action="<c:url value='/user/changeTariff' />">
                         <input type="hidden" name="tariffName" value="${tariff.name}">
                         <input class="link" type="submit" value="Перейти">
                     </form>

@@ -17,7 +17,7 @@
     </div>
     <!-- Collection of nav links and other content for toggling -->
     <ul class="nav navbar-nav navbar-right">
-        <li class="navbar-brand"><a href="<c:url value="/index.jsp" />">Выйти</a></li>
+        <li class="navbar-brand"><a href="<c:url value="//j_spring_security_logout" />">Выйти</a></li>
     </ul>
 </nav>
 
@@ -54,7 +54,7 @@
             </tr>
         </c:forEach>
     </table>
-    <form method="get" action="<c:url value='/main/unlockContractByClient' />">
+    <form method="get" action="<c:url value='/user/unlockContractByClient' />">
         <button id="unlock_button" class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
             Разблокировать номер
         </button>

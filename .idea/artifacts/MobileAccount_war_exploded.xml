@@ -37,16 +37,18 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context-support:4.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.1.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:3.2.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:3.2.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.2.8.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:3.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-jpa:1.7.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.9.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.0.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.0.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.8.4" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.10" />
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.10" />
           <element id="library" level="project" name="Maven: org.springframework:spring-test:4.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:3.2.5.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:3.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:3.2.5.RELEASE" />
         </element>
       </element>

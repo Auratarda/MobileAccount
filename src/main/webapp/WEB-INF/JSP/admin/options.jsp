@@ -1,99 +1,77 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Кабинет администратора</title>
-    <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" type="text/css">
+    <title>Java Mobile</title>
+    <link href="<c:url value="/resources/css/bootstrap.3.2.0.css"/>" rel="stylesheet"/>
+    <%--custom styles--%>
+    <link href="<c:url value="/resources/css/javaMobile.css"/>" rel="stylesheet"/>
+    <script type="text/javascript" src="<c:url value="/resources/js/link_submit.js" />"></script>
 </head>
 <body>
 
-<div id="header">
-    <h1>Администратор</h1>
-</div>
-<div id="nav">
-    <div class="link">
-        <a href="<c:url value="/index.jsp" />">Выйти</a>
+<nav role="navigation" class="navbar navbar-inverse">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <a href="#" class="navbar-brand" id="brand">Java Mobile</a>
     </div>
-</div>
+    <!-- Collection of nav links and other content for toggling -->
+    <ul class="nav navbar-nav">
+        <li class="navbar-item"><a href="<c:url value='/admin/showAllContracts' />">Контракты</a></li>
+        <li class="navbar-item"><a href="<c:url value='/admin/showAllTariffs' />">Тарифы</a></li>
+        <li class="navbar-item" id="current-menu-item"><a href="#">Опции</a></li>
+        <li class="navbar-item"><a href="<c:url value='/admin/assignNewContract' />">Заключить контракт</a></li>
+        <li class="navbar-item"><a href="<c:url value='/admin/search' />">Искать по номеру</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="navbar-brand"><a href="<c:url value="/j_spring_security_logout" />">Выйти</a></li>
+    </ul>
+</nav>
 
-<div id="section">
+<div class="container">
 
-    <div id="topNav">
-        <ul>
-            <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="contracts">
-                    <input class="myButton" type="submit" value="Контракты">
-                </form>
-            </li>
-            <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="tariffs">
-                    <input class="myButton" type="submit" value="Тарифы">
-                </form>
-            </li>
-            <li><input class="myButton" type="button" value="Опции"></li>
-        </ul>
-    </div>
-
-    <div class="row">
-        <div class="col">
-    <div class="table" id="option">
-        <table class="innerTable">
+    <table class="table table-striped table-bordered table-condensed" id="tariffs_table">
+        <tr>
+            <th>Опция</th>
+            <th>Цена</th>
+            <th>Подключение</th>
+            <th>Удалить</th>
+        </tr>
+        <c:forEach var="option" items="${allOptions}">
             <tr>
-                <th>Опция</th>
-                <th>Цена</th>
-                <th>Подключение</th>
-                <th>Удалить</th>
+                <td>${option.name}</td>
+                <td>${option.price}</td>
+                <td>${option.connectionCost}</td>
+                <td>
+                    <form method="post" action="<c:url value='/admin/removeOldOption' />">
+                        <input type="hidden" name="optionName" value="${option.name}">
+                        <input class="link" type="submit" value="Удалить">
+                    </form>
+                </td>
             </tr>
-            <c:forEach var="option" items="${allOptions}">
-                <tr>
-                    <td>${option.name}</td>
-                    <td>${option.price}</td>
-                    <td>${option.connectionCost}</td>
-                    <td>
-                        <form method="post" action="admin">
-                            <input type="hidden" name="source" value="removeOption">
-                            <input type="hidden" name="optionName" value="${option.name}">
-                            <input class="link" type="submit" value="Удалить">
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-    </div>
+        </c:forEach>
+    </table>
+
+    <form class="form-signin" method="post" action="<c:url value='/admin/addNewOption' />">
+        <div class="form-group has-feedback has-feedback-left">
+            <label class="control-label">Название опции</label>
+            <input type="text" name='optionName' class="form-control" placeholder="Придумайте название" required/>
+            <i class="form-control-feedback glyphicon glyphicon-phone-alt"></i>
         </div>
-
-        <div class="col">
-            <form method="post" action="admin">
-                <input type="hidden" name="source" value="addNewOption">
-
-                <div id="tariff">
-                    <table id="clientForm">
-                        <tr>
-                            <td>Название опции:</td>
-                            <td><input type="text" name="optionName" maxlength="30" required></td>
-                        </tr>
-                        <tr>
-                            <td>Цена:</td>
-                            <td><input type="number" name="optionPrice" maxlength="10" required></td>
-                        </tr>
-                        <tr>
-                            <td>Стоимость подключения:</td>
-                            <td><input type="number" name="connectionCost" maxlength="10" required></td>
-                        </tr>
-                    </table>
-                </div>
-                <input class="myButton" id="assignNewContractButton" type="submit" value="Добавить новую опцию">
-            </form>
+        <div class="form-group has-feedback has-feedback-left">
+            <label class="control-label">Цена</label>
+            <input type="text" name='optionPrice' class="form-control" placeholder="Укажите цену" required/>
+            <i class="form-control-feedback glyphicon glyphicon-usd"></i>
         </div>
-    </div>
-</div>
-
-<div id="footer">
-    <p>
-        CreatedBy © Vasilevskii Stanislav
-    </p>
+        <div class="form-group has-feedback has-feedback-left">
+            <label class="control-label">Стоимость подключения</label>
+            <input type="text" name='connectionCost' class="form-control" placeholder="Укажите стоимость подключения" required/>
+            <i class="form-control-feedback glyphicon glyphicon-usd"></i>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
+            Добавить новую опцию
+        </button>
+    </form>
 </div>
 </body>
 </html>

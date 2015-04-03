@@ -4,11 +4,11 @@
     <!-- Transaction type-->
     <persistence-unit name="MobileAccountPU">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.tsystems.javaschool.entities.Client</class>
-        <class>com.tsystems.javaschool.entities.Contract</class>
-        <class>com.tsystems.javaschool.entities.Tariff</class>
-        <class>com.tsystems.javaschool.entities.Option</class>
-        <class>com.tsystems.javaschool.entities.Role</class>
+        <class>com.tsystems.javaschool.domain.entities.Client</class>
+        <class>com.tsystems.javaschool.domain.entities.Contract</class>
+        <class>com.tsystems.javaschool.domain.entities.Tariff</class>
+        <class>com.tsystems.javaschool.domain.entities.Option</class>
+        <class>com.tsystems.javaschool.domain.entities.Role</class>
     </persistence-unit>
 </persistence>
 

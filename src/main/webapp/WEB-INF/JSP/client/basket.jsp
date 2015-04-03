@@ -17,14 +17,14 @@
   </div>
   <!-- Collection of nav links and other content for toggling -->
   <ul class="nav navbar-nav">
-    <li class="navbar-item"><a href="<c:url value='/main/showPersonal' />">Личные данные</a></li>
-    <li class="navbar-item"><a href="<c:url value='/main/showContract' />" >Контракт</a></li>
-    <li class="navbar-item"><a href="<c:url value='/main/showTariffs' />" >Тарифы</a></li>
-    <li class="navbar-item"><a href="<c:url value='/main/showOptions' />" >Опции</a></li>
-    <li class="navbar-item" id="current-menu-item"><a href="<c:url value='/main/showBasket' />" >Корзина</a></li>
+    <li class="navbar-item"><a href="<c:url value='/user/showPersonal' />">Личные данные</a></li>
+    <li class="navbar-item"><a href="<c:url value='/user/showContract' />" >Контракт</a></li>
+    <li class="navbar-item"><a href="<c:url value='/user/showTariffs' />" >Тарифы</a></li>
+    <li class="navbar-item"><a href="<c:url value='/user/showOptions' />" >Опции</a></li>
+    <li class="navbar-item" id="current-menu-item"><a href="<c:url value='/user/showBasket' />" >Корзина</a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
-    <li class="navbar-brand"><a href="<c:url value="/index.jsp" />">Выйти</a></li>
+    <li class="navbar-brand"><a href="<c:url value="/j_spring_security_logout" />">Выйти</a></li>
   </ul>
 </nav>
 
@@ -33,7 +33,7 @@
     <c:if test="${sessionScope.optionsInBasket.size()==0 && tariffInBasket.size()==0}">
       <tr>
         <td colspan="4">
-          <form action="<c:url value='/main/showOptions' />" method="get">
+          <form action="<c:url value='/user/showOptions' />" method="get">
             Ваша корзина пуста.
             <a href="javascript:"
                onclick="get_form(this).submit(); return false">Подключить дополнительные опции</a>
@@ -54,7 +54,7 @@
       <td>${tariff.price}</td>
       <th></th>
       <td>
-        <form method="post" action="<c:url value='/main/removeTariffFromBasket' />">
+        <form method="post" action="<c:url value='/user/removeTariffFromBasket' />">
           <input type="submit" value="Убрать тариф">
         </form>
       </td>
@@ -74,7 +74,7 @@
       <td>${option.price}</td>
       <td>${option.connectionCost}</td>
       <td>
-        <form method="post" action="<c:url value='/main/removeOptionFromBasket' />">
+        <form method="post" action="<c:url value='/user/removeOptionFromBasket' />">
           <input type="hidden" name="optionName" value="${option.name}">
           <input type="submit" value="Убрать опцию">
         </form>
@@ -82,7 +82,7 @@
       </c:forEach>
   </table>
 <c:if test="${sessionScope.optionsInBasket.size()!=0 || tariffInBasket.size()!=0}">
-  <form method="post" action="<c:url value='/main/buyItems' />">
+  <form method="post" action="<c:url value='/user/buyItems' />">
     <button id="unlock_button" class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
       Купить
     </button>

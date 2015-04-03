@@ -6,7 +6,7 @@
     <link href="<c:url value="/resources/css/bootstrap.3.2.0.css"/>" rel="stylesheet"/>
     <%--custom styles--%>
     <link href="<c:url value="/resources/css/javaMobile.css"/>" rel="stylesheet"/>
-    <script type="text/javascript" src=="<c:url value="/resources/js/link_submit.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/link_submit.js" />"></script>
 </head>
 <body>
 
@@ -18,13 +18,13 @@
     <!-- Collection of nav links and other content for toggling -->
     <ul class="nav navbar-nav">
         <li class="navbar-item" id="current-menu-item"><a href="#">Личные данные</a></li>
-        <li class="navbar-item"><a href="<c:url value='/main/showContract' />" >Контракт</a></li>
-        <li class="navbar-item"><a href="<c:url value='/main/showTariffs' />" >Тарифы</a></li>
-        <li class="navbar-item"><a href="<c:url value='/main/showOptions' />" >Опции</a></li>
-        <li class="navbar-item"><a href="<c:url value='/main/showBasket' />" >Корзина</a></li>
+        <li class="navbar-item"><a href="<c:url value='/user/showContract' />" >Контракт</a></li>
+        <li class="navbar-item"><a href="<c:url value='/user/showTariffs' />" >Тарифы</a></li>
+        <li class="navbar-item"><a href="<c:url value='/user/showOptions' />" >Опции</a></li>
+        <li class="navbar-item"><a href="<c:url value='/user/showBasket' />" >Корзина</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-        <li class="navbar-brand"><a href="<c:url value="/index.jsp" />">Выйти</a></li>
+        <li class="navbar-brand"><a href="<c:url value="/j_spring_security_logout" />">Выйти</a></li>
     </ul>
 </nav>
 

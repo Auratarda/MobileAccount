@@ -17,14 +17,14 @@
     </div>
     <!-- Collection of nav links and other content for toggling -->
     <ul class="nav navbar-nav">
-        <li class="navbar-item"><a href="<c:url value='/main/showPersonal' />">Личные данные</a></li>
-        <li class="navbar-item" id="current-menu-item"><a href="<c:url value='/main/showContract' />">Контракт</a></li>
-        <li class="navbar-item"><a href="<c:url value='/main/showTariffs' />">Тарифы</a></li>
-        <li class="navbar-item"><a href="<c:url value='/main/showOptions' />">Опции</a></li>
-        <li class="navbar-item"><a href="<c:url value='/main/showBasket' />" >Корзина</a></li>
+        <li class="navbar-item"><a href="<c:url value='/user/showPersonal' />">Личные данные</a></li>
+        <li class="navbar-item" id="current-menu-item"><a href="<c:url value='/user/showContract' />">Контракт</a></li>
+        <li class="navbar-item"><a href="<c:url value='/user/showTariffs' />">Тарифы</a></li>
+        <li class="navbar-item"><a href="<c:url value='/user/showOptions' />">Опции</a></li>
+        <li class="navbar-item"><a href="<c:url value='/user/showBasket' />" >Корзина</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-        <li class="navbar-brand"><a href="<c:url value="/index.jsp" />">Выйти</a></li>
+        <li class="navbar-brand"><a href="<c:url value="/j_spring_security_logout" />">Выйти</a></li>
     </ul>
 </nav>
 
@@ -56,7 +56,7 @@
                 <c:if test="${options.size()==0}">
                     <tr>
                         <td colspan="4">
-                            <form action="<c:url value='/main/showOptions' />" method="get">
+                            <form action="<c:url value='/user/showOptions' />" method="get">
                                 У Вас нет дополнительных опций.
                                 <a href="javascript:;"
                                    onclick="get_form(this).submit(); return false">Подключить</a>
@@ -70,7 +70,7 @@
                         <td>${option.price}</td>
                         <td>${option.connectionCost}</td>
                         <td>
-                            <form method="post" action="<c:url value='/main/removeOption' />">
+                            <form method="post" action="<c:url value='/user/removeOption' />">
                                 <input type="hidden" name="optionName" value="${option.name}">
                                 <input class="link" type="submit" value="Отключить">
                             </form>
@@ -78,7 +78,7 @@
                     </tr>
                 </c:forEach>
             </table>
-            <form method="get" action="<c:url value='/main/lockContractByClient' />">
+            <form method="get" action="<c:url value='/user/lockContractByClient' />">
                 <button id="lock_button" class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
                     Заблокировать номер
                 </button>

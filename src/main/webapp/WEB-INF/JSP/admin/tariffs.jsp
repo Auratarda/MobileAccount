@@ -1,94 +1,70 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Кабинет администратора</title>
-    <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />" type="text/css">
+    <title>Java Mobile</title>
+    <link href="<c:url value="/resources/css/bootstrap.3.2.0.css"/>" rel="stylesheet"/>
+    <%--custom styles--%>
+    <link href="<c:url value="/resources/css/javaMobile.css"/>" rel="stylesheet"/>
+    <script type="text/javascript" src="<c:url value="/resources/js/link_submit.js" />"></script>
 </head>
 <body>
 
-<div id="header">
-    <h1>Администратор</h1>
-</div>
-<div id="nav">
-    <div class="link">
-        <a href="<c:url value="/index.jsp" />">Выйти</a>
+<nav role="navigation" class="navbar navbar-inverse">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <a href="#" class="navbar-brand" id="brand">Java Mobile</a>
     </div>
-</div>
+    <!-- Collection of nav links and other content for toggling -->
+    <ul class="nav navbar-nav">
+        <li class="navbar-item"><a href="<c:url value='/admin/showAllContracts' />">Контракты</a></li>
+        <li class="navbar-item" id="current-menu-item"><a href="#">Тарифы</a></li>
+        <li class="navbar-item"><a href="<c:url value='/admin/showAllOptions' />">Опции</a></li>
+        <li class="navbar-item"><a href="<c:url value='/admin/assignNewContract' />">Заключить контракт</a></li>
+        <li class="navbar-item"><a href="<c:url value='/admin/search' />">Искать по номеру</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="navbar-brand"><a href="<c:url value="/j_spring_security_logout" />">Выйти</a></li>
+    </ul>
+</nav>
 
-<div id="section">
+<div class="container">
 
-    <div id="topNav">
-        <ul>
-            <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="contracts">
-                    <input class="myButton" type="submit" value="Контракты">
-                </form>
-            </li>
-            <li><input class="myButton" type="button" value="Тарифы"></li>
-            <li>
-                <form method="post" action="admin">
-                    <input type="hidden" name="source" value="options">
-                    <input class="myButton" type="submit" value="Опции">
-                </form>
-            </li>
-        </ul>
-    </div>
+    <table class="table table-striped table-bordered table-condensed" id="tariffs_table">
+        <tr>
+            <th>Тариф</th>
+            <th>Цена</th>
+            <th>Удалить</th>
+        </tr>
+        <c:forEach var="tariff" items="${allTariffs}">
+            <tr>
+                <td>${tariff.name}</td>
+                <td>${tariff.price}</td>
+                <td>
+                    <form method="post" action="<c:url value='/admin/removeTariff' />">
+                        <input type="hidden" name="tariffName" value="${tariff.name}">
+                        <input class="link" type="submit" value="Удалить">
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 
-    <div class="row">
-        <div class="col">
-            <div class="table">
-                <table class="innerTable">
-                    <tr>
-                        <th>Тариф</th>
-                        <th>Цена</th>
-                        <th>Удалить</th>
-                    </tr>
-                    <c:forEach var="tariff" items="${sessionScope.tariffs}">
-                        <tr>
-                            <td>${tariff.name}</td>
-                            <td>${tariff.price}</td>
-                            <td>
-                                <form method="post" action="admin">
-                                    <input type="hidden" name="source" value="removeTariff">
-                                    <input type="hidden" name="tariffName" value="${tariff.name}">
-                                    <input class="link" type="submit" value="Удалить">
-                                </form>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </div>
-        </div>
-
-        <div class="col">
-            <form method="post" action="admin">
-                <input type="hidden" name="source" value="addNewTariff">
-
-                <div id="tariff">
-                    <table id="clientForm">
-                        <tr>
-                            <td>Название тарифа:</td>
-                            <td><input type="text" name="tariffName" maxlength="30" required></td>
-                        </tr>
-                        <tr>
-                            <td>Цена:</td>
-                            <td><input type="number" name="tariffPrice" maxlength="10" required></td>
-                        </tr>
-                    </table>
+            <form class="form-signin" method="post" action="<c:url value='/admin/addNewTariff' />">
+                <div class="form-group has-feedback has-feedback-left">
+                    <label class="control-label">Название тарифа</label>
+                    <input type="text" name='tariffName' class="form-control" placeholder="Придумайте название" required/>
+                    <i class="form-control-feedback glyphicon glyphicon-phone-alt"></i>
                 </div>
-                <input class="myButton" id="assignNewContractButton" type="submit" value="Добавить новый тариф">
+                <div class="form-group has-feedback has-feedback-left">
+                    <label class="control-label">Цена</label>
+                    <input type="text" name='tariffPrice' class="form-control" placeholder="Укажите стоимость" required/>
+                    <i class="form-control-feedback glyphicon glyphicon-usd"></i>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
+                    Добавить новый тариф
+                </button>
             </form>
         </div>
-    </div>
-</div>
-
-
-<div id="footer">
-    <p>
-        CreatedBy © Vasilevskii Stanislav
-    </p>
-</div>
 </body>
 </html>

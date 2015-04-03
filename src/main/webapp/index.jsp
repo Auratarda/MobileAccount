@@ -18,17 +18,15 @@
     </nav>
 
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 col-md-offset-4">
 
-                    <form class="form-signin" method="POST" action="<c:url value='/main/login' />">
-                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 10px;">
+                    <form class="form-signin" method="POST" action="<c:url value='/j_spring_security_check' />">
+                        <div class="form-group has-feedback has-feedback-left">
                             <label class="control-label">Адрес электронной почты</label>
                             <input type="text" name='email' class="form-control" placeholder="email@mail.ru" required
                                    autofocus/>
                             <i class="form-control-feedback glyphicon glyphicon-user"></i>
                         </div>
-                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 20px;">
+                        <div class="form-group has-feedback has-feedback-left">
                             <label class="control-label">Пароль</label>
                             <input type="password" name='password' class="form-control" placeholder="password" required>
                             <i class="form-control-feedback glyphicon glyphicon-lock "></i>
@@ -39,8 +37,6 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
 
 </body>
 </html>

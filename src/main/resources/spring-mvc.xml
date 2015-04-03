@@ -22,7 +22,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id="currentContractHolder" class="com.tsystems.javaschool.dto.ContractDTO" scope="session">
+    <bean id="currentContractHolder" class="com.tsystems.javaschool.facade.dto.ContractDTO" scope="session">
     </bean>
 
     <mvc:resources mapping="/resources/**" location="/resources/"/>
