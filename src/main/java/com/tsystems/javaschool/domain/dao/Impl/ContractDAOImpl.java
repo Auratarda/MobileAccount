@@ -40,4 +40,11 @@ public class ContractDAOImpl extends GenericDaoImpl<Contract> implements Contrac
                 ("SELECT c FROM Contract c WHERE c.client IS NULL", Contract.class);
         return contractTypedQuery.getResultList();
     }
+
+    public List<Contract> findContractsByTariff(String tariffName){
+        TypedQuery<Contract> contractTypedQuery = em.createQuery
+                ("SELECT c FROM Contract c WHERE c.tariff.name = :tariffName", Contract.class)
+                .setParameter("tariffName", tariffName);
+        return contractTypedQuery.getResultList();
+    }
 }

@@ -6,7 +6,10 @@
     <link href="<c:url value="/resources/css/bootstrap.3.2.0.css"/>" rel="stylesheet"/>
     <%--custom styles--%>
     <link href="<c:url value="/resources/css/javaMobile.css"/>" rel="stylesheet"/>
-    <script type="text/javascript" src=="<c:url value="/resources/js/link_submit.js" />"></script>
+    <%--scripts--%>
+    <script type="text/javascript" src="<c:url value="/resources/js/jquery.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/link_submit.js" />"></script>
 </head>
 <body>
 
@@ -22,6 +25,13 @@
 </nav>
 
 <div class="container">
+
+    <div class="bs-example">
+        <div class="alert alert-danger alert-error" id="notation">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <b>Уважаемый(ая) ${client.firstName} ${client.lastName},</b> приносим извинения, ваш номер заблокирован. Пожалуйста, обратитесь к оператору.
+        </div>
+    </div>
 
     <table class="table table-striped table-bordered table-condensed">
         <tr>
@@ -54,11 +64,7 @@
             </tr>
         </c:forEach>
     </table>
-    <form method="get" action="<c:url value='/user/unlockContractByClient' />">
-        <button id="unlock_button" class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
-            Разблокировать номер
-        </button>
-    </form>
+
 </div>
 
 </body>

@@ -1,7 +1,12 @@
 package com.tsystems.javaschool.domain.entities;
 
+import com.tsystems.javaschool.facade.dto.ClientDTO;
+import com.tsystems.javaschool.facade.dto.ContractDTO;
+import com.tsystems.javaschool.facade.dto.RoleDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -127,6 +132,31 @@ public class Client implements Serializable{
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public ClientDTO toDTO(){
+        String dateOfBirth = "";
+        if (getDateOfBirth() != null){
+            Date date = getDateOfBirth();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            dateOfBirth = sdf.format(date);
+        }
+        ClientDTO clientDTO = new ClientDTO(getFirstName(), getLastName(),
+                dateOfBirth, getAddress(), getPassport(), getEmail());
+        List<Contract> contracts = getContracts();
+        List<ContractDTO> contractDTOs = new ArrayList<ContractDTO>();
+        for (Contract contract : contracts) {
+            contractDTOs.add(contract.toDTO(clientDTO));
+        }
+        clientDTO.setContracts(contractDTOs);
+        List<Role> roles = getRoles();
+        List<RoleDTO> roleDTOs = new ArrayList<RoleDTO>();
+        for (Role role : roles) {
+            RoleDTO roleDTO = new RoleDTO(role.getRole());
+            roleDTOs.add(roleDTO);
+        }
+        clientDTO.setRoles(roleDTOs);
+        return clientDTO;
     }
 
     @Override

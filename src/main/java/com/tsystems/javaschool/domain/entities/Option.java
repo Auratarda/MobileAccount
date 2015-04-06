@@ -1,5 +1,7 @@
 package com.tsystems.javaschool.domain.entities;
 
+import com.tsystems.javaschool.facade.dto.OptionDTO;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +88,10 @@ public class Option {
 
     public void setIncompatibleOptions(List<Option> incompatibleOptions) {
         this.incompatibleOptions = incompatibleOptions;
+    }
+
+    public OptionDTO toDTO(){
+        return new OptionDTO(getName(), getPrice(), getConnectionCost());
     }
 
     @Override

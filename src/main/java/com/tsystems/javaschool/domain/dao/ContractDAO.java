@@ -16,4 +16,6 @@ public interface ContractDAO extends GenericDao<Contract>{
     List<Contract> findAllContracts();
 
     List<Contract> findFreeNumbers();
+
+    List<Contract> findContractsByTariff(String tariffName);
 }

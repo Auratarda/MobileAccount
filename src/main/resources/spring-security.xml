@@ -8,6 +8,7 @@
                  http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
     <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/info/**" access="hasRole('anonymous')"/>
         <intercept-url pattern="/main/login" access="hasRole('anonymous')"/>
         <intercept-url pattern="/main/logout" access="hasAnyRole('ADMIN','CLIENT')"/>
 

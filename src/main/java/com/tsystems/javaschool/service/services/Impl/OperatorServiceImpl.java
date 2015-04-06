@@ -2,10 +2,7 @@ package com.tsystems.javaschool.service.services.Impl;
 
 import com.tsystems.javaschool.domain.dao.*;
 import com.tsystems.javaschool.domain.entities.*;
-import com.tsystems.javaschool.facade.dto.ClientDTO;
-import com.tsystems.javaschool.facade.dto.ContractDTO;
-import com.tsystems.javaschool.facade.dto.OptionDTO;
-import com.tsystems.javaschool.facade.dto.TariffDTO;
+import com.tsystems.javaschool.facade.dto.*;
 import com.tsystems.javaschool.service.exceptions.ClientNotFoundException;
 import com.tsystems.javaschool.service.services.OperatorService;
 import org.apache.log4j.Logger;
@@ -117,27 +114,43 @@ public class OperatorServiceImpl implements OperatorService {
         roleDAO.create(newRole);
     }
 
+    public List<InfoDTO> getInfo(String tariffName){
+        List<Contract> contracts = contractDAO.findContractsByTariff(tariffName);
+        List<InfoDTO> infoDTOs = new ArrayList<>();
+        for (Contract contract : contracts) {
+            infoDTOs.add(new InfoDTO(contract.getClient().getFirstName(),
+                    contract.getClient().getLastName(),
+                    contract.getClient().getEmail(),
+                    contract.getNumber()));
+        }
+        return infoDTOs;
+    }
+
     /**
      * Find entities.
      */
     public ClientDTO findClientByNumber(String number) {
         Client client = contractDAO.findClientByNumber(number);
-        return EntityToDTOConverter.clientToDTO(client);
+//        return EntityToDTOConverter.clientToDTO(client);
+        return client.toDTO();
     }
 
     public ContractDTO findContractByNumber(String contractNumber) {
         Contract contract = contractDAO.findContractByNumber(contractNumber);
-        return EntityToDTOConverter.contractToDTO(contract);
+//        return EntityToDTOConverter.contractToDTO(contract);
+        return contract.toDTO();
     }
 
     public TariffDTO findTariffByName(String tariffName) {
         Tariff tariff = tariffDAO.findTariffByName(tariffName);
-        return EntityToDTOConverter.tariffToDTO(tariff);
+//        return EntityToDTOConverter.tariffToDTO(tariff);
+        return tariff.toDTO();
     }
 
     public OptionDTO findOptionByName(String optionName) {
         Option option = optionDAO.findOptionByName(optionName);
-        return EntityToDTOConverter.optionToDTO(option);
+//        return EntityToDTOConverter.optionToDTO(option);
+        return option.toDTO();
     }
 
 
@@ -213,7 +226,8 @@ public class OperatorServiceImpl implements OperatorService {
         List<Client> clients = clientDAO.getAll();
         List<ClientDTO> clientDTOs = new ArrayList<ClientDTO>(0);
         for (Client client : clients) {
-            clientDTOs.add(EntityToDTOConverter.clientToDTO(client));
+//            clientDTOs.add(EntityToDTOConverter.clientToDTO(client));
+            clientDTOs.add(client.toDTO());
         }
         return clientDTOs;
     }
@@ -223,7 +237,8 @@ public class OperatorServiceImpl implements OperatorService {
         List<Contract> contracts = contractDAO.findAllContracts();
         List<ContractDTO> contractDTOs = new ArrayList<ContractDTO>(0);
         for (Contract contract : contracts) {
-            contractDTOs.add(EntityToDTOConverter.contractToDTO(contract));
+//            contractDTOs.add(EntityToDTOConverter.contractToDTO(contract));
+            contractDTOs.add(contract.toDTO());
         }
         return contractDTOs;
     }
@@ -233,7 +248,8 @@ public class OperatorServiceImpl implements OperatorService {
         List<Contract> contracts = contractDAO.findFreeNumbers();
         List<ContractDTO> contractDTOs = new ArrayList<ContractDTO>(0);
         for (Contract contract : contracts) {
-            contractDTOs.add(EntityToDTOConverter.contractToDTO(contract));
+//            contractDTOs.add(EntityToDTOConverter.contractToDTO(contract));
+            contractDTOs.add(contract.toDTO());
         }
         return contractDTOs;
     }
@@ -243,7 +259,7 @@ public class OperatorServiceImpl implements OperatorService {
         List<Tariff> tariffs = tariffDAO.getAll();
         List<TariffDTO> tariffDTOs = new ArrayList<TariffDTO>();
         for (Tariff tariff : tariffs) {
-            tariffDTOs.add(EntityToDTOConverter.tariffToDTO(tariff));
+            tariffDTOs.add(tariff.toDTO());
         }
         return tariffDTOs;
     }
@@ -253,7 +269,8 @@ public class OperatorServiceImpl implements OperatorService {
         List<Option> options = optionDAO.getAll();
         List<OptionDTO> optionDTOs = new ArrayList<OptionDTO>(0);
         for (Option option : options) {
-            optionDTOs.add(EntityToDTOConverter.optionToDTO(option));
+//            optionDTOs.add(EntityToDTOConverter.optionToDTO(option));
+            optionDTOs.add(option.toDTO());
         }
         return optionDTOs;
     }

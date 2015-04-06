@@ -1,5 +1,7 @@
 package com.tsystems.javaschool.domain.entities;
 
+import com.tsystems.javaschool.facade.dto.TariffDTO;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,10 @@ public class Tariff {
 
     public void setOptions(List<Option> options) {
         this.options = options;
+    }
+
+    public TariffDTO toDTO(){
+       return new TariffDTO(getName(), getPrice());
     }
 
     @Override

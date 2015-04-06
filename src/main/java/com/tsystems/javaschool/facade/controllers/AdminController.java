@@ -94,6 +94,16 @@ public class AdminController {
         return optionsView;
     }
 
+    @RequestMapping(value = "/showOptionDetails", method = RequestMethod.POST)
+    public ModelAndView showOptionDetails(@RequestParam String optionName) {
+        ModelAndView optionsView = new ModelAndView("admin/optionDetails");
+        OptionDTO option = operatorService.findOptionByName(optionName);
+        List<OptionDTO> allOptions = operatorService.findAllOptions();
+        optionsView.addObject("allOptions", allOptions);
+        optionsView.addObject("option", option);
+        return optionsView;
+    }
+
     @RequestMapping(value = "/showClient", method = RequestMethod.POST)
     public ModelAndView showClient(@RequestParam String number) {
         return prepareAccount(number);
@@ -124,7 +134,11 @@ public class AdminController {
                 return prepareAccount(searchNumber);
             }
         }
-        return search();
+        ModelAndView notFoundView = new ModelAndView("admin/search");
+        String notFound = "Not found";
+        notFoundView.addObject("notFound", notFound);
+        notFoundView.addObject("searchNumber", searchNumber);
+        return notFoundView;
     }
 
     @RequestMapping(value = "/addNewClient", method = RequestMethod.POST)

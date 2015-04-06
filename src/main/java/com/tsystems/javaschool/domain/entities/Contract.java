@@ -1,5 +1,10 @@
 package com.tsystems.javaschool.domain.entities;
 
+import com.tsystems.javaschool.facade.dto.ClientDTO;
+import com.tsystems.javaschool.facade.dto.ContractDTO;
+import com.tsystems.javaschool.facade.dto.OptionDTO;
+import com.tsystems.javaschool.facade.dto.TariffDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -94,6 +99,27 @@ public class Contract implements Serializable{
 
     public void setOptions(List<Option> options) {
         this.options = options;
+    }
+
+
+    public ContractDTO toDTO() {
+        if (getClient() == null) return new ContractDTO(getNumber(),
+                getBlockedByClient(), getBlockedByOperator());
+        return toDTO(getClient().toDTO());
+    }
+
+
+    public ContractDTO toDTO(ClientDTO client) {
+        TariffDTO tariffDTO = getTariff().toDTO();
+        List<Option> options = getOptions();
+        List<OptionDTO> optionDTOs = new ArrayList<OptionDTO>();
+        for (Option option : options) {
+            optionDTOs.add(option.toDTO());
+        }
+        ContractDTO contractDTO = new ContractDTO(getNumber(), client, getBlockedByClient(),
+                getBlockedByOperator(), tariffDTO);
+        contractDTO.setOptions(optionDTOs);
+        return contractDTO;
     }
 
     @Override

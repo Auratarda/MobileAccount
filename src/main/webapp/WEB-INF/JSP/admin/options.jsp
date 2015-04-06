@@ -39,7 +39,11 @@
         </tr>
         <c:forEach var="option" items="${allOptions}">
             <tr>
-                <td>${option.name}</td>
+                <td><form action="<c:url value='/admin/showOptionDetails' />" method="post">
+                    <a href="javascript:"
+                       onclick="get_form(this).submit(); return false">${option.name}</a>
+                    <input type="hidden" name="optionName" value="${option.name}">
+                </form></td>
                 <td>${option.price}</td>
                 <td>${option.connectionCost}</td>
                 <td>

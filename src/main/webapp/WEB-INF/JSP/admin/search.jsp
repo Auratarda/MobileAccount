@@ -6,8 +6,12 @@
   <link href="<c:url value="/resources/css/bootstrap.3.2.0.css"/>" rel="stylesheet"/>
   <%--custom styles--%>
   <link href="<c:url value="/resources/css/javaMobile.css"/>" rel="stylesheet"/>
+  <%--scripts--%>
+  <script type="text/javascript" src="<c:url value="/resources/js/jquery.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
   <script type="text/javascript" src="<c:url value="/resources/js/link_submit.js" />"></script>
 </head>
+
 <body>
 
 <nav role="navigation" class="navbar navbar-inverse">
@@ -36,6 +40,14 @@
       <input type="text" name='searchNumber' class="form-control" placeholder="Например: 9041234567"
              maxlength="10" required/>
       <i class="form-control-feedback glyphicon glyphicon-phone-alt"></i>
+      <c:if test="${notFound == 'Not found'}">
+        <div class="bs-example">
+          <div class="alert alert-danger alert-error" id="notation">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            Абонент ${searchNumber} не найден.
+          </div>
+        </div>
+      </c:if>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
       Искать

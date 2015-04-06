@@ -13,7 +13,7 @@
     <script type="text/javascript" src="<c:url value="/resources/js/link_submit.js" />"></script>
     <script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/resources/js/bootstrap-select.js" />"></script>
-    <script src="<c:url value="/resources/js/jquery-ui.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/jquery-ui.js" />"></script>
     <script type="text/javascript">
         $(document).ready(function (e) {
             $('.selectpicker').selectpicker();

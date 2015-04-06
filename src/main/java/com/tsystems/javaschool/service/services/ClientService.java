@@ -3,6 +3,8 @@ package com.tsystems.javaschool.service.services;
 import com.tsystems.javaschool.facade.dto.ClientDTO;
 import com.tsystems.javaschool.service.exceptions.ClientNotFoundException;
 
+import java.util.List;
+
 /**
  * ClientService.
  */
@@ -25,4 +27,5 @@ public interface ClientService {
     void lockContract(String contractNumber);
 
     void unLockContract(String contractNumber);
+    List<ClientDTO> getAllDTO();
 }

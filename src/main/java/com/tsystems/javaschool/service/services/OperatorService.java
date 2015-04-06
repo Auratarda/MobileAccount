@@ -1,9 +1,6 @@
 package com.tsystems.javaschool.service.services;
 
-import com.tsystems.javaschool.facade.dto.ClientDTO;
-import com.tsystems.javaschool.facade.dto.ContractDTO;
-import com.tsystems.javaschool.facade.dto.OptionDTO;
-import com.tsystems.javaschool.facade.dto.TariffDTO;
+import com.tsystems.javaschool.facade.dto.*;
 import com.tsystems.javaschool.service.exceptions.ClientNotFoundException;
 
 import java.util.List;
@@ -31,6 +28,8 @@ public interface OperatorService {
     void createNewOption(String name, Long optionPrice, Long connectionCost);
 
     void createNewRole(String role);
+
+    List<InfoDTO> getInfo(String tariffName);
 
     /**
      * Find entities.

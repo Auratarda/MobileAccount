@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,6 +45,15 @@ public class ClientServiceImpl implements ClientService {
     public ClientServiceImpl() {
     }
 
+    @Override
+    public List<ClientDTO> getAllDTO() {
+        List<ClientDTO> temp = new ArrayList<>();
+        for(Client tC : clientDAO.getAll()){
+            temp.add(tC.toDTO());
+        }
+        return temp;
+    }
+
     private static String optionsToString(List<Option> set) {
         String message = "";
         int size = set.size();
@@ -60,7 +70,8 @@ public class ClientServiceImpl implements ClientService {
 
     public ClientDTO login(String email, String password) throws ClientNotFoundException {
         Client client = clientDAO.login(email, password);
-        return EntityToDTOConverter.clientToDTO(client);
+//        return EntityToDTOConverter.clientToDTO(client);
+        return client.toDTO();
     }
 
 

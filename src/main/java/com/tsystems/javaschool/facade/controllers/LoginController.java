@@ -78,9 +78,15 @@ public class LoginController extends HttpServlet {
             logger.debug("Client is not found");
             return new ModelAndView(index());
         }
-
-        ModelAndView clientView = new ModelAndView("client");
+        String path = "client";
         ContractDTO contract = client.getContracts().get(0);
+        if (contract.getBlockedByClient()){
+            path = "client/contractLockedByClient";
+        }
+        if (contract.getBlockedByOperator()){
+            path = "client/contractLockedByOperator";
+        }
+        ModelAndView clientView = new ModelAndView(path);
         List<TariffDTO> tariffsToSelect = operatorService.findAllTariffs();
         List<OptionDTO> optionsToSelect = operatorService.findAllOptions();
         List<OptionDTO> contractOptions = contract.getOptions();
@@ -100,9 +106,6 @@ public class LoginController extends HttpServlet {
         httpSession.setAttribute("optionsToSelect", optionsToSelect);
         clientView.addObject("contract", contract);
         clientView.addObject("client", client);
-        if (contract.getBlockedByClient()){
-            return new ModelAndView("client/contractLockedByClient");
-        }
         return clientView;
     }
 }
