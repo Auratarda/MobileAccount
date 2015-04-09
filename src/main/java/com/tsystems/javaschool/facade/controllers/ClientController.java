@@ -12,14 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * ClientController.
  */
 @Controller
-@SessionAttributes({"currentContract", "optionsInBasket", "tariffInBasket", "tariffsToSelect", "optionsToSelect"})
+@SessionAttributes({"currentContract", "optionsInBasket", "tariffInBasket"})
 @RequestMapping("/user")
 public class ClientController {
 
@@ -44,41 +44,48 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/showPersonal", method = RequestMethod.GET)
-    public ModelAndView showPersonal(@ModelAttribute("currentContract") ContractDTO contract) {
-        String contractNumber = contract.getNumber();
+    public ModelAndView showPersonal(@ModelAttribute("currentContract") List<ContractDTO> contracts) {
+        String contractNumber = contracts.get(0).getNumber();
         String path = "client";
         return prepareJSP(contractNumber, path);
     }
 
     @RequestMapping(value = "/showContract", method = RequestMethod.GET)
-    public ModelAndView showContract(@ModelAttribute("currentContract") ContractDTO contract) {
-        String contractNumber = contract.getNumber();
+    public ModelAndView showContract(@ModelAttribute("currentContract") List<ContractDTO> contracts) {
+        String contractNumber = contracts.get(0).getNumber();
+        String path = "client/contract";
+        return prepareJSP(contractNumber, path);
+    }
+
+    @RequestMapping(value = "/changeContract", method = RequestMethod.POST)
+    public ModelAndView changeContract(@RequestParam String contractNumber,
+                                       @ModelAttribute("currentContract") List<ContractDTO> contracts) {
+        contracts.clear();
+        ContractDTO contract = operatorService.findContractByNumber(contractNumber);
+        contracts.add(contract);
         String path = "client/contract";
         return prepareJSP(contractNumber, path);
     }
 
     @RequestMapping(value = "/showTariffs", method = RequestMethod.GET)
-    public ModelAndView showTariffs(@ModelAttribute("currentContract") ContractDTO contract,
-                                    @ModelAttribute("tariffsToSelect") List<TariffDTO> tariffsToSelect) {
-        String contractNumber = contract.getNumber();
+    public ModelAndView showTariffs(@ModelAttribute("currentContract") List<ContractDTO> contracts) {
+        String contractNumber = contracts.get(0).getNumber();
         String path = "client/tariff";
+        List<TariffDTO> tariffsToSelect = operatorService.findAllTariffs();
         ModelAndView tariffsView = prepareJSP(contractNumber, path);
         tariffsView.addObject("tariffs", tariffsToSelect);
         return tariffsView;
     }
 
     @RequestMapping(value = "/showOptions", method = RequestMethod.GET)
-    public ModelAndView showOptions(@ModelAttribute("currentContract") ContractDTO contract,
-                                    @ModelAttribute("optionsToSelect") List<OptionDTO> optionsToSelect,
+    public ModelAndView showOptions(@ModelAttribute("currentContract") List<ContractDTO> contracts,
                                     @ModelAttribute("optionsInBasket") List<OptionDTO> optionsInBasket) {
-        String contractNumber = contract.getNumber();
-        Iterator iter = optionsToSelect.iterator();
-        while (iter.hasNext()) {
-            OptionDTO option = (OptionDTO) iter.next();
-            for (OptionDTO optionInBasket : optionsInBasket) {
-                if (option.getName().equals(optionInBasket.getName())) iter.remove();
-            }
-        }
+        String contractNumber = contracts.get(0).getNumber();
+        List<OptionDTO> tariffOptions = operatorService.findOptionsByTariff(contracts.get(0).getTariff().getName());
+        List<OptionDTO> contractOptions = contracts.get(0).getOptions();
+        List<OptionDTO> optionsToExclude = new ArrayList<>(contractOptions);
+        optionsToExclude.addAll(optionsInBasket);
+        List<OptionDTO> optionsToSelect = operatorService.intercept(tariffOptions, optionsToExclude);
         String path = "client/option";
         ModelAndView optionsView = prepareJSP(contractNumber, path);
         optionsView.addObject("allOptions", optionsToSelect);
@@ -88,7 +95,9 @@ public class ClientController {
     @RequestMapping(value = "/showBasket", method = RequestMethod.GET)
     public ModelAndView showBasket(@ModelAttribute("tariffInBasket") List<TariffDTO> tariffInBasket) {
         ModelAndView basket = new ModelAndView("client/basket");
+        String setTariffError = "false";
         basket.addObject("tariffInBasket", tariffInBasket);
+        basket.addObject("setTariffError", setTariffError);
         return basket;
     }
 
@@ -101,80 +110,84 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/addOption", method = RequestMethod.POST)
-    public ModelAndView addOption(@RequestParam String optionName, @ModelAttribute("currentContract") ContractDTO contract,
-                                  @ModelAttribute("optionsToSelect") List<OptionDTO> optionsToSelect,
+    public ModelAndView addOption(@RequestParam String optionName, @ModelAttribute("currentContract") List<ContractDTO> contracts,
                                   @ModelAttribute("optionsInBasket") List<OptionDTO> optionsInBasket) {
         OptionDTO option = operatorService.findOptionByName(optionName);
         optionsInBasket.add(option);
-        return showOptions(contract, optionsToSelect, optionsInBasket);
+        List<OptionDTO> requiredOptions = operatorService.getRequiredOptions(optionName);
+        optionsInBasket.addAll(requiredOptions);
+        return showOptions(contracts, optionsInBasket);
     }
 
     @RequestMapping(value = "/removeOption", method = RequestMethod.POST)
-    public ModelAndView removeOption(@RequestParam String optionName, @ModelAttribute("currentContract") ContractDTO contract,
-                                     @ModelAttribute("optionsToSelect") List<OptionDTO> optionsToSelect) {
-        String contractNumber = contract.getNumber();
-        optionsToSelect.add(operatorService.findOptionByName(optionName));
+    public ModelAndView removeOption(@RequestParam String optionName, @ModelAttribute("currentContract") List<ContractDTO> contracts) {
+        String contractNumber = contracts.get(0).getNumber();
         clientService.removeOption(contractNumber, optionName);
+        contracts.clear();
+        ContractDTO contract = operatorService.findContractByNumber(contractNumber);
+        contracts.add(contract);
         String path = "client/contract";
         return prepareJSP(contractNumber, path);
     }
 
-    @RequestMapping(value = "/removeOptionFromBasket", method = RequestMethod.POST)
-    public ModelAndView removeOptionFromBasket(@RequestParam String optionName,
-                                               @ModelAttribute("currentContract") ContractDTO contract,
-                                               @ModelAttribute("optionsToSelect") List<OptionDTO> optionsToSelect,
-                                               @ModelAttribute("optionsInBasket") List<OptionDTO> optionsInBasket,
-                                               @ModelAttribute("tariffInBasket") List<TariffDTO> tariffInBasket) {
-        OptionDTO optionToRemove = operatorService.findOptionByName(optionName);
-        optionsToSelect.add(optionToRemove);
-        Iterator iter = optionsInBasket.iterator();
-        while (iter.hasNext()) {
-            OptionDTO option = (OptionDTO) iter.next();
-            if (option.getName().equals(optionToRemove.getName())) iter.remove();
-        }
-        return showBasket(tariffInBasket);
-    }
-
-    @RequestMapping(value = "/removeTariffFromBasket", method = RequestMethod.POST)
-    public ModelAndView removeTariffFromBasket(@ModelAttribute("currentContract") ContractDTO contract,
-                                               @ModelAttribute("tariffInBasket") List<TariffDTO> tariffInBasket) {
-
+    @RequestMapping(value = "/clearBasket", method = RequestMethod.POST)
+    public ModelAndView removeTariffFromBasket(@ModelAttribute("tariffInBasket") List<TariffDTO> tariffInBasket,
+                                               @ModelAttribute("optionsInBasket") List<OptionDTO> optionsInBasket) {
+        tariffInBasket.clear();
+        optionsInBasket.clear();
         return showBasket(tariffInBasket);
     }
 
     @RequestMapping(value = "/lockContractByClient", method = RequestMethod.GET)
-    public ModelAndView lockContractByClient(@ModelAttribute("currentContract") ContractDTO contract) {
-        String contractNumber = contract.getNumber();
+    public ModelAndView lockContractByClient(@ModelAttribute("currentContract") List<ContractDTO> contracts) {
+        String contractNumber = contracts.get(0).getNumber();
         clientService.lockContract(contractNumber);
-        contract.setBlockedByClient(true);
+        contracts.get(0).setBlockedByClient(true);
         String path = "client/contractLockedByClient";
         return prepareJSP(contractNumber, path);
     }
 
     @RequestMapping(value = "/unlockContractByClient", method = RequestMethod.GET)
-    public ModelAndView unlockContractByClient(@ModelAttribute("currentContract") ContractDTO contract) {
-        String contractNumber = contract.getNumber();
+    public ModelAndView unlockContractByClient(@ModelAttribute("currentContract") List<ContractDTO> contracts) {
+        String contractNumber = contracts.get(0).getNumber();
         clientService.unLockContract(contractNumber);
-        contract.setBlockedByClient(false);
+        contracts.get(0).setBlockedByClient(false);
         String path = "client/contract";
         return prepareJSP(contractNumber, path);
     }
 
     @RequestMapping(value = "/buyItems", method = RequestMethod.POST)
-    public ModelAndView buyItems(@ModelAttribute("currentContract") ContractDTO contract,
+    public ModelAndView buyItems(@ModelAttribute("currentContract") List<ContractDTO> contracts,
                                  @ModelAttribute("optionsInBasket") List<OptionDTO> optionsInBasket,
-                                 @ModelAttribute("tariffInBasket") List<TariffDTO> tariffInBasket,
-                                 @ModelAttribute("tariffsToSelect") List<TariffDTO> tariffsToSelect) {
-        String contractNumber = contract.getNumber();
-        if (optionsInBasket.size() > 0) {
-            operatorService.addOptions(contract, optionsInBasket);
-            optionsInBasket.clear();
-        }
+                                 @ModelAttribute("tariffInBasket") List<TariffDTO> tariffInBasket) {
+        String contractNumber = contracts.get(0).getNumber();
+        List<TariffDTO> tariffsToSelect = operatorService.findAllTariffs();
         if (tariffInBasket.size() > 0) {
-            tariffsToSelect.add(contract.getTariff());
-            operatorService.setTariff(contract, tariffInBasket.get(0));
+            TariffDTO tariff = tariffInBasket.get(0);
+            List<OptionDTO> tariffOptions = operatorService.findOptionsByTariff(tariff.getName());
+            List<OptionDTO> contractOptions = contracts.get(0).getOptions();
+            List<OptionDTO> optionsToExclude = new ArrayList<>(contractOptions);
+            optionsToExclude.addAll(optionsInBasket);
+            List<OptionDTO> unacceptableOptions = operatorService.intercept(optionsToExclude, tariffOptions);
+            if (unacceptableOptions.size() > 0){
+                ModelAndView basket = showBasket(tariffInBasket);
+                String setTariffError = "true";
+                basket.addObject("setTariffError", setTariffError);
+                basket.addObject("selectedTariff", tariff.getName());
+                basket.addObject("unacceptableOptions", unacceptableOptions);
+                return basket;
+            }
+            tariffsToSelect.add(contracts.get(0).getTariff());
+            operatorService.setTariff(contracts.get(0), tariff);
             tariffInBasket.clear();
         }
+        if (optionsInBasket.size() > 0) {
+            operatorService.addOptions(contracts.get(0), optionsInBasket);
+            optionsInBasket.clear();
+        }
+        contracts.clear();
+        ContractDTO contract = operatorService.findContractByNumber(contractNumber);
+        contracts.add(contract);
         String path = "client/contract";
         return prepareJSP(contractNumber, path);
     }

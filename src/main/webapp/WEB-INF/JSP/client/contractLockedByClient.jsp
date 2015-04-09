@@ -55,7 +55,7 @@
         </c:forEach>
     </table>
     <form method="get" action="<c:url value='/user/unlockContractByClient' />">
-        <button id="unlock_button" class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
+        <button id="unlock_button" class="btn btn-lg btn-success btn-block" type="submit" name="submit">
             Разблокировать номер
         </button>
     </form>

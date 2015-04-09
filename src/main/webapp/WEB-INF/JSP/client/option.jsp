@@ -44,7 +44,9 @@
                 <td>
                     <form method="post" action="<c:url value='/user/addOption' />">
                         <input type="hidden" name="optionName" value="${option.name}">
-                        <input class="link" type="submit" value="Подключить">
+                        <button class="btn btn-sm btn-success" type="submit" name="submit">
+                            Подключить
+                        </button>
                     </form>
                 </td>
             </tr>

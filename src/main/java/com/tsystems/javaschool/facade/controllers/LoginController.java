@@ -23,14 +23,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * LoginServlet.
  */
 @Controller
-@SessionAttributes({"currentContract", "optionsInBasket", "tariffInBasket", "tariffsToSelect", "optionsToSelect"})
+@SessionAttributes({"currentContract", "optionsInBasket", "tariffInBasket"})
 @RequestMapping("/main")
 public class LoginController extends HttpServlet {
     private final static Logger logger = Logger.getLogger(LoginController.class);
@@ -43,17 +42,17 @@ public class LoginController extends HttpServlet {
     private ClientService clientService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index(){
+    public String index() {
         return "../../index";
     }
 
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
-    public ModelAndView welcome(HttpSession httpSession){
+    public ModelAndView welcome(HttpSession httpSession) {
         Collection<GrantedAuthority> grantedAuthorities =
                 (Collection<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication()
                         .getAuthorities();
         String authority = null;
-        for (GrantedAuthority ga : grantedAuthorities){
+        for (GrantedAuthority ga : grantedAuthorities) {
             if ("ADMIN".equals(ga.getAuthority())) {
                 authority = ga.getAuthority();
                 ModelAndView adminView = new ModelAndView("admin");
@@ -79,32 +78,21 @@ public class LoginController extends HttpServlet {
             return new ModelAndView(index());
         }
         String path = "client";
-        ContractDTO contract = client.getContracts().get(0);
-        if (contract.getBlockedByClient()){
+        List<ContractDTO> contracts = new ArrayList<>();
+        contracts.add(client.getContracts().get(0));
+        if (contracts.get(0).getBlockedByClient()) {
             path = "client/contractLockedByClient";
         }
-        if (contract.getBlockedByOperator()){
+        if (contracts.get(0).getBlockedByOperator()) {
             path = "client/contractLockedByOperator";
         }
         ModelAndView clientView = new ModelAndView(path);
-        List<TariffDTO> tariffsToSelect = operatorService.findAllTariffs();
-        List<OptionDTO> optionsToSelect = operatorService.findAllOptions();
-        List<OptionDTO> contractOptions = contract.getOptions();
-        Iterator iter = optionsToSelect.iterator();
-        while (iter.hasNext()) {
-            OptionDTO option = (OptionDTO) iter.next();
-            for (OptionDTO contractOption : contractOptions) {
-                if (option.getName().equals(contractOption.getName())) iter.remove();
-            }
-        }
+        clientView.addObject("contract", contracts.get(0));
         List<OptionDTO> optionsInBasket = new ArrayList<>();
-        List<OptionDTO> tariffInBasket = new ArrayList<>();
+        List<TariffDTO> tariffInBasket = new ArrayList<>();
         httpSession.setAttribute("tariffInBasket", tariffInBasket);
         httpSession.setAttribute("optionsInBasket", optionsInBasket);
-        httpSession.setAttribute("currentContract", contract);
-        httpSession.setAttribute("tariffsToSelect", tariffsToSelect);
-        httpSession.setAttribute("optionsToSelect", optionsToSelect);
-        clientView.addObject("contract", contract);
+        httpSession.setAttribute("currentContract", contracts);
         clientView.addObject("client", client);
         return clientView;
     }

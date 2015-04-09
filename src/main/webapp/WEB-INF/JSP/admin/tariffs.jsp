@@ -4,9 +4,19 @@
 <head>
     <title>Java Mobile</title>
     <link href="<c:url value="/resources/css/bootstrap.3.2.0.css"/>" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/bootstrap-select.css"/>"/>
     <%--custom styles--%>
     <link href="<c:url value="/resources/css/javaMobile.css"/>" rel="stylesheet"/>
+    <%--js--%>
+    <script type="text/javascript" src="<c:url value="/resources/js/jquery.js" />"></script>
     <script type="text/javascript" src="<c:url value="/resources/js/link_submit.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/bootstrap-select.js" />"></script>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $('.selectpicker').selectpicker();
+        });
+    </script>
 </head>
 <body>
 
@@ -34,16 +44,22 @@
         <tr>
             <th>Тариф</th>
             <th>Цена</th>
-            <th>Удалить</th>
+            <th>Удалить тариф</th>
         </tr>
         <c:forEach var="tariff" items="${allTariffs}">
             <tr>
-                <td>${tariff.name}</td>
+                <td><form action="<c:url value='/admin/showTariffDetails' />" method="post">
+                    <a href="javascript:"
+                       onclick="get_form(this).submit(); return false">${tariff.name}</a>
+                    <input type="hidden" name="tariffName" value="${tariff.name}">
+                </form></td>
                 <td>${tariff.price}</td>
                 <td>
                     <form method="post" action="<c:url value='/admin/removeTariff' />">
                         <input type="hidden" name="tariffName" value="${tariff.name}">
-                        <input class="link" type="submit" value="Удалить">
+                        <button class="btn btn-sm btn-warning" type="submit" name="submit">
+                            Удалить
+                        </button>
                     </form>
                 </td>
             </tr>
@@ -61,7 +77,7 @@
                     <input type="text" name='tariffPrice' class="form-control" placeholder="Укажите стоимость" required/>
                     <i class="form-control-feedback glyphicon glyphicon-usd"></i>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
+                <button class="btn btn-lg btn-success btn-block" type="submit" name="submit">
                     Добавить новый тариф
                 </button>
             </form>

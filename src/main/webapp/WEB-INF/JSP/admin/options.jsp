@@ -35,7 +35,7 @@
             <th>Опция</th>
             <th>Цена</th>
             <th>Подключение</th>
-            <th>Удалить</th>
+            <th>Удалить опцию</th>
         </tr>
         <c:forEach var="option" items="${allOptions}">
             <tr>
@@ -49,7 +49,9 @@
                 <td>
                     <form method="post" action="<c:url value='/admin/removeOldOption' />">
                         <input type="hidden" name="optionName" value="${option.name}">
-                        <input class="link" type="submit" value="Удалить">
+                        <button class="btn btn-sm btn-warning" type="submit" name="submit">
+                            Удалить
+                        </button>
                     </form>
                 </td>
             </tr>

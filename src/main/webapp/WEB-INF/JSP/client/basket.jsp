@@ -6,6 +6,9 @@
   <link href="<c:url value="/resources/css/bootstrap.3.2.0.css"/>" rel="stylesheet"/>
   <%--custom styles--%>
   <link href="<c:url value="/resources/css/javaMobile.css"/>" rel="stylesheet"/>
+  <script type="text/javascript" src="<c:url value="/resources/js/jquery.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+  <script type="text/javascript" src="<c:url value="/resources/js/bootstrap-select.js" />"></script>
   <script type="text/javascript" src="<c:url value="/resources/js/link_submit.js" />"></script>
 </head>
 <body>
@@ -29,6 +32,19 @@
 </nav>
 
 <div class="container">
+
+  <c:if test="${setTariffError == 'true'}">
+    <div class="bs-example">
+      <div class="alert alert-danger alert-error" id="notation">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        При подключении тарифа ${selectedTariff} недоступны опции:
+        <c:forEach var="option" items="${unacceptableOptions}">
+          "${option.name}" &nbsp;
+        </c:forEach>
+      </div>
+    </div>
+  </c:if>
+
   <table class="table table-striped table-bordered table-condensed">
     <c:if test="${sessionScope.optionsInBasket.size()==0 && tariffInBasket.size()==0}">
       <tr>
@@ -46,18 +62,12 @@
       <th>Тариф</th>
       <th>Цена</th>
       <th></th>
-      <th>Убрать</th>
     </tr>
     <c:forEach var="tariff" items="${tariffInBasket}">
     <tr>
       <td>${tariff.name}</td>
       <td>${tariff.price}</td>
       <th></th>
-      <td>
-        <form method="post" action="<c:url value='/user/removeTariffFromBasket' />">
-          <input type="submit" value="Убрать тариф">
-        </form>
-      </td>
       </c:forEach>
       </c:if>
     <c:if test="${sessionScope.optionsInBasket.size()!=0}">
@@ -65,7 +75,6 @@
       <th>Опция</th>
       <th>Цена</th>
       <th>Стоимость подключения</th>
-      <th>Убрать</th>
     </tr>
     </c:if>
     <c:forEach var="option" items="${sessionScope.optionsInBasket}">
@@ -73,20 +82,26 @@
       <td>${option.name}</td>
       <td>${option.price}</td>
       <td>${option.connectionCost}</td>
-      <td>
-        <form method="post" action="<c:url value='/user/removeOptionFromBasket' />">
-          <input type="hidden" name="optionName" value="${option.name}">
-          <input type="submit" value="Убрать опцию">
-        </form>
-      </td>
       </c:forEach>
   </table>
+
 <c:if test="${sessionScope.optionsInBasket.size()!=0 || tariffInBasket.size()!=0}">
-  <form method="post" action="<c:url value='/user/buyItems' />">
-    <button id="unlock_button" class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
-      Купить
-    </button>
-  </form>
+  <div class="row">
+    <div class="col-md-6">
+      <form class="to_the_right" method="post" action="<c:url value='/user/clearBasket' />">
+        <button class="btn btn-sm btn-danger near" type="submit" name="submit">
+          Очистить корзину
+        </button>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <form method="post" action="<c:url value='/user/buyItems' />">
+        <button class="btn btn-sm btn-success near" type="submit" name="submit">
+          Купить
+        </button>
+      </form>
+    </div>
+  </div>
 </c:if>
 </div>
 

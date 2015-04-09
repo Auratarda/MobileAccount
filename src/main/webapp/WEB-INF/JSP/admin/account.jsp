@@ -42,6 +42,30 @@
 
 <div class="container">
 
+    <c:if test="${setTariffError == 'true'}">
+        <div class="bs-example">
+            <div class="alert alert-danger alert-error notation">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                При подключении тарифа ${selectedTariff} недоступны опции:
+                <c:forEach var="option" items="${unacceptableOptions}">
+                    "${option.name}" &nbsp;
+                </c:forEach>
+            </div>
+        </div>
+    </c:if>
+
+    <c:if test="${setOptionError == 'true'}">
+        <div class="bs-example">
+            <div class="alert alert-danger alert-error notation">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                Несовместимые опции:
+                <c:forEach var="option" items="${incompatibleOptions}">
+                    "${option.name}" &nbsp;
+                </c:forEach>
+            </div>
+        </div>
+    </c:if>
+
 <table class="table table-striped table-bordered table-condensed">
     <tr>
         <th colspan="2" class="centered">Информация о клиенте</th>
@@ -104,7 +128,7 @@
             </select></div>
         </div>
         <input type="hidden" name="number" value=${contract.number}>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
+        <button class="btn btn-lg btn-success btn-block" type="submit" name="submit">
             Поменять тариф
         </button>
     </form>
@@ -142,7 +166,7 @@
             </select></div>
         </div>
         <input type="hidden" name="number" value=${contract.number}>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
+        <button class="btn btn-lg btn-success btn-block" type="submit" name="submit">
             Добавить опции
         </button>
     </form>
@@ -150,7 +174,7 @@
     <c:if test="${status != 'Заблокирован оператором'}">
     <form method="post" action="<c:url value='/admin/lockContractByOperator' />">
         <input type="hidden" name="number" value=${contract.number}>
-        <button id="lock_button" class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
+        <button id="lock_button" class="btn btn-lg btn-danger btn-block" type="submit" name="submit">
             Заблокировать номер
         </button>
     </form>
@@ -159,7 +183,7 @@
     <c:if test="${status == 'Заблокирован оператором'}">
         <form method="post" action="<c:url value='/admin/unlockContractByOperator' />">
             <input type="hidden" name="number" value=${contract.number}>
-            <button id="unlock_button" class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
+            <button id="unlock_button" class="btn btn-lg btn-success btn-block" type="submit" name="submit">
                 Разблокировать номер
             </button>
         </form>

@@ -47,7 +47,6 @@
           <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.8.4" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.10" />
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.10" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-test:4.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:3.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:3.2.5.RELEASE" />
         </element>

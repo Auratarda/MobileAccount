@@ -1,12 +1,20 @@
 package com.tsystems.javaschool;
 
+import com.tsystems.javaschool.domain.dao.Impl.OptionDAOImpl;
+import com.tsystems.javaschool.domain.dao.Impl.TariffDAOImpl;
+import com.tsystems.javaschool.domain.dao.OptionDAO;
+import com.tsystems.javaschool.domain.dao.TariffDAO;
+import com.tsystems.javaschool.domain.entities.Option;
+import com.tsystems.javaschool.domain.entities.Tariff;
 import com.tsystems.javaschool.service.services.Impl.OperatorServiceImpl;
 import com.tsystems.javaschool.service.services.OperatorService;
 import org.apache.log4j.Logger;
 
+import java.util.List;
+
 /**
-* Test.
-*/
+ * Test.
+ */
 public class InitAppTestData {
 
     final static Logger logger = Logger.getLogger(InitAppTestData.class);
@@ -14,6 +22,8 @@ public class InitAppTestData {
     public static void main(String[] args) {
         try {
             OperatorService operatorService = new OperatorServiceImpl();
+            TariffDAO tariffDAO = new TariffDAOImpl();
+            OptionDAO optionDAO = new OptionDAOImpl();
 
             /** Create client */
 //            operatorService.createNewClient("Иван", "Иванов", "1991-01-01",
@@ -84,6 +94,15 @@ public class InitAppTestData {
 //                operatorService.setTariff(contractsDTOs.get(i), tariffsDTOs.get(i));
 //                operatorService.addOptions(contractsDTOs.get(i), optionDTOs.subList(0, i));
 //            }
+            /** Map tariffs and options */
+            List<Tariff> allTariffs = tariffDAO.getAll();
+            List<Option> allOptions = optionDAO.getAll();
+
+            for (Option option : allOptions) {
+                for (Tariff tariff : allTariffs) {
+                    tariff.getOptions().add(option);
+                }
+            }
 
             logger.info("Commit success!");
         } catch (Exception e) {

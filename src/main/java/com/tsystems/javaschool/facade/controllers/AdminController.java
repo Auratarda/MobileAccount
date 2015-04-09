@@ -7,6 +7,7 @@ import com.tsystems.javaschool.facade.dto.TariffDTO;
 import com.tsystems.javaschool.service.exceptions.ClientNotFoundException;
 import com.tsystems.javaschool.service.services.ClientService;
 import com.tsystems.javaschool.service.services.OperatorService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,31 +33,40 @@ public class AdminController {
     @Qualifier("clientService")
     private ClientService clientService;
 
+    public OperatorService getOperatorService() {
+        return operatorService;
+    }
+
+    public ClientService getClientService() {
+        return clientService;
+    }
+
+    private static final Logger log = Logger.getLogger(AdminController.class);
+
     private ModelAndView prepareAccount(String contractNumber) {
+        log.info("Creating account");
         ClientDTO client = operatorService.findClientByNumber(contractNumber);
         ContractDTO contract = operatorService.findContractByNumber(contractNumber);
         TariffDTO tariff = contract.getTariff();
-        List<OptionDTO> options = contract.getOptions();
         String status = "Не заблокирован";
         if (contract.getBlockedByClient()) status = "Заблокирован клиентом";
         if (contract.getBlockedByOperator()) status = "Заблокирован оператором";
         List<TariffDTO> allTariffs = operatorService.findAllTariffs();
-        List<OptionDTO> allOptions = operatorService.findAllOptions();
-        Iterator<OptionDTO> iter = allOptions.iterator();
-        while (iter.hasNext()){
-            OptionDTO optionDTO = iter.next();
-            for (OptionDTO option : options) {
-                if (optionDTO.getName().equals(option.getName())) iter.remove();
-            }
-        }
+        List<OptionDTO> tariffOptions = operatorService.findOptionsByTariff(tariff.getName());
+        List<OptionDTO> contractOptions = contract.getOptions();
+        List<OptionDTO> optionsToSelect = operatorService.intercept(tariffOptions, contractOptions);
+        String setTariffError = "false";
+        String setOptionError = "false";
         ModelAndView accountView = new ModelAndView("admin/account");
         accountView.addObject("contract", contract);
         accountView.addObject("client", client);
         accountView.addObject("tariff", tariff);
-        accountView.addObject("options", options);
+        accountView.addObject("options", contractOptions);
         accountView.addObject("status", status);
         accountView.addObject("tariffs", allTariffs);
-        accountView.addObject("allOptions", allOptions);
+        accountView.addObject("allOptions", optionsToSelect);
+        accountView.addObject("setTariffError", setTariffError);
+        accountView.addObject("setOptionError", setOptionError);
         return accountView;
     }
 
@@ -69,6 +77,18 @@ public class AdminController {
         return contractsView;
     }
 
+    private ModelAndView prepareAssignNewContract() {
+        ModelAndView assignContractView = new ModelAndView("admin/assignContract");
+        List<ContractDTO> freeContracts = operatorService.findFreeContracts();
+        List<TariffDTO> allTariffs = operatorService.findAllTariffs();
+        List<OptionDTO> allOptions = operatorService.findAllOptions();
+        assignContractView.addObject("freeContracts", freeContracts);
+        assignContractView.addObject("tariffs", allTariffs);
+        assignContractView.addObject("allOptions", allOptions);
+        String setTariffError = "false";
+        assignContractView.addObject("setTariffError", setTariffError);
+        return assignContractView;
+    }
 
     @RequestMapping(value = "/showAllContracts", method = RequestMethod.GET)
     public ModelAndView showAllContracts() {
@@ -82,7 +102,9 @@ public class AdminController {
     public ModelAndView showAllTariffs() {
         ModelAndView tariffsView = new ModelAndView("admin/tariffs");
         List<TariffDTO> allTariffs = operatorService.findAllTariffs();
+        List<OptionDTO> allOptions = operatorService.findAllOptions();
         tariffsView.addObject("allTariffs", allTariffs);
+        tariffsView.addObject("allOptions", allOptions);
         return tariffsView;
     }
 
@@ -96,12 +118,33 @@ public class AdminController {
 
     @RequestMapping(value = "/showOptionDetails", method = RequestMethod.POST)
     public ModelAndView showOptionDetails(@RequestParam String optionName) {
-        ModelAndView optionsView = new ModelAndView("admin/optionDetails");
+        ModelAndView optionDetailsView = new ModelAndView("admin/optionDetails");
         OptionDTO option = operatorService.findOptionByName(optionName);
+        optionDetailsView.addObject("currentOption", option.getName());
         List<OptionDTO> allOptions = operatorService.findAllOptions();
-        optionsView.addObject("allOptions", allOptions);
-        optionsView.addObject("option", option);
-        return optionsView;
+        List<OptionDTO> requiredOptions = operatorService.getRequiredOptions(optionName);
+        List<OptionDTO> incompatibleOptions = operatorService.getIncompatibleOptions(optionName);
+        optionDetailsView.addObject("requiredOptions", requiredOptions);
+        optionDetailsView.addObject("incompatibleOptions", incompatibleOptions);
+        allOptions = (List<OptionDTO>) operatorService.removeItem(allOptions, optionName);
+        List<OptionDTO> addReqOptions = (List<OptionDTO>) operatorService.intercept(allOptions, requiredOptions);
+        optionDetailsView.addObject("addReqOptions", addReqOptions);
+        List<OptionDTO> addIncOptions = (List<OptionDTO>) operatorService.intercept(addReqOptions, incompatibleOptions);
+        optionDetailsView.addObject("addIncOptions", addIncOptions);
+        return optionDetailsView;
+    }
+
+    @RequestMapping(value = "/showTariffDetails", method = RequestMethod.POST)
+    public ModelAndView showTariffDetails(@RequestParam String tariffName) {
+        ModelAndView tariffDetailsView = new ModelAndView("admin/tariffDetails");
+        List<OptionDTO> allOptions = operatorService.findAllOptions();
+        List<OptionDTO> tariffOptions = operatorService.findOptionsByTariff(tariffName);
+        allOptions = (List<OptionDTO>) operatorService.intercept(allOptions, tariffOptions);
+        tariffOptions = operatorService.checkUniqueValues(tariffOptions);
+        tariffDetailsView.addObject("tariff", tariffName);
+        tariffDetailsView.addObject("tariffOptions", tariffOptions);
+        tariffDetailsView.addObject("allOptions", allOptions);
+        return tariffDetailsView;
     }
 
     @RequestMapping(value = "/showClient", method = RequestMethod.POST)
@@ -111,14 +154,7 @@ public class AdminController {
 
     @RequestMapping(value = "/assignNewContract", method = RequestMethod.GET)
     public ModelAndView assignNewContract() {
-        ModelAndView assignContractView = new ModelAndView("admin/assignContract");
-        List<ContractDTO> freeContracts = operatorService.findFreeContracts();
-        List<TariffDTO> allTariffs = operatorService.findAllTariffs();
-        List<OptionDTO> allOptions = operatorService.findAllOptions();
-        assignContractView.addObject("freeContracts", freeContracts);
-        assignContractView.addObject("tariffs", allTariffs);
-        assignContractView.addObject("allOptions", allOptions);
-        return assignContractView;
+        return prepareAssignNewContract();
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -142,9 +178,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/addNewClient", method = RequestMethod.POST)
-    public ModelAndView addNewClient(@RequestParam Map<String, String> requestParams,
-                                     @RequestParam(value = "selectedOptions[]",
-                                             required = false) String[] selectedOptions) {
+    public ModelAndView addNewClient(@RequestParam Map<String, String> requestParams) {
         String firstName = requestParams.get("firstName");
         String lastName = requestParams.get("lastName");
         String dateOfBirth = requestParams.get("dateOfBirth");
@@ -154,8 +188,9 @@ public class AdminController {
         String password = requestParams.get("password");
         String selectedNumber = requestParams.get("selectedNumber");
         String selectedTariff = requestParams.get("selectedTariff");
+
         operatorService.createNewClient(firstName, lastName, dateOfBirth, address, passport,
-                email, password, selectedNumber, selectedTariff, selectedOptions);
+                email, password, selectedNumber, selectedTariff);
         return showClient(selectedNumber);
     }
 
@@ -206,6 +241,43 @@ public class AdminController {
         return showAllTariffs();
     }
 
+    @RequestMapping(value = "/addTariffOptions", method = RequestMethod.POST)
+    public ModelAndView addTariffOptions(@RequestParam String tariffName,
+                                     @RequestParam(value = "selectedOptions[]",
+                                             required = false) String[] selectedOptions) {
+        operatorService.addTariffOptions(tariffName, selectedOptions);
+        return showTariffDetails(tariffName);
+    }
+
+    @RequestMapping(value = "/addRequiredOptions", method = RequestMethod.POST)
+    public ModelAndView addRequiredOptions(@RequestParam String optionName,
+                                         @RequestParam(value = "selectedOptions[]",
+                                                 required = false) String[] selectedOptions) {
+        operatorService.addRequiredOptions(optionName, selectedOptions);
+        return showOptionDetails(optionName);
+    }
+
+    @RequestMapping(value = "/addIncompatibleOption", method = RequestMethod.POST)
+    public ModelAndView addIncompatibleOption(@RequestParam String optionName,
+                                           @RequestParam String incOption) {
+        operatorService.addIncompatibleOption(optionName, incOption);
+        return showOptionDetails(optionName);
+    }
+
+    @RequestMapping(value = "/removeRequiredOption", method = RequestMethod.POST)
+    public ModelAndView removeRequiredOption(@RequestParam String currentOption,
+                                           @RequestParam String optionToRemove) {
+        operatorService.removeRequiredOption(currentOption, optionToRemove);
+        return showOptionDetails(currentOption);
+    }
+
+    @RequestMapping(value = "/removeIncompatibleOption", method = RequestMethod.POST)
+    public ModelAndView removeIncompatibleOption(@RequestParam String currentOption,
+                                              @RequestParam String optionToRemove) {
+        operatorService.removeIncompatibleOption(currentOption, optionToRemove);
+        return showOptionDetails(currentOption);
+    }
+
     @RequestMapping(value = "/removeTariff", method = RequestMethod.POST)
     public ModelAndView removeTariff(@RequestParam String tariffName) {
         TariffDTO tariffToRemove = operatorService.findTariffByName(tariffName);
@@ -237,12 +309,29 @@ public class AdminController {
         return prepareAccount(contractNumber);
     }
 
+    @RequestMapping(value = "/removeOptionFromTariff", method = RequestMethod.POST)
+    public ModelAndView removeOptionFromTariff(@RequestParam Map<String, String> requestParams) {
+        String optionName = requestParams.get("optionName");
+        String tariffName = requestParams.get("tariffName");
+        operatorService.removeOptionFromTariff(optionName, tariffName);
+        return showTariffDetails(tariffName);
+    }
+
     @RequestMapping(value = "/setTariff", method = RequestMethod.POST)
     public ModelAndView setTariff(@RequestParam Map<String, String> requestParams) {
         String selectedTariff = requestParams.get("selectedTariff");
         String contractNumber = requestParams.get("number");
         TariffDTO tariff = operatorService.findTariffByName(selectedTariff);
         ContractDTO contract = operatorService.findContractByNumber(contractNumber);
+       List<OptionDTO> unacceptableOptions = operatorService.checkTariffOptions(selectedTariff, contractNumber);
+        if (unacceptableOptions.size() > 0){
+            ModelAndView accountView = prepareAccount(contractNumber);
+            String setTariffError = "true";
+            accountView.addObject("setTariffError", setTariffError);
+            accountView.addObject("selectedTariff", selectedTariff);
+            accountView.addObject("unacceptableOptions", unacceptableOptions);
+            return accountView;
+        }
         operatorService.setTariff(contract, tariff);
         return prepareAccount(contractNumber);
     }
@@ -252,12 +341,16 @@ public class AdminController {
                                        @RequestParam(value = "selectedOptions[]",
                                                required = false) String[] selectedOptions) {
         ContractDTO contract = operatorService.findContractByNumber(number);
-        List<OptionDTO> options = new ArrayList<>(0);
-        for (String selectedOption : selectedOptions) {
-            options.add(operatorService.findOptionByName(selectedOption));
+        List<OptionDTO> chosenOptions = operatorService.prepareOptions(selectedOptions);
+        List<OptionDTO> incompatibleOptions = operatorService.checkOptionsCompatibility(chosenOptions);
+        if (incompatibleOptions.size() > 0){
+            ModelAndView assignNewContractView = prepareAccount(number);
+            String setOptionError = "true";
+            assignNewContractView.addObject("setOptionError", setOptionError);
+            assignNewContractView.addObject("incompatibleOptions", incompatibleOptions);
+            return assignNewContractView;
         }
-        operatorService.addOptions(contract, options);
+        operatorService.addOptions(contract, chosenOptions);
         return prepareAccount(number);
     }
-
 }

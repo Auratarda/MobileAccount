@@ -50,14 +50,6 @@
         </c:forEach>
     </table>
 
-    <%--<p class="lead">--%>
-        <%--<sec:authorize access="hasRole('CLIENT')">--%>
-            <%--<a href="<c:url value="/main/login"/> " class="btn btn-lg btn-default">Клиент</a>--%>
-        <%--</sec:authorize>--%>
-        <%--<sec:authorize access="hasRole('ADMIN')">--%>
-            <%--<a href="<c:url value="/main/login"/> " class="btn btn-lg btn-default">Админ</a>--%>
-        <%--</sec:authorize>--%>
-    <%--</p>--%>
 </div>
 </body>
 </html>

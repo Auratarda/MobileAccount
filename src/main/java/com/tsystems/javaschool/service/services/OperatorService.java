@@ -19,7 +19,7 @@ public interface OperatorService {
 
     void createNewClient(String firstName, String lastName, String dateOfBirth,
                          String address, String passport, String email, String password,
-                         String number, String tariff, String[] selectedOptions);
+                         String number, String tariff);
 
     void createNewContract(String number);
 
@@ -58,6 +58,12 @@ public interface OperatorService {
 
     void removeClient(ClientDTO clientDTO) throws ClientNotFoundException;
 
+    List<OptionDTO> prepareOptions(String [] selectedOptions);
+
+    List<OptionDTO> checkTariffCompatibility(String selectedTariff, List<OptionDTO> chosenOption);
+
+    List<OptionDTO> checkOptionsCompatibility(List<OptionDTO> chosenOptions);
+
     /**
      * View all clients and contracts. Find client by ID.
      */
@@ -68,6 +74,8 @@ public interface OperatorService {
     List<TariffDTO> findAllTariffs();
 
     List<OptionDTO> findAllOptions();
+
+    List<OptionDTO> findOptionsByTariff(String tariffName);
 
     List<ContractDTO> findFreeContracts();
 
@@ -85,4 +93,33 @@ public interface OperatorService {
 
     void removeOption(OptionDTO optionDTO);
 
+    void removeOptionFromTariff(String optionName, String tariffName);
+
+    void addTariffOptions(String tariffName, String[] options);
+
+    /**
+     * Modify an option.
+     */
+    void addRequiredOptions(String optionName, String[] selectedOptions);
+
+    void removeRequiredOption(String currentOption, String optionToRemove);
+
+    void removeIncompatibleOption(String currentOption, String optionToRemove);
+
+    List<OptionDTO> getRequiredOptions (String optionName);
+
+    void addIncompatibleOption(String optionName, String incOption);
+
+    List<OptionDTO> getIncompatibleOptions(String optionName);
+
+    /**
+     * Find remainder from two lists of Entities.
+     */
+    List intercept(List listToRetain, List listToRemove);
+
+    List checkUniqueValues (List list);
+
+    List removeItem(List list, String name);
+
+    List<OptionDTO> checkTariffOptions (String tariffName, String contractName);
 }

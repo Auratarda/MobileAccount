@@ -90,13 +90,13 @@ body {
 }
 
 #brand{
-    color: #ff7edc;
+    color: #ffffff;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-#brand:hover{
-    color: #ffffff;
-}
+/*#brand:hover{*/
+    /*color: #ffffff;*/
+/*}*/
 
 .btn-primary,  .btn-primary:hover, .btn-primary:focus{
     color: #000000;
@@ -118,11 +118,18 @@ body {
     margin: 0 auto;
 }
 
-#lock_button{
+.btn-lg{
     width: 300px;
     margin: 0 auto;
-    background-image: -webkit-gradient(linear, left 0%, left 100%, from(#ff4522), to(#ff3810));
-    border-color: #ff3810;
+}
+
+.near{
+    width: 200px;
+    margin: 0 auto;
+}
+
+.to_the_right{
+    float: right;
 }
 
 #lock_button:hover{
@@ -139,13 +146,21 @@ body {
     margin-right: auto;
 }
 
-.centered{
-    text-align: center;
+#bottom-margin {
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 th, td {
     text-align: center;
     vertical-align: middle;
+}
+
+.notation {
+    margin-top: 10px;
+    font-size: medium;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #notation {

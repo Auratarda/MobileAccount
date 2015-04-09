@@ -42,7 +42,9 @@
                 <td>
                     <form method="post" action="<c:url value='/user/changeTariff' />">
                         <input type="hidden" name="tariffName" value="${tariff.name}">
-                        <input class="link" type="submit" value="Перейти">
+                        <button class="btn btn-sm btn-success" type="submit" name="submit">
+                            Перейти
+                        </button>
                     </form>
                 </td>
             </tr>

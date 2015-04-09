@@ -9,11 +9,15 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * ClientDAOImpl.
+ * This class contains methods for the Client entity.
+ * CRUD methods are extended from GenericDaoImpl.
  */
 @Repository("ClientDAOImpl")
 public class ClientDAOImpl extends GenericDaoImpl<Client> implements ClientDAO{
 
+    /**
+     * This method identifies client by email and password.
+     */
     public Client login(String email, String password) throws ClientNotFoundException {
         TypedQuery<Client> clientTypedQuery =
                 em.createQuery("SELECT c FROM Client c WHERE c.email = :email " +
@@ -25,6 +29,9 @@ public class ClientDAOImpl extends GenericDaoImpl<Client> implements ClientDAO{
         return clients.get(0);
     }
 
+    /**
+     * This method identifies client by first name, last name and email.
+     */
     public Client identify(String firstName, String lastName, String email) throws ClientNotFoundException {
         TypedQuery<Client> clientTypedQuery =
                 em.createQuery("SELECT c FROM Client c WHERE c.firstName = :firstName " +

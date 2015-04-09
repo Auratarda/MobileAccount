@@ -94,18 +94,15 @@ public class ClientServiceImpl implements ClientService {
         logger.debug("incompatibleOptions " + optionsToString(incompatibleOptions));
         logger.debug("requiredOptions " + optionsToString(requiredOptions));
 
-        // TODO: Create method isOptionCompatible it will help you to make code easier to understand.
-        // TODO: It is better to check if options is compatible on higher level of abstraction
-        // TODO: and returns more understandable result.
         contract.getOptions().add(option);
         contractDAO.update(contract);
     }
 
-    // TODO: where will you check if contract is blocked?
 
     public void removeOption(String contractNumber, String optionName) {
         Contract contract = contractDAO.findContractByNumber(contractNumber);
         Option option = optionDAO.findOptionByName(optionName);
+        List<Option> requiredOptions = option.getRequiredOptions();
         Iterator<Option> it = contract.getOptions().iterator();
 
         while (it.hasNext()){
@@ -115,6 +112,7 @@ public class ClientServiceImpl implements ClientService {
             }
         }
         it.remove();
+        contract.getOptions().removeAll(requiredOptions);
         contractDAO.update(contract);
     }
 

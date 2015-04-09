@@ -22,7 +22,7 @@
                     <form class="form-signin" method="POST" action="<c:url value='/j_spring_security_check' />">
                         <div class="form-group has-feedback has-feedback-left">
                             <label class="control-label">Адрес электронной почты</label>
-                            <input type="text" name='email' class="form-control" placeholder="email@mail.ru" required
+                            <input type="email" name='email' class="form-control" placeholder="email@mail.ru" required
                                    autofocus/>
                             <i class="form-control-feedback glyphicon glyphicon-user"></i>
                         </div>
@@ -31,7 +31,7 @@
                             <input type="password" name='password' class="form-control" placeholder="password" required>
                             <i class="form-control-feedback glyphicon glyphicon-lock "></i>
                         </div>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">
+                        <button class="btn btn-success btn-lg btn-block" type="submit" name="submit">
                             Войти
                         </button>
                     </form>

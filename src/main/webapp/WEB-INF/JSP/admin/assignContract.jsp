@@ -47,6 +47,7 @@
 </nav>
 
 <div class="container">
+
         <form class="form-signin" id="bottom-indent" method="post" action="<c:url value='/admin/addNewClient' />">
             <div class="form-group has-feedback has-feedback-left">
                 <label class="control-label">Имя</label>
@@ -104,15 +105,7 @@
                 </select></div>
             </div>
 
-            <div class="form-group has-feedback has-feedback-left">
-                <label class="control-label">Выберите опции</label>
-                <div><select class="selectpicker" multiple size="5" name="selectedOptions[]">
-                    <c:forEach var="option" items="${allOptions}">
-                        <option value="${option.name}">${option.name}</option>
-                    </c:forEach>
-                </select></div>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">
+            <button class="btn btn-lg btn-success btn-block" type="submit">
                 Заключить договор
             </button>
         </form>
