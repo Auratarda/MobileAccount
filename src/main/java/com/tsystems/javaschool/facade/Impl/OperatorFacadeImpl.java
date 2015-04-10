@@ -1,27 +1,34 @@
-package com.tsystems.javaschool.service.services.Impl;
+package com.tsystems.javaschool.facade.Impl;
 
 import com.tsystems.javaschool.domain.dao.*;
 import com.tsystems.javaschool.domain.entities.*;
+import com.tsystems.javaschool.facade.OperatorFacade;
 import com.tsystems.javaschool.facade.dto.*;
+import com.tsystems.javaschool.service.ClientService;
+import com.tsystems.javaschool.service.ContractService;
 import com.tsystems.javaschool.service.exceptions.ClientNotFoundException;
-import com.tsystems.javaschool.service.services.OperatorService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * OperatorServiceImpl.
+ * This class serves functions available for users with the role "ADMIN".
+ * It invokes services, converts entities to DTO and returns result to the controllers.
  */
-@Service("operatorService")
-@Transactional
-public class OperatorServiceImpl implements OperatorService {
-    private final static Logger logger = Logger.getLogger(OperatorService.class);
+@Service("operatorFacade")
+public class OperatorFacadeImpl implements OperatorFacade {
+    private final static Logger log = Logger.getLogger(OperatorFacade.class);
+
+    @Autowired
+    @Qualifier("clientService")
+    private ClientService clientService;
+    @Autowired
+    @Qualifier("contractService")
+    private ContractService contractService;
+
 
     @Autowired
     @Qualifier("ClientDAOImpl")
@@ -39,69 +46,49 @@ public class OperatorServiceImpl implements OperatorService {
     @Qualifier("RoleDAOImpl")
     private RoleDAO roleDAO;
 
-    public OperatorServiceImpl() {
+    public OperatorFacadeImpl() {
     }
 
-    private Client createNewUser(String firstName, String lastName, String dateOfBirth,
-                                 String address, String passport, String email, String password) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        Date birthday = null;
-        try {
-            birthday = sdf.parse(dateOfBirth);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Client client = new Client(firstName, lastName, birthday, address, passport, email, password);
-        return client;
-    }
-
+    /*
+    * This method creates new Client with the role "CLIENT".
+    **/
     public void createNewClient(String firstName, String lastName, String dateOfBirth,
                                 String address, String passport, String email, String password,
                                 String number, String selectedTariff) {
-        logger.debug("Creating new client");
-
-        Client client = createNewUser(firstName, lastName, dateOfBirth, address, passport, email, password);
-        client = clientDAO.create(client);
-        Role role = new Role("CLIENT");
-        client.getRoles().add(role);
-        Contract contract = contractDAO.findContractByNumber(number);
-        client.getContracts().add(contract);
-        contract.setClient(client);
-        Tariff tariff = tariffDAO.findTariffByName(selectedTariff);
-        contract.setTariff(tariff);
-        contractDAO.update(contract);
-        clientDAO.update(client);
+        log.debug("Creating new client");
+        clientService.createNewClient(firstName, lastName, dateOfBirth, address, passport, email,
+                password, number, selectedTariff);
     }
 
+    /*
+    * This method creates new Client with the role "ADMIN".
+    **/
     public void createNewAdmin(String firstName, String lastName, String dateOfBirth,
                                String address, String passport, String email, String password) {
-        logger.debug("Creating new admin");
-        Role role = new Role("ADMIN");
-        Client admin = createNewUser(firstName, lastName, dateOfBirth, address, passport, email, password);
-        admin.getRoles().add(role);
-        clientDAO.create(admin);
+        log.debug("Creating new admin");
+        clientService.createNewAdmin(firstName, lastName, dateOfBirth, address, passport, email, password);
     }
 
+
     public void createNewTariff(String name, Long price) {
-        logger.debug("Creating a new tariff");
+        log.debug("Creating a new tariff");
         Tariff tariff = new Tariff(name, price);
         tariffDAO.create(tariff);
     }
 
     public void createNewContract(String number) {
-        logger.debug("Adding new contract");
-        Contract contract = new Contract(number, false, false);
-        contractDAO.create(contract);
+        log.debug("Adding new contract");
+        contractService.createNewContract(number);
     }
 
     public void createNewOption(String name, Long optionPrice, Long connectionCost) {
-        logger.debug("Adding new option");
+        log.debug("Adding new option");
         Option option = new Option(name, optionPrice, connectionCost);
         optionDAO.create(option);
     }
 
     public void createNewRole(String role) {
-        logger.debug("Creating a new role");
+        log.debug("Creating a new role");
         Role newRole = new Role(role);
         roleDAO.create(newRole);
     }
@@ -122,26 +109,20 @@ public class OperatorServiceImpl implements OperatorService {
      * Find entities.
      */
     public ClientDTO findClientByNumber(String number) {
-        Client client = contractDAO.findClientByNumber(number);
-//        return EntityToDTOConverter.clientToDTO(client);
-        return client.toDTO();
+        return clientService.findClientByNumber(number).toDTO();
     }
 
     public ContractDTO findContractByNumber(String contractNumber) {
-        Contract contract = contractDAO.findContractByNumber(contractNumber);
-//        return EntityToDTOConverter.contractToDTO(contract);
-        return contract.toDTO();
+        return contractService.findContractByNumber(contractNumber).toDTO();
     }
 
     public TariffDTO findTariffByName(String tariffName) {
         Tariff tariff = tariffDAO.findTariffByName(tariffName);
-//        return EntityToDTOConverter.tariffToDTO(tariff);
         return tariff.toDTO();
     }
 
     public OptionDTO findOptionByName(String optionName) {
         Option option = optionDAO.findOptionByName(optionName);
-//        return EntityToDTOConverter.optionToDTO(option);
         return option.toDTO();
     }
 
@@ -150,7 +131,7 @@ public class OperatorServiceImpl implements OperatorService {
      * Modify a contract.
      */
     public void setNumber(ClientDTO clientDTO, String number) throws ClientNotFoundException {
-        logger.debug("Setting a contract to a client");
+        log.debug("Setting a contract to a client");
         Client client = clientDAO.identify(clientDTO.getFirstName(), clientDTO.getLastName(),
                 clientDTO.getEmail());
         Contract contract = contractDAO.findContractByNumber(number);
@@ -160,27 +141,24 @@ public class OperatorServiceImpl implements OperatorService {
         clientDAO.update(client);
     }
 
-    public void setTariff(ContractDTO contractDTO, TariffDTO tariffDTO) {
-        logger.debug("Setting tariff to contract");
-        Contract contract = contractDAO.findContractByNumber(contractDTO.getNumber());
-        Tariff tariff = tariffDAO.findTariffByName(tariffDTO.getName());
-        contract.setTariff(tariff);
-        contractDAO.update(contract);
+    public String[] changeTariff(String contractNumber, String tariffName) {
+        log.debug("Changing tariff. Contract: " + contractNumber + " New tariff: " + tariffName);
+        List<Option> unacceptableOptions = contractService.changeTariff(contractNumber, tariffName);
+        String [] optionNames = new String[unacceptableOptions.size()];
+        for (int i = 0; i < unacceptableOptions.size(); i++) {
+            optionNames[i] = unacceptableOptions.get(i).getName();
+        }
+        return optionNames;
     }
 
-    public void addOptions(ContractDTO contractDTO, List<OptionDTO> optionDTOs) {
-        Contract contract = contractDAO.findContractByNumber(contractDTO.getNumber());
-        List<Option> optionsToAdd = new ArrayList<Option>(0);
-        for (OptionDTO optionDTO : optionDTOs) {
-            Option option = optionDAO.findOptionByName(optionDTO.getName());
-            optionsToAdd.add(option);
-            optionsToAdd.addAll(option.getRequiredOptions());
+    public String [] addOptions(String contractNumber, String[] optionNames) {
+        log.debug("Adding options. Contract: " + contractNumber + " Number of options: " + optionNames.length);
+        List<Option> incompatibleOptions = contractService.addOptionsToContract(contractNumber, optionNames);
+        String [] incOptionNames = new String[incompatibleOptions.size()];
+        for (int i = 0; i < incompatibleOptions.size(); i++) {
+            optionNames[i] = incompatibleOptions.get(i).getName();
         }
-        optionsToAdd = checkUniqueValues(optionsToAdd);
-        for (Option option : optionsToAdd) {
-            contract.getOptions().add(option);
-        }
-        contractDAO.update(contract);
+        return incOptionNames;
     }
 
     public void updateContract(ContractDTO contractDTO) {
@@ -194,7 +172,7 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     public void removeClient(ClientDTO clientDTO) throws ClientNotFoundException {
-        logger.debug("Removing client " + clientDTO.getFirstName() + ", " + clientDTO.getLastName());
+        log.debug("Removing client " + clientDTO.getFirstName() + ", " + clientDTO.getLastName());
         Client client = clientDAO.identify(clientDTO.getFirstName(), clientDTO.getLastName(),
                 clientDTO.getEmail());
         List<Contract> contracts = client.getContracts();
@@ -217,7 +195,7 @@ public class OperatorServiceImpl implements OperatorService {
      * View all clients, contracts, tariffs. Find client by ID.
      */
     public List<ClientDTO> findAllClients() {
-        logger.debug("Reading all clients");
+        log.debug("Reading all clients");
         List<Client> clients = clientDAO.getAll();
         List<ClientDTO> clientDTOs = new ArrayList<ClientDTO>(0);
         for (Client client : clients) {
@@ -228,18 +206,17 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     public List<ContractDTO> findAllContracts() {
-        logger.debug("Reading all contracts");
-        List<Contract> contracts = contractDAO.findAllContracts();
+        log.debug("Reading all contracts");
+        List<Contract> contracts = contractService.findAllContracts();
         List<ContractDTO> contractDTOs = new ArrayList<ContractDTO>(0);
         for (Contract contract : contracts) {
-//            contractDTOs.add(EntityToDTOConverter.contractToDTO(contract));
             contractDTOs.add(contract.toDTO());
         }
         return contractDTOs;
     }
 
     public List<ContractDTO> findFreeContracts() {
-        logger.debug("Reading free numbers");
+        log.debug("Reading free numbers");
         List<Contract> contracts = contractDAO.findFreeNumbers();
         List<ContractDTO> contractDTOs = new ArrayList<ContractDTO>(0);
         for (Contract contract : contracts) {
@@ -250,7 +227,7 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     public List<TariffDTO> findAllTariffs() {
-        logger.debug("Reading all tariffs");
+        log.debug("Reading all tariffs");
         List<Tariff> tariffs = tariffDAO.getAll();
         List<TariffDTO> tariffDTOs = new ArrayList<TariffDTO>();
         for (Tariff tariff : tariffs) {
@@ -260,7 +237,7 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     public List<OptionDTO> findAllOptions() {
-        logger.debug("Reading all options");
+        log.debug("Reading all options");
         List<Option> options = optionDAO.getAll();
         List<OptionDTO> optionDTOs = new ArrayList<OptionDTO>(0);
         for (Option option : options) {
@@ -271,7 +248,7 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     public List<OptionDTO> findOptionsByTariff(String tariffName) {
-        logger.debug("Reading all options by tariff");
+        log.debug("Reading all options by tariff");
         Tariff tariff = tariffDAO.findTariffByName(tariffName);
         List<OptionDTO> optionDTOs = new ArrayList<>();
         for (Option option : tariff.getOptions()) {
@@ -283,39 +260,37 @@ public class OperatorServiceImpl implements OperatorService {
     /**
      * Lock/unlock contracts.
      */
-    public void lockContract(ContractDTO contractDTO) {
-        logger.debug("Blocking a contract by Operator");
-        Contract contract = contractDAO.findContractByNumber(contractDTO.getNumber());
-        contract.setBlockedByOperator(true);
-        contractDAO.update(contract);
+    public void lockContractByOperator(String contractNumber) {
+        log.debug("Blocking a contract by Operator");
+       contractService.lockContractByOperator(contractNumber);
     }
 
-    public void unlockContract(ContractDTO contractDTO) {
-        logger.debug("Unlocking a contract by Operator");
-        Contract contract = contractDAO.findContractByNumber(contractDTO.getNumber());
-        contract.setBlockedByOperator(false);
-        contractDAO.update(contract);
+    public void unlockContractByOperator(String contractNumber) {
+        log.debug("Unlocking a contract by Operator");
+        contractService.unlockContractByOperator(contractNumber);
     }
 
     /**
      * Modify a tariff.
      */
     public void removeTariff(TariffDTO tariffDTO) {
-        logger.debug("Removing a tariff");
+        log.debug("Removing a tariff");
         Tariff tariff = tariffDAO.findTariffByName(tariffDTO.getName());
         tariffDAO.remove(tariff);
     }
 
-    //TODO: remove from Tariff_options, Required_options, Incompatible_options
-    public void removeOption(OptionDTO optionDTO) {
-        logger.debug("Removing an option");
-        Option option = optionDAO.findOptionByName(optionDTO.getName());
-//        Option req = option.getRequiredOptions().get(0);
-//        option.getRequiredOptions().clear();
-//        req.getRequiredOptions().clear();
-//        optionDAO.update(option);
-//        optionDAO.update(req);
-        optionDAO.remove(option);
+    public String[] removeOption(String contractNumber, String optionName) {
+        log.debug("Removing option. Contract: " + contractNumber + " Option: " + optionName);
+        List<Option> requiredOptions = contractService.removeOptionFromContract(contractNumber, optionName);
+        String [] optionNames = new String[requiredOptions.size()];
+        for (int i = 0; i < requiredOptions.size(); i++) {
+            optionNames[i] = requiredOptions.get(i).getName();
+        }
+        return optionNames;
+    }
+
+    public String[] dropOption(String optionName){
+        return null;
     }
 
     public void removeOptionFromTariff(String optionName, String tariffName) {
@@ -448,7 +423,7 @@ public class OperatorServiceImpl implements OperatorService {
         return result;
     }
 
-    public List intercept(List listToRetain, List listToRemove) {
+    public List intersect (List listToRetain, List listToRemove) {
         if (listToRetain == null || listToRemove == null || listToRetain.size() == 0
                 || listToRemove.size() == 0) return listToRetain;
         Object sample = listToRetain.get(0);
@@ -547,7 +522,7 @@ public class OperatorServiceImpl implements OperatorService {
         ContractDTO contract = findContractByNumber(contractNumber);
         List<OptionDTO> tariffOptions = findOptionsByTariff(tariffName);
         List<OptionDTO> contractOptions = contract.getOptions();
-        List<OptionDTO> unacceptableOptions = intercept(contractOptions, tariffOptions);
+        List<OptionDTO> unacceptableOptions = intersect(contractOptions, tariffOptions);
         return unacceptableOptions;
     }
 
@@ -560,11 +535,6 @@ public class OperatorServiceImpl implements OperatorService {
 
 
         return checkUniqueValues(chosenOptions);
-    }
-
-    public List<OptionDTO> checkTariffCompatibility(String selectedTariff, List<OptionDTO> chosenOptions) {
-        List<OptionDTO> tariffOptions = findOptionsByTariff(selectedTariff);
-        return intercept(chosenOptions, tariffOptions);
     }
 
     public List<OptionDTO> checkOptionsCompatibility(List<OptionDTO> chosenOptions) {

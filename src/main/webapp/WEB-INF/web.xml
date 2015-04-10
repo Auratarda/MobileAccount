@@ -50,7 +50,7 @@
     <filter>
         <filter-name>cors-filter</filter-name>
         <filter-class>
-            com.tsystems.javaschool.facade.filters.CorsFilter
+            com.tsystems.javaschool.web.filters.CorsFilter
         </filter-class>
     </filter>
 

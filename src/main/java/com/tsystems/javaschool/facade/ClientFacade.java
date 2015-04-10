@@ -1,14 +1,12 @@
-package com.tsystems.javaschool.service.services;
+package com.tsystems.javaschool.facade;
 
 import com.tsystems.javaschool.facade.dto.ClientDTO;
 import com.tsystems.javaschool.service.exceptions.ClientNotFoundException;
 
-import java.util.List;
-
 /**
  * ClientService.
  */
-public interface ClientService {
+public interface ClientFacade {
 
     /**
      * View contract.
@@ -20,12 +18,9 @@ public interface ClientService {
      */
     void changeTariff(String contractNumber, String tariffName);
 
-    void addOption(String v, String optionName);
-
-    void removeOption(String contractNumber, String optionName);
+    String[] removeOption(String contractNumber, String optionName);
 
     void lockContract(String contractNumber);
 
     void unLockContract(String contractNumber);
-    List<ClientDTO> getAllDTO();
 }

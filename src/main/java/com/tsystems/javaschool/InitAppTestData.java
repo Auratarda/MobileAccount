@@ -6,8 +6,8 @@ import com.tsystems.javaschool.domain.dao.OptionDAO;
 import com.tsystems.javaschool.domain.dao.TariffDAO;
 import com.tsystems.javaschool.domain.entities.Option;
 import com.tsystems.javaschool.domain.entities.Tariff;
-import com.tsystems.javaschool.service.services.Impl.OperatorServiceImpl;
-import com.tsystems.javaschool.service.services.OperatorService;
+import com.tsystems.javaschool.facade.Impl.OperatorFacadeImpl;
+import com.tsystems.javaschool.facade.OperatorFacade;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class InitAppTestData {
 
     public static void main(String[] args) {
         try {
-            OperatorService operatorService = new OperatorServiceImpl();
+            OperatorFacade operatorFacade = new OperatorFacadeImpl();
             TariffDAO tariffDAO = new TariffDAOImpl();
             OptionDAO optionDAO = new OptionDAOImpl();
 

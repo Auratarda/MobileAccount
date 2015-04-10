@@ -1,12 +1,12 @@
-package com.tsystems.javaschool.facade.controllers;
+package com.tsystems.javaschool.web.controllers;
 
+import com.tsystems.javaschool.facade.ClientFacade;
+import com.tsystems.javaschool.facade.OperatorFacade;
 import com.tsystems.javaschool.facade.dto.ClientDTO;
 import com.tsystems.javaschool.facade.dto.ContractDTO;
 import com.tsystems.javaschool.facade.dto.OptionDTO;
 import com.tsystems.javaschool.facade.dto.TariffDTO;
 import com.tsystems.javaschool.service.exceptions.ClientNotFoundException;
-import com.tsystems.javaschool.service.services.ClientService;
-import com.tsystems.javaschool.service.services.OperatorService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,11 +35,11 @@ public class LoginController extends HttpServlet {
     private final static Logger logger = Logger.getLogger(LoginController.class);
 
     @Autowired
-    @Qualifier("operatorService")
-    private OperatorService operatorService;
+    @Qualifier("operatorFacade")
+    private OperatorFacade operatorFacade;
     @Autowired
-    @Qualifier("clientService")
-    private ClientService clientService;
+    @Qualifier("clientFacade")
+    private ClientFacade clientFacade;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
@@ -56,7 +56,7 @@ public class LoginController extends HttpServlet {
             if ("ADMIN".equals(ga.getAuthority())) {
                 authority = ga.getAuthority();
                 ModelAndView adminView = new ModelAndView("admin");
-                List<ContractDTO> allContracts = operatorService.findAllContracts();
+                List<ContractDTO> allContracts = operatorFacade.findAllContracts();
                 adminView.addObject("allContracts", allContracts);
                 return adminView;
             }
@@ -72,7 +72,7 @@ public class LoginController extends HttpServlet {
         String password = userDetails.getPassword();
         ClientDTO client = null;
         try {
-            client = clientService.login(email, password);
+            client = clientFacade.login(email, password);
         } catch (ClientNotFoundException e) {
             logger.debug("Client is not found");
             return new ModelAndView(index());

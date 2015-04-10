@@ -1,4 +1,4 @@
-package com.tsystems.javaschool.service.services;
+package com.tsystems.javaschool.facade;
 
 import com.tsystems.javaschool.facade.dto.*;
 import com.tsystems.javaschool.service.exceptions.ClientNotFoundException;
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * ClientService.
  */
-public interface OperatorService {
+public interface OperatorFacade {
 
 
     /**
@@ -46,29 +46,19 @@ public interface OperatorService {
      * Modify a contract.
      */
 
-    void setNumber(ClientDTO clientDTO, String number) throws ClientNotFoundException;
+    String[] changeTariff(String contractNumber, String tariffName);
 
-    void setTariff(ContractDTO contractDTO, TariffDTO tariffDTO); //Also change tariff.
-
-    void addOptions(ContractDTO contractDTO, List<OptionDTO> optionDTOs);
-
-    void updateContract(ContractDTO contractDTO);
-
-    void updateTariff(TariffDTO tariffDTO);
+    String [] addOptions(String contractNumber, String[] optionNames);
 
     void removeClient(ClientDTO clientDTO) throws ClientNotFoundException;
 
     List<OptionDTO> prepareOptions(String [] selectedOptions);
-
-    List<OptionDTO> checkTariffCompatibility(String selectedTariff, List<OptionDTO> chosenOption);
 
     List<OptionDTO> checkOptionsCompatibility(List<OptionDTO> chosenOptions);
 
     /**
      * View all clients and contracts. Find client by ID.
      */
-    List<ClientDTO> findAllClients();
-
     List<ContractDTO> findAllContracts();
 
     List<TariffDTO> findAllTariffs();
@@ -82,16 +72,18 @@ public interface OperatorService {
     /**
      * Lock/unlock contracts.
      */
-    void lockContract(ContractDTO contractDTO);
+    void lockContractByOperator(String contractNumber);
 
-    void unlockContract(ContractDTO contractDTO);
+    void unlockContractByOperator(String contractNumber);
 
     /**
      * Modify a tariff.
      */
     void removeTariff(TariffDTO tariffDTO);
 
-    void removeOption(OptionDTO optionDTO);
+    String[] removeOption(String contractNumber, String optionName);
+
+    String[] dropOption(String optionName);
 
     void removeOptionFromTariff(String optionName, String tariffName);
 
@@ -112,14 +104,14 @@ public interface OperatorService {
 
     List<OptionDTO> getIncompatibleOptions(String optionName);
 
+    List<OptionDTO> checkTariffOptions (String tariffName, String contractName);
+
     /**
      * Find remainder from two lists of Entities.
      */
-    List intercept(List listToRetain, List listToRemove);
+    List intersect(List listToRetain, List listToRemove);
 
     List checkUniqueValues (List list);
 
     List removeItem(List list, String name);
-
-    List<OptionDTO> checkTariffOptions (String tariffName, String contractName);
 }

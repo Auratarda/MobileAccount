@@ -1,4 +1,4 @@
-package com.tsystems.javaschool.facade.filters;
+package com.tsystems.javaschool.web.filters;
 
 /**
  * Created by Stanislav on 04.04.2015.

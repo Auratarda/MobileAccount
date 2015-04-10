@@ -1,7 +1,7 @@
-package com.tsystems.javaschool.facade.controllers;
+package com.tsystems.javaschool.web.controllers;
 
+import com.tsystems.javaschool.facade.OperatorFacade;
 import com.tsystems.javaschool.facade.dto.InfoDTO;
-import com.tsystems.javaschool.service.services.OperatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -21,13 +21,13 @@ import java.util.List;
 public class WebServiceController {
 
     @Autowired
-    @Qualifier("operatorService")
-    private OperatorService operatorService;
+    @Qualifier("operatorFacade")
+    private OperatorFacade operatorFacade;
 
     @RequestMapping(value = "/clientsOnTariff", method = RequestMethod.GET)
     public ResponseEntity<List<InfoDTO>> getInfo(@RequestParam String tariffName){
         if (tariffName.equals("green")) tariffName = "Зеленый";
-        List<InfoDTO> infoDTOs = operatorService.getInfo(tariffName);
+        List<InfoDTO> infoDTOs = operatorFacade.getInfo(tariffName);
         return new ResponseEntity<>(infoDTOs, HttpStatus.OK);
     }
 
